@@ -57,7 +57,7 @@ export default function Sidebar({
         ) : (
           <div className="animate-fade-in flex flex-col h-full relative">
             <div className="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col">
-              <div className="shrink-0 mb-3 md:mb-6">
+              <div className="shrink-0 mb-4 md:mb-6">
                 <div className="flex items-center justify-between">
                   <h3 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight leading-none md:leading-tight">
                     {unit.title}
@@ -70,50 +70,54 @@ export default function Sidebar({
                 </div>
               </div>
 
-              {/* Original Gallery Setup Trigger */}
-              <div
-                onClick={onOpenGallery}
-                className="w-full aspect-square md:aspect-video relative group overflow-hidden rounded-lg md:rounded-2xl shadow-soft cursor-pointer bg-slate-100 mb-6"
-              >
-                <img
-                  src={unit.img}
-                  alt={unit.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
-                <div className="hidden md:flex absolute bottom-4 left-4 right-4 justify-between items-end">
-                  <div className="text-white">
-                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1">
-                      Gallery
-                    </p>
-                    <p className="text-sm font-semibold flex items-center gap-2">
-                      <ImageIcon size={14} /> View {unit.gallery?.length || 0}{" "}
-                      Photos
-                    </p>
+              {/* Grid-based container: Gallery button is a fixed square on mobile */}
+              <div className="grid grid-cols-[100px_1fr] md:flex md:flex-col gap-3 md:gap-6 mb-6">
+                <div
+                  onClick={onOpenGallery}
+                  className="w-[100px] h-[100px] md:w-full md:h-auto md:aspect-video relative group overflow-hidden rounded-xl md:rounded-2xl shadow-soft cursor-pointer bg-slate-100 shrink-0"
+                >
+                  <img
+                    src={unit.img}
+                    alt={unit.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/20 md:bg-gradient-to-t md:from-black/60 md:via-transparent md:to-transparent md:opacity-60 md:group-hover:opacity-80 transition-opacity"></div>
+
+                  <div className="hidden md:flex absolute bottom-4 left-4 right-4 justify-between items-end">
+                    <div className="text-white">
+                      <p className="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1">
+                        Gallery
+                      </p>
+                      <p className="text-sm font-semibold flex items-center gap-2">
+                        <ImageIcon size={14} /> View {unit.gallery?.length || 0}{" "}
+                        Photos
+                      </p>
+                    </div>
+                  </div>
+                  <div className="md:hidden absolute inset-0 flex items-center justify-center">
+                    <ImageIcon className="h-6 w-6 text-white" />
                   </div>
                 </div>
-                <div className="md:hidden absolute inset-0 flex items-center justify-center bg-black/20">
-                  <ImageIcon className="h-6 w-6 text-white" />
-                </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                <div className="px-4 py-4 rounded-xl border border-slate-100 bg-white shadow-sm">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">
-                    Area
-                  </p>
-                  <p className="text-lg font-bold">
-                    {unit.sqft.toLocaleString()}{" "}
-                    <span className="text-xs font-normal">sqft</span>
-                  </p>
-                </div>
-                <div className="px-4 py-4 rounded-xl border border-slate-100 bg-white shadow-sm">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">
-                    Layout
-                  </p>
-                  <p className="text-lg font-bold">
-                    {unit.beds}bd / {unit.baths}ba
-                  </p>
+                {/* Statistics: Flex shrink enabled to prevent overflow */}
+                <div className="flex flex-col gap-2 md:grid md:grid-cols-2 md:gap-3 shrink min-w-0">
+                  <div className="px-3 py-2 md:py-4 rounded-xl border border-slate-100 bg-white shadow-sm flex flex-col justify-center shrink min-w-0">
+                    <p className="text-[10px] text-slate-400 font-bold uppercase mb-0.5">
+                      Area
+                    </p>
+                    <p className="text-sm md:text-lg font-bold truncate">
+                      {unit.sqft.toLocaleString()}{" "}
+                      <span className="text-[10px] font-normal">sqft</span>
+                    </p>
+                  </div>
+                  <div className="px-3 py-2 md:py-4 rounded-xl border border-slate-100 bg-white shadow-sm flex flex-col justify-center shrink min-w-0">
+                    <p className="text-[10px] text-slate-400 font-bold uppercase mb-0.5">
+                      Layout
+                    </p>
+                    <p className="text-sm md:text-lg font-bold truncate">
+                      {unit.beds}bd / {unit.baths}ba
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -122,7 +126,6 @@ export default function Sidebar({
               </p>
 
               <div className="mt-auto">
-                {/* Revised Button: Midnight blue base, slate hover */}
                 <a
                   href="/assets/floorplan.pdf"
                   target="_blank"
@@ -133,7 +136,6 @@ export default function Sidebar({
               </div>
             </div>
 
-            {/* Nav: Removed border-t for a cleaner look as requested */}
             <div className="shrink-0 bg-white/95 flex items-center justify-between px-8 py-6 z-10">
               <button
                 onClick={onPrev}

@@ -10,16 +10,32 @@ import L from "leaflet";
 import { MAP_CONFIG, floorplans } from "../data/floorplans";
 import "leaflet/dist/leaflet.css";
 
-// Controller to handle the coordinate system and initial zoom fit
+// Controller to handle initial fit and resize events
 function MapController({ bounds }) {
   const map = useMap();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Initial fit
+    const initialFit = () => {
       map.invalidateSize();
       map.fitBounds(bounds, { padding: [20, 20] });
-    }, 100);
-    return () => clearTimeout(timer);
+    };
+
+    // Timeout ensures Leaflet has a calculated container size on mount
+    const timer = setTimeout(initialFit, 100);
+
+    // Resize listener to re-apply bounds as seen in index.html logic
+    const handleResize = () => {
+      map.invalidateSize();
+      map.fitBounds(bounds, { padding: [20, 20] });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", handleResize);
+    };
   }, [map, bounds]);
 
   return (
@@ -63,6 +79,7 @@ export default function FloorplanMap({ activeUnitId, onSelectUnit }) {
     <MapContainer
       crs={L.CRS.Simple}
       bounds={bounds}
+      minZoom={-5} // Allows zooming out to see the whole floorplan
       zoomSnap={0}
       attributionControl={false}
       zoomControl={false}
