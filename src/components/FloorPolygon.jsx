@@ -11,7 +11,11 @@ export default function FloorPolygon({ floor, onSelect }) {
       eventHandlers={{
         click: (e) => {
           L.DomEvent.stopPropagation(e);
-          onSelect(floor);
+          if (typeof onSelect === "function") {
+            onSelect(floor);
+          } else {
+            console.error("onSelect is not a function in FloorPolygon");
+          }
         },
         mouseover: (e) => e.target.setStyle(POLYGON_STYLES.hover),
         mouseout: (e) => e.target.setStyle(POLYGON_STYLES.inactive),

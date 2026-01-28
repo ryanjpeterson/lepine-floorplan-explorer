@@ -1,0 +1,411 @@
+{
+  "name": "1697 Lépine Blvd",
+  "address": "Ottawa, Ontario",
+  "config": {
+    "width": 3840,
+    "height": 2160,
+    "url": "/assets/building.jpg",
+    "floors": [
+      {
+        "id": "floor-1",
+        "name": "1st Floor",
+        "polygon": [
+          [300, 808],
+          [514, 808],
+          [529, 3132],
+          [300, 3132]
+        ],
+        "config": {
+          "width": 2273,
+          "height": 1146,
+          "url": "/assets/floorplan.svg"
+        },
+        "vrTours": [
+          {
+            "id": "vt110",
+            "label": "Suite 110",
+            "position": [435, 1250],
+            "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+          }
+        ],
+        "units": [
+          {
+            "id": 101,
+            "title": "Unit 101",
+            "type": "Corner Suite",
+            "available": true,
+            "sqft": 1136,
+            "beds": 3,
+            "baths": 2,
+            "polygon": [
+              [577, 181],
+              [844, 181],
+              [844, 405],
+              [577, 405]
+            ],
+            "description": "Premium corner unit on the 1st floor.",
+            "img": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=90",
+            "gallery": [
+              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+              "https://images.unsplash.com/photo-1522770179533-24471fcdba45"
+            ]
+          },
+          {
+            "id": 102,
+            "title": "Unit 102",
+            "type": "Standard Suite",
+            "available": false,
+            "sqft": 950,
+            "beds": 2,
+            "baths": 1,
+            "polygon": [
+              [292, 652],
+              [546, 652],
+              [546, 883],
+              [292, 883]
+            ],
+            "description": "Modern open-concept living space.",
+            "img": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=90",
+            "gallery": [
+              "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
+            ]
+          },
+          {
+            "id": 106,
+            "title": "Unit 106",
+            "type": "Studio",
+            "available": true,
+            "sqft": 650,
+            "beds": 1,
+            "baths": 1,
+            "polygon": [
+              [598, 1526],
+              [846, 1526],
+              [846, 1832],
+              [598, 1832]
+            ],
+            "description": "Efficient layout with high-end finishes.",
+            "img": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=90",
+            "gallery": [
+              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "floor-2",
+        "name": "2nd Floor",
+        "polygon": [
+          [514, 808],
+          [627, 807],
+          [732, 3134],
+          [529, 3132]
+        ],
+        "config": {
+          "width": 2273,
+          "height": 1146,
+          "url": "/assets/floorplan.svg"
+        },
+        "vrTours": [
+          {
+            "id": "vt210",
+            "label": "Suite 210",
+            "position": [435, 1250],
+            "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+          }
+        ],
+        "units": [
+          {
+            "id": 201,
+            "title": "Unit 201",
+            "type": "Corner Suite",
+            "available": true,
+            "sqft": 1136,
+            "beds": 3,
+            "baths": 2,
+            "polygon": [
+              [577, 181],
+              [844, 181],
+              [844, 405],
+              [577, 405]
+            ],
+            "description": "Premium corner unit on the 2nd floor.",
+            "img": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=90",
+            "gallery": [
+              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
+              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6"
+            ]
+          },
+          {
+            "id": 202,
+            "title": "Unit 202",
+            "type": "Standard Suite",
+            "available": true,
+            "sqft": 950,
+            "beds": 2,
+            "baths": 1,
+            "polygon": [
+              [292, 652],
+              [546, 652],
+              [546, 883],
+              [292, 883]
+            ],
+            "description": "Modern open-concept living space.",
+            "img": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=90",
+            "gallery": [
+              "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "floor-3",
+        "name": "3rd Floor",
+        "polygon": [
+          [732, 808],
+          [627, 807],
+          [732, 3134],
+          [921, 3134]
+        ],
+        "config": {
+          "width": 2273,
+          "height": 1146,
+          "url": "/assets/floorplan.svg"
+        },
+        "vrTours": [
+          {
+            "id": "vt310",
+            "label": "Suite 310",
+            "position": [435, 1250],
+            "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+          }
+        ],
+        "units": [
+          {
+            "id": 301,
+            "title": "Unit 301",
+            "type": "Corner Suite",
+            "available": true,
+            "sqft": 1136,
+            "beds": 3,
+            "baths": 2,
+            "polygon": [
+              [577, 181],
+              [844, 181],
+              [844, 405],
+              [577, 405]
+            ],
+            "description": "Premium corner unit on the 3rd floor.",
+            "img": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=90",
+            "gallery": [
+              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "floor-4",
+        "name": "4th Floor",
+        "polygon": [
+          [836, 807],
+          [732, 808],
+          [921, 3134],
+          [1113, 3135]
+        ],
+        "config": {
+          "width": 2273,
+          "height": 1146,
+          "url": "/assets/floorplan.svg"
+        },
+        "vrTours": [
+          {
+            "id": "vt410",
+            "label": "Suite 410",
+            "position": [435, 1250],
+            "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+          }
+        ],
+        "units": [
+          {
+            "id": 402,
+            "title": "Unit 402",
+            "type": "Standard Suite",
+            "available": true,
+            "sqft": 950,
+            "beds": 2,
+            "baths": 1,
+            "polygon": [
+              [292, 652],
+              [546, 652],
+              [546, 883],
+              [292, 883]
+            ],
+            "description": "Modern open-concept living space.",
+            "img": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=90",
+            "gallery": [
+              "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "floor-5",
+        "name": "5th Floor",
+        "polygon": [
+          [943, 808],
+          [836, 807],
+          [1113, 3135],
+          [1191, 3149],
+          [1202, 3148],
+          [1198, 3114],
+          [1299, 3117]
+        ],
+        "config": {
+          "width": 2273,
+          "height": 1146,
+          "url": "/assets/floorplan.svg"
+        },
+        "vrTours": [
+          {
+            "id": "vt510",
+            "label": "Suite 510",
+            "position": [435, 1250],
+            "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+          }
+        ],
+        "units": [
+          {
+            "id": 506,
+            "title": "Unit 506",
+            "type": "Studio",
+            "available": false,
+            "sqft": 650,
+            "beds": 1,
+            "baths": 1,
+            "polygon": [
+              [598, 1526],
+              [846, 1526],
+              [846, 1832],
+              [598, 1832]
+            ],
+            "description": "Efficient layout with high-end finishes.",
+            "img": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=90",
+            "gallery": [
+              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "floor-6",
+        "name": "6th Floor",
+        "polygon": [
+          [943, 808],
+          [956, 808],
+          [967, 877],
+          [1055, 875],
+          [1424, 2947],
+          [1351, 2957],
+          [1378, 3119],
+          [1299, 3117]
+        ],
+        "config": {
+          "width": 2273,
+          "height": 1146,
+          "url": "/assets/floorplan.svg"
+        },
+        "vrTours": [
+          {
+            "id": "vt610",
+            "label": "Suite 610",
+            "position": [435, 1250],
+            "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+          }
+        ],
+        "units": [
+          {
+            "id": 601,
+            "title": "Unit 601",
+            "type": "Corner Suite",
+            "available": true,
+            "sqft": 1136,
+            "beds": 3,
+            "baths": 2,
+            "polygon": [
+              [577, 181],
+              [844, 181],
+              [844, 405],
+              [577, 405]
+            ],
+            "description": "Premium corner unit on the 6th floor.",
+            "img": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=90",
+            "gallery": [
+              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "floor-7",
+        "name": "7th Floor",
+        "polygon": [
+          [1075, 876],
+          [1055, 875],
+          [1419, 2918],
+          [1658, 2882],
+          [1490, 2168],
+          [1204, 948],
+          [1197, 947],
+          [1191, 957],
+          [1125, 958],
+          [1111, 900],
+          [1079, 900]
+        ],
+        "config": {
+          "width": 2273,
+          "height": 1146,
+          "url": "/assets/floorplan.svg"
+        },
+        "vrTours": [
+          {
+            "id": "vt710",
+            "label": "Suite 710",
+            "position": [435, 1250],
+            "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+          }
+        ],
+        "units": [
+          {
+            "id": 702,
+            "title": "Unit 702",
+            "type": "Standard Suite",
+            "available": false,
+            "sqft": 950,
+            "beds": 2,
+            "baths": 1,
+            "polygon": [
+              [292, 652],
+              [546, 652],
+              [546, 883],
+              [292, 883]
+            ],
+            "description": "Modern open-concept living space with top-floor views.",
+            "img": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=90",
+            "gallery": [
+              "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

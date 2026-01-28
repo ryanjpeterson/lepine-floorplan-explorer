@@ -6,7 +6,6 @@ import {
   Image as ImageIcon,
   MapPin,
 } from "lucide-react";
-import { BUILDING_ADDRESS, BUILDING_NAME } from "../config/floorplans";
 
 export default function Sidebar({
   unit,
@@ -15,6 +14,8 @@ export default function Sidebar({
   currentIndex,
   total,
   onOpenGallery,
+  buildingName, // Added prop
+  buildingAddress, // Added prop
 }) {
   const availableClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
   const leasedClass = "bg-rose-50 text-rose-700 border-rose-100";
@@ -26,10 +27,10 @@ export default function Sidebar({
     >
       <div className="hidden md:block px-8 py-6 border-b border-slate-100 bg-white/95 backdrop-blur-sm sticky top-0 z-30">
         <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-          {BUILDING_NAME}
+          {buildingName} {/* Dynamic value */}
         </h2>
         <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 flex items-center gap-1">
-          <MapPin size={10} /> {BUILDING_ADDRESS}
+          <MapPin size={10} /> {buildingAddress} {/* Dynamic value */}
         </p>
       </div>
 
@@ -75,7 +76,6 @@ export default function Sidebar({
                 </div>
               </div>
 
-              {/* Grid-based container: Gallery button is a fixed square on mobile */}
               <div className="grid grid-cols-[100px_1fr] md:flex md:flex-col gap-3 md:gap-6 mb-6">
                 <div
                   onClick={onOpenGallery}
@@ -104,7 +104,6 @@ export default function Sidebar({
                   </div>
                 </div>
 
-                {/* Statistics: Flex shrink enabled to prevent overflow */}
                 <div className="flex flex-col gap-2 md:grid md:grid-cols-2 md:gap-3 shrink min-w-0">
                   <div className="px-3 py-2 md:py-4 rounded-xl border border-slate-100 bg-white flex flex-col justify-center shrink min-w-0">
                     <p className="text-[10px] text-slate-400 font-bold uppercase mb-0.5">

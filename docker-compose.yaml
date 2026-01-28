@@ -4,13 +4,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        # Pass build-time variables for Vite
+        - VITE_DEBUG=false
     container_name: frontend
     restart: always
     ports:
       - "1050:80"
-    # Security: Set the root filesystem to read-only
+    environment:
+      - VITE_DEBUG=false
     read_only: true
-    # Provide writable memory space for Nginx system files
     tmpfs:
       - /tmp
       - /var/cache/nginx

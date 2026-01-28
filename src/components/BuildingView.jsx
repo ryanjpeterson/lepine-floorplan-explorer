@@ -1,24 +1,30 @@
 import React from "react";
-import FloorplanMap from "./FloorplanMap";
-import { BUILDING_CONFIG, BUILDING_NAME } from "../config/floorplans";
+import { useNavigate } from "react-router-dom";
+import BuildingMap from "./BuildingMap";
 
-export default function BuildingView({ onFloorSelect }) {
+export default function BuildingView({ data }) {
+  const navigate = useNavigate();
+
   return (
     <div className="h-full w-full relative">
-      <div className="absolute top-8 left-1/2 -translate-x-1/2 z-[1000] bg-white/90 backdrop-blur-md px-6 py-3 rounded-2xl shadow-xl border border-slate-200 pointer-events-none">
-        <h1 className="text-xl font-bold text-slate-900 tracking-tight text-center">
-          {BUILDING_NAME}
-          <span className="block text-xs text-slate-500 font-medium uppercase tracking-widest mt-1">
-            Select a Floor
-          </span>
+      <div className="absolute top-8 left-8 z-[1000] bg-white/80 backdrop-blur-md p-4 rounded-2xl border border-white shadow-2xl max-w-md hidden md:block">
+        <h1 className="text-4xl font-bold text-slate-800 drop-shadow-sm mb-2">
+          {data.name} {/* Dynamic value from JSON */}
         </h1>
+
+        <p className="text-xs font-bold text-slate-400 uppercase mb-2">
+          {data.address}
+        </p>
+
+        <p className="text-sm text-slate-600 leading-relaxed">
+          Select a floor on the building to view available units and floorplans.
+        </p>
       </div>
 
-      <FloorplanMap
-        mode="building"
-        config={BUILDING_CONFIG}
-        items={BUILDING_CONFIG.floors}
-        onSelect={onFloorSelect}
+      <BuildingMap
+        config={data.config}
+        floors={data.config.floors}
+        onSelect={(floor) => navigate(`/floor/${floor.id}`)}
       />
     </div>
   );

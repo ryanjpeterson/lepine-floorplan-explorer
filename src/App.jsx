@@ -1,75 +1,81 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useParams,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 import BuildingView from "./components/BuildingView";
 import FloorplanView from "./components/FloorplanView";
-import GalleryModal from "./components/GalleryModal";
-import { BUILDING_CONFIG } from "./config/floorplans";
 
 function App() {
-  // Initialize state from URL params if they exist
-  const [view, setView] = useState(() => {
-    return (
-      new URLSearchParams(window.location.search).get("screen") || "building"
-    );
-  });
+  const [data, setData] = useState(null);
 
-  const [activeFloor, setActiveFloor] = useState(() => {
-    const floorId = new URLSearchParams(window.location.search).get("floor");
-    return BUILDING_CONFIG.floors.find((f) => f.id === floorId) || null;
-  });
-
-  const [activeUnit, setActiveUnit] = useState(() => {
-    const unitId = new URLSearchParams(window.location.search).get("unit");
-    if (!activeFloor) return null;
-    return activeFloor.units.find((u) => String(u.id) === unitId) || null;
-  });
-
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
-
-  // Sync state to URL
   useEffect(() => {
-    const params = new URLSearchParams();
-    params.set("screen", view);
-    if (activeFloor) params.set("floor", activeFloor.id);
-    if (activeUnit) params.set("unit", activeUnit.id);
+    fetch("/data/building.json")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load building data");
+        return res.json();
+      })
+      .then((json) => setData(json))
+      .catch((err) => console.error(err));
+  }, []);
 
-    const newRelativePathQuery =
-      window.location.pathname + "?" + params.toString();
-    window.history.replaceState(null, "", newRelativePathQuery);
-  }, [view, activeFloor, activeUnit]);
-
-  const handleFloorSelect = (floor) => {
-    setActiveFloor(floor);
-    setView("floorplan");
-    if (floor.units?.length > 0) {
-      setActiveUnit(floor.units[0]);
-    }
-  };
+  if (!data)
+    return (
+      <div className="h-screen w-screen flex items-center justify-center font-bold">
+        Loading...
+      </div>
+    );
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-slate-50">
-      {view === "building" ? (
-        <BuildingView onFloorSelect={handleFloorSelect} />
-      ) : (
-        <FloorplanView
-          activeFloor={activeFloor}
-          activeUnit={activeUnit}
-          onUnitSelect={setActiveUnit}
-          onFloorChange={handleFloorSelect}
-          onBack={() => {
-            setView("building");
-            setActiveFloor(null);
-            setActiveUnit(null);
-          }}
-          onOpenGallery={() => setIsGalleryOpen(true)}
+      <Routes>
+        <Route path="/" element={<BuildingView data={data} />} />
+        <Route
+          path="/floor/:floorId"
+          element={<FloorViewWrapper data={data} />}
         />
-      )}
-
-      <GalleryModal
-        isOpen={isGalleryOpen}
-        images={activeUnit?.gallery}
-        onClose={() => setIsGalleryOpen(false)}
-      />
+        <Route
+          path="/floor/:floorId/unit/:unitId"
+          element={<FloorViewWrapper data={data} />}
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </div>
+  );
+}
+
+function FloorViewWrapper({ data }) {
+  const { floorId, unitId } = useParams();
+  const navigate = useNavigate();
+
+  const activeFloor = useMemo(
+    () => data.config.floors.find((f) => f.id === floorId),
+    [data, floorId],
+  );
+
+  const activeUnit = useMemo(() => {
+    if (!activeFloor) return null;
+    return (
+      activeFloor.units.find((u) => String(u.id) === unitId) ||
+      activeFloor.units[0]
+    );
+  }, [activeFloor, unitId]);
+
+  if (!activeFloor) return <Navigate to="/" replace />;
+
+  return (
+    <FloorplanView
+      data={data}
+      activeFloor={activeFloor}
+      activeUnit={activeUnit}
+      onUnitSelect={(u) => navigate(`/floor/${floorId}/unit/${u.id}`)}
+      onFloorChange={(f) => navigate(`/floor/${f.id}`)}
+      onBack={() => navigate("/")}
+    />
   );
 }
 
