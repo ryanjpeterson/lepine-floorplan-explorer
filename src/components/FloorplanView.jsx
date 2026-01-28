@@ -3,7 +3,7 @@ import React from "react";
 import FloorplanMap from "./FloorplanMap";
 import Sidebar from "./Sidebar";
 import { BUILDING_CONFIG } from "../config/floorplans";
-import { MIDNIGHT_BLUE } from "../config/mapStyles";
+import { PRIMARY_FILL } from "../config/mapStyles";
 import { UI_TRANSITIONS } from "../config/viewConfigs";
 
 export default function FloorplanView({
@@ -45,7 +45,7 @@ export default function FloorplanView({
               onClick={() => onFloorChange(floor)}
               style={{
                 backgroundColor:
-                  activeFloor?.id === floor.id ? MIDNIGHT_BLUE : "",
+                  activeFloor?.id === floor.id ? PRIMARY_FILL : "",
               }}
               className={`px-6 py-2 rounded-full ${UI_TRANSITIONS} text-sm font-semibold ${
                 activeFloor?.id === floor.id

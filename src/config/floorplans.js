@@ -87,7 +87,7 @@ function generateFloor(floorNum, name, buildingCoords) {
 export const BUILDING_CONFIG = {
   width: 3840,
   height: 2160,
-  url: "/assets/building.jpg", // The image provided in the root
+  url: "/assets/building.jpg",
   floors: [
     generateFloor(2, "2nd Floor", [400, 500, 600, 1500]),
     generateFloor(3, "3rd Floor", [600, 500, 800, 1500]),
