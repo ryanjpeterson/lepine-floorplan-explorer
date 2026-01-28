@@ -4,7 +4,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Image as ImageIcon,
+  MapPin,
 } from "lucide-react";
+import { BUILDING_ADDRESS, BUILDING_NAME } from "../config/floorplans";
 
 export default function Sidebar({
   unit,
@@ -24,8 +26,11 @@ export default function Sidebar({
     >
       <div className="hidden md:block px-8 py-6 border-b border-slate-100 bg-white/95 backdrop-blur-sm sticky top-0 z-30">
         <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-          1581 Lépine Blvd
+          {BUILDING_NAME}
         </h2>
+        <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 flex items-center gap-1">
+          <MapPin size={10} /> {BUILDING_ADDRESS}
+        </p>
       </div>
 
       <div

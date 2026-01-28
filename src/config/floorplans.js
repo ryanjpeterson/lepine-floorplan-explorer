@@ -1,4 +1,7 @@
 // src/config/floorplans.js
+export const BUILDING_NAME = "1582 Lépine Blvd";
+
+export const BUILDING_ADDRESS = "Ottawa, Ontario, L0G 1W0";
 
 export const BUILDING_CONFIG = {
   width: 3840,
