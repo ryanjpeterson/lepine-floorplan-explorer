@@ -1,9 +1,6 @@
-// src/config/floorplans.js
-
 const getUnsplashUrl = (id, width = 1200) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&q=90`;
 
-// Reusable Gallery Sets
 const GALLERY_SET_A = [
   getUnsplashUrl("1502672260266-1c1ef2d93688"),
   getUnsplashUrl("1484154218962-a197022b5858"),
@@ -18,7 +15,6 @@ const GALLERY_SET_B = [
   getUnsplashUrl("1522708323590-d24dbb6b0267"),
 ];
 
-// Helper to create units with unique IDs per floor
 const createUnits = (floorNum) => [
   {
     id: floorNum * 100 + 1,
@@ -95,13 +91,13 @@ export const BUILDING_CONFIG = {
         {
           id: "vt1-1",
           label: "Suite 210",
-          position: [400, 1100],
+          position: [560, 1200],
           url: "https://www.solutioneers.dev/tours/1804/210/index.html",
         },
         {
           id: "vt1-2",
           label: "Suite 216",
-          position: [800, 300],
+          position: [400, 1000],
           url: "https://www.solutioneers.dev/tours/1804/216/index.html",
         },
       ],
@@ -121,13 +117,13 @@ export const BUILDING_CONFIG = {
         {
           id: "vt2-1",
           label: "Suite 219",
-          position: [600, 800],
+          position: [560, 1100],
           url: "https://www.solutioneers.dev/tours/1804/219/index.html",
         },
         {
           id: "vt2-2",
           label: "Suite 222",
-          position: [300, 1500],
+          position: [400, 1300],
           url: "https://www.solutioneers.dev/tours/1804/222/index.html",
         },
       ],
@@ -147,13 +143,13 @@ export const BUILDING_CONFIG = {
         {
           id: "vt3-1",
           label: "Suite 226",
-          position: [800, 1000],
+          position: [560, 950],
           url: "https://www.solutioneers.dev/tours/1804/226/index.html",
         },
         {
           id: "vt3-2",
           label: "1 Bedroom Suite",
-          position: [400, 1700],
+          position: [400, 1500],
           url: "https://www.solutioneers.dev/tours/1814/1_bdrm_suite/index.html",
         },
       ],
@@ -173,14 +169,8 @@ export const BUILDING_CONFIG = {
         {
           id: "vt4-1",
           label: "Suite 210",
-          position: [500, 500],
+          position: [560, 1150],
           url: "https://www.solutioneers.dev/tours/1804/210/index.html",
-        },
-        {
-          id: "vt4-2",
-          label: "Suite 219",
-          position: [700, 1400],
-          url: "https://www.solutioneers.dev/tours/1804/219/index.html",
         },
       ],
       units: createUnits(4),
@@ -201,15 +191,9 @@ export const BUILDING_CONFIG = {
       vrTours: [
         {
           id: "vt5-1",
-          label: "Suite 222",
-          position: [350, 950],
-          url: "https://www.solutioneers.dev/tours/1804/222/index.html",
-        },
-        {
-          id: "vt5-2",
-          label: "1 Bedroom Suite",
-          position: [650, 1600],
-          url: "https://www.solutioneers.dev/tours/1814/1_bdrm_suite/index.html",
+          label: "Suite 219",
+          position: [560, 1250],
+          url: "https://www.solutioneers.dev/tours/1804/219/index.html",
         },
       ],
       units: createUnits(5),
@@ -231,15 +215,9 @@ export const BUILDING_CONFIG = {
       vrTours: [
         {
           id: "vt6-1",
-          label: "Suite 216",
-          position: [450, 450],
-          url: "https://www.solutioneers.dev/tours/1804/216/index.html",
-        },
-        {
-          id: "vt6-2",
-          label: "Suite 226",
-          position: [750, 1150],
-          url: "https://www.solutioneers.dev/tours/1804/226/index.html",
+          label: "Suite 222",
+          position: [560, 1050],
+          url: "https://www.solutioneers.dev/tours/1804/222/index.html",
         },
       ],
       units: createUnits(6),
@@ -264,15 +242,9 @@ export const BUILDING_CONFIG = {
       vrTours: [
         {
           id: "vt7-1",
-          label: "Penthouse Tour 1",
-          position: [300, 300],
+          label: "1 Bedroom Suite",
+          position: [560, 1100],
           url: "https://www.solutioneers.dev/tours/1814/1_bdrm_suite/index.html",
-        },
-        {
-          id: "vt7-2",
-          label: "Penthouse Tour 2",
-          position: [900, 900],
-          url: "https://www.solutioneers.dev/tours/1804/210/index.html",
         },
       ],
       units: createUnits(7),

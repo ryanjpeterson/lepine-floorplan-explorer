@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { MapContainer, ImageOverlay, ZoomControl, useMap } from "react-leaflet";
+import { MapContainer, ImageOverlay, useMap } from "react-leaflet";
 import L from "leaflet";
 import FloorPolygon from "./FloorPolygon";
 import UnitPolygon from "./UnitPolygon";
@@ -7,31 +7,57 @@ import VirtualTourPolygon from "./VirtualTourPolygon";
 import { MAP_VIEW_SETTINGS } from "../config/viewConfigs";
 import "leaflet/dist/leaflet.css";
 
-function MapController({ bounds, imageWidth, imageHeight }) {
+function MapController({ items, bounds, imageWidth, imageHeight }) {
   const map = useMap();
 
   useEffect(() => {
-    if (!map || !bounds) return;
+    if (!map) return;
 
-    const fitImage = () => {
+    const handleSizing = () => {
       map.invalidateSize();
       const container = map.getContainer();
+
+      // 1. Calculate zooms for both dimensions
       const zoomW = Math.log2(container.offsetWidth / imageWidth);
       const zoomH = Math.log2(container.offsetHeight / imageHeight);
-      const perfectZoom = Math.min(zoomW, zoomH);
 
-      map.setMinZoom(perfectZoom);
-      map.setMaxBounds(bounds);
-      map.setView([imageHeight / 2, imageWidth / 2], perfectZoom, {
+      /** * MIMIC object-fit: cover
+       * Using Math.max ensures the image fills the container entirely.
+       * One dimension will fit perfectly, while the other overflows (cropped).
+       */
+      const coverZoom = Math.max(zoomW, zoomH);
+
+      // 2. Calculate polygon-specific zoom if items exist
+      let targetZoom = coverZoom;
+      let targetCenter = [imageHeight / 2, imageWidth / 2];
+
+      const allPoints = items?.flatMap((item) => item.polygon) || [];
+
+      if (allPoints.length > 0) {
+        const polygonBounds = L.latLngBounds(allPoints);
+        const paddedBounds = polygonBounds.pad(0.15);
+
+        // We take the higher of the cover zoom or the polygon fit zoom
+        // to ensure we stay "zoomed in"
+        const polyZoom = map.getBoundsZoom(paddedBounds);
+        targetZoom = Math.max(coverZoom, polyZoom);
+        targetCenter = polygonBounds.getCenter();
+      }
+
+      // 3. Apply constraints
+      map.setMinZoom(coverZoom); // Prevents zooming out to see white space
+      map.setMaxZoom(targetZoom + 1);
+
+      map.setView(targetCenter, targetZoom, {
         animate: true,
         duration: MAP_VIEW_SETTINGS.animationDuration,
       });
     };
 
-    fitImage();
-    window.addEventListener("resize", fitImage);
-    return () => window.removeEventListener("resize", fitImage);
-  }, [map, bounds, imageWidth, imageHeight]);
+    handleSizing();
+    window.addEventListener("resize", handleSizing);
+    return () => window.removeEventListener("resize", handleSizing);
+  }, [map, items, bounds, imageWidth, imageHeight]);
 
   return null;
 }
@@ -53,19 +79,20 @@ export default function FloorplanMap({
   return (
     <MapContainer
       crs={L.CRS.Simple}
-      minZoom={-5}
-      maxZoom={2}
-      maxBounds={bounds}
-      maxBoundsViscosity={1.0}
+      zoomControl={true}
+      scrollWheelZoom={true} // Re-enabled so user can adjust the "cover" view
+      doubleClickZoom={false}
+      touchZoom={true}
+      maxZoom={-2}
+      dragging={true}
       attributionControl={false}
-      zoomControl={false}
       className="h-full w-full"
       style={{ background: MAP_VIEW_SETTINGS.defaultBackground }}
     >
-      <ZoomControl position="topleft" />
       <ImageOverlay url={config.url} bounds={bounds} />
 
       <MapController
+        items={items}
         bounds={bounds}
         imageWidth={config.width}
         imageHeight={config.height}
