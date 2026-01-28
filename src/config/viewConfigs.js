@@ -2,7 +2,7 @@
 import { BACKGROUND_FILL } from "./mapStyles";
 
 export const MAP_VIEW_SETTINGS = {
-  debug: true,
+  debug: false,
   animationDuration: 0.5,
   defaultBackground: BACKGROUND_FILL,
 
