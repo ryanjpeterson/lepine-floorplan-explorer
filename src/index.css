@@ -96,14 +96,18 @@
   color: white !important;
 }
 
-/* src/index.css */
+html,
+body,
 #root {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
+/* Ensures the Leaflet container fills its parent and has a clean background */
 .leaflet-container {
-  /* This ensures the background of the map matches your app's UI 
-     if the image aspect ratio doesn't perfectly fill the screen */
-  background: #f8fafc !important;
+  width: 100%;
+  height: 100%;
+  background-color: #f8fafc !important;
 }

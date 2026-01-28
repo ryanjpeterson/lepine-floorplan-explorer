@@ -1,5 +1,3 @@
-// src/data/floorplans.js
-
 // Helper to generate consistent unit data across floors
 function generateFloor(floorNum, name, buildingCoords) {
   const [y1, x1, y2, x2] = buildingCoords;

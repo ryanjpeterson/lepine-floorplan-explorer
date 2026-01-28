@@ -1,6 +1,6 @@
 import React from "react";
 import FloorplanMap from "./FloorplanMap";
-import { BUILDING_CONFIG } from "../data/floorplans";
+import { BUILDING_CONFIG } from "../config/floorplans";
 
 export default function BuildingView({ onFloorSelect }) {
   return (
