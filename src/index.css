@@ -4,6 +4,22 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Ensures the Leaflet container fills its parent and has a clean background */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background-color: #f8fafc !important;
+}
+
 @layer base {
   body {
     @apply antialiased text-slate-900;
@@ -94,20 +110,4 @@
 .leaflet-bar a:hover {
   background-color: #102a43 !important;
   color: white !important;
-}
-
-html,
-body,
-#root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-/* Ensures the Leaflet container fills its parent and has a clean background */
-.leaflet-container {
-  width: 100%;
-  height: 100%;
-  background-color: #f8fafc !important;
 }
