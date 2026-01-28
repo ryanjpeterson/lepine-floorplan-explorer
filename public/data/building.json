@@ -7,7 +7,7 @@
     "url": "/assets/building.jpg",
     "floors": [
       {
-        "id": "floor-1",
+        "id": "1",
         "name": "1st Floor",
         "polygon": [
           [300, 808],
@@ -96,7 +96,7 @@
         ]
       },
       {
-        "id": "floor-2",
+        "id": "2",
         "name": "2nd Floor",
         "polygon": [
           [514, 808],
@@ -163,7 +163,7 @@
         ]
       },
       {
-        "id": "floor-3",
+        "id": "3",
         "name": "3rd Floor",
         "polygon": [
           [732, 808],
@@ -209,7 +209,7 @@
         ]
       },
       {
-        "id": "floor-4",
+        "id": "4",
         "name": "4th Floor",
         "polygon": [
           [836, 807],
@@ -255,7 +255,7 @@
         ]
       },
       {
-        "id": "floor-5",
+        "id": "5",
         "name": "5th Floor",
         "polygon": [
           [943, 808],
@@ -304,7 +304,7 @@
         ]
       },
       {
-        "id": "floor-6",
+        "id": "6",
         "name": "6th Floor",
         "polygon": [
           [943, 808],
@@ -354,7 +354,7 @@
         ]
       },
       {
-        "id": "floor-7",
+        "id": "7",
         "name": "7th Floor",
         "polygon": [
           [1075, 876],
