@@ -25,6 +25,8 @@ export function BuildingProvider({ children }) {
     baths: "All",
     status: "All",
     features: [],
+    minSqft: 0,
+    maxSqft: 5000, // Initial high bound
   });
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export function BuildingProvider({ children }) {
       })
       .then((json) => {
         setData(json);
-        // Removed auto-select floor here to ensure BuildingView is the initial screen
+        // FIX: Removed initial floor selection to default to BuildingView
         setLoading(false);
       })
       .catch((err) => {
@@ -75,18 +77,24 @@ export function BuildingProvider({ children }) {
       const matchBeds =
         filters.beds === "All" || unit.numOfBeds === parseInt(filters.beds);
       const matchBaths =
-        filters.baths === "All" || unit.numOfBaths === parseInt(filters.baths);
+        filters.baths === "All" ||
+        unit.numOfBaths === parseFloat(filters.baths);
       const matchStatus =
         filters.status === "All" || unit.status === filters.status;
+      const matchSqft =
+        unit.sqft >= filters.minSqft && unit.sqft <= filters.maxSqft;
       const matchFeatures = filters.features.every((f) => unit[f] === true);
-      return matchBeds && matchBaths && matchStatus && matchFeatures;
+
+      return (
+        matchBeds && matchBaths && matchStatus && matchFeatures && matchSqft
+      );
     });
   }, [allUnits, filters, favorites, gridTab]);
 
   const selectFloor = (id) => {
     const floor = floors.find((f) => f.id === id);
     setActiveFloorId(id);
-    // Always select the first unit of the floor by default
+    // FIX: Default to the first unit of the floor for persistent sidebar
     if (floor && floor.units.length > 0) {
       setActiveUnitId(floor.units[0].id);
     }

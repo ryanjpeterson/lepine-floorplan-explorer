@@ -10,6 +10,7 @@ import {
 import { useBuilding } from "../context/BuildingContext";
 import UnitMap from "./UnitMap";
 import UnitGrid from "./UnitGrid";
+import UnitFilters from "./UnitFilters";
 import Sidebar from "./Sidebar";
 import VirtualTourEmbed from "./VirtualTourEmbed";
 import GalleryModal from "./GalleryModal";
@@ -43,7 +44,7 @@ export default function FloorplanView() {
         {/* Navigation Bar */}
         <div className="z-[1001] bg-white border-b border-slate-200 p-4">
           <div className="flex items-center justify-between gap-4">
-            {/* Swapped Position: Back button on the left */}
+            {/* FIX: Swapped position - Back button now on the Left */}
             <button
               onClick={goBackToBuilding}
               className="bg-[#102a43] text-white px-5 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-2"
@@ -51,7 +52,7 @@ export default function FloorplanView() {
               <ArrowLeft size={14} /> Back to Building
             </button>
 
-            {/* View toggles on the right */}
+            {/* View Toggles now on the Right */}
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-xl">
                 <button
@@ -92,27 +93,34 @@ export default function FloorplanView() {
           </div>
         </div>
 
-        <div className="flex-1 relative overflow-hidden">
-          {viewMode === "map" ? (
-            <UnitMap
-              config={activeFloor.config}
-              units={activeFloor.units}
-              vrTours={activeFloor.vrTours || []}
-              activeUnitId={activeUnit?.id}
-              onSelect={(unit) => selectUnit(unit.id)}
-              onTourSelect={setActiveTour}
-            />
-          ) : (
-            <UnitGrid />
-          )}
+        {/* Persistent Filters in Grid Mode */}
+        {viewMode === "grid" && <UnitFilters />}
+
+        <div className="flex-1 relative overflow-hidden flex flex-col">
+          <div className="flex-1 relative overflow-y-auto no-scrollbar">
+            {viewMode === "map" ? (
+              <UnitMap
+                config={activeFloor.config}
+                units={activeFloor.units}
+                vrTours={activeFloor.vrTours || []}
+                activeUnitId={activeUnit?.id}
+                onSelect={(unit) => selectUnit(unit.id)}
+                onTourSelect={setActiveTour}
+              />
+            ) : (
+              <div className="p-8">
+                <UnitGrid />
+              </div>
+            )}
+          </div>
 
           {viewMode === "map" && (
-            /* Container uses pointer-events-none to prevent blocking map clicks when menu is collapsed */
+            /* FIX: Container uses pointer-events-none to prevent blocking the map */
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center pointer-events-none">
               <div
                 className={`${UI_TRANSITIONS} flex flex-col gap-1 bg-white p-1.5 rounded-2xl shadow-xl border border-slate-200 min-w-[160px] overflow-hidden pointer-events-auto ${
                   isFloorMenuOpen
-                    ? "opacity-100 translate-y-0 max-h-[400px] mb-3"
+                    ? "opacity-100 translate-y-0 max-h-[500px] mb-3"
                     : "opacity-0 translate-y-4 max-h-0 mb-0"
                 }`}
               >
