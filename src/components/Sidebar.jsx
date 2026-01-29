@@ -1,5 +1,5 @@
 // src/components/Sidebar.jsx
-import React from "react";
+import React, { useState, useRef } from "react";
 import {
   Heart,
   Download,
@@ -18,11 +18,17 @@ import {
   Wind,
   Sparkles,
   Info,
+  X,
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
 
-export default function Sidebar({ onOpenGallery }) {
+export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
   const { activeUnit, favorites, toggleFavorite } = useBuilding();
+
+  // Drag-to-close state
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const startY = useRef(0);
 
   const attributeIcons = {
     sqft: { label: "sqft", icon: Maximize },
@@ -40,37 +46,64 @@ export default function Sidebar({ onOpenGallery }) {
     modelSuite: { label: "Model Suite", icon: Sparkles },
   };
 
-  return (
-    <div className="flex-1 w-full flex flex-col bg-white shadow-xl z-20 md:w-[420px] md:flex-none md:h-full md:border-l border-slate-100 min-h-0 relative animate-fade-in">
-      {!activeUnit ? (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-slate-400">
-          <Info size={48} className="mb-4 opacity-20" />
-          <p className="text-sm font-medium">
-            Select a unit on the map to view details
-          </p>
-        </div>
-      ) : (
-        <div className="flex-1 overflow-y-auto no-scrollbar p-8">
+  // Touch Handlers for Mobile Dragging
+  const handleTouchStart = (e) => {
+    startY.current = e.touches[0].clientY;
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e) => {
+    const currentY = e.touches[0].clientY;
+    const deltaY = currentY - startY.current;
+
+    // Only allow dragging downwards
+    if (deltaY > 0) {
+      setDragOffset(deltaY);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    // If dragged down more than 100px, close it
+    if (dragOffset > 100) {
+      onClose();
+    }
+    // Reset offset
+    setDragOffset(0);
+  };
+
+  const Content = () => (
+    <div className="flex-1 overflow-y-auto no-scrollbar p-6 md:p-8">
+      {activeUnit ? (
+        <>
           <div className="flex items-start justify-between mb-6">
             <div>
-              <h3 className="text-2xl font-bold text-slate-900 leading-tight">
+              <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
                 {activeUnit.title}
               </h3>
-              <p className="text-xs text-slate-400 font-medium uppercase tracking-widest">
+              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
                 {activeUnit.model}
               </p>
             </div>
-            <button
-              onClick={() => toggleFavorite(activeUnit.id)}
-              className={`p-2 rounded-full transition-colors ${favorites.includes(activeUnit.id) ? "text-rose-500 bg-rose-50" : "text-slate-300 hover:bg-slate-50"}`}
-            >
-              <Heart
-                size={22}
-                fill={
-                  favorites.includes(activeUnit.id) ? "currentColor" : "none"
-                }
-              />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => toggleFavorite(activeUnit.id)}
+                className={`p-2 rounded-full transition-colors ${favorites.includes(activeUnit.id) ? "text-rose-500 bg-rose-50" : "text-slate-300 hover:bg-slate-50"}`}
+              >
+                <Heart
+                  size={22}
+                  fill={
+                    favorites.includes(activeUnit.id) ? "currentColor" : "none"
+                  }
+                />
+              </button>
+              <button
+                onClick={onClose}
+                className="md:hidden p-2 text-slate-400 hover:bg-slate-50 rounded-full"
+              >
+                <X size={22} />
+              </button>
+            </div>
           </div>
 
           <div
@@ -144,8 +177,56 @@ export default function Sidebar({ onOpenGallery }) {
           >
             <Download size={18} /> Download Floorplan
           </a>
+        </>
+      ) : (
+        <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-slate-400 h-full">
+          <Info size={48} className="mb-4 opacity-20" />
+          <p className="text-sm font-medium">Select a unit to view details</p>
         </div>
       )}
     </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <div className="hidden md:flex flex-col w-[420px] bg-white border-l border-slate-100 h-full shadow-xl z-20 overflow-hidden">
+        <Content />
+      </div>
+
+      {/* Mobile Bottom Sheet Popup with Drag Handle */}
+      <div
+        className={`md:hidden fixed inset-0 z-[2000] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+          isOpen
+            ? "opacity-100 visible"
+            : "opacity-0 invisible pointer-events-none"
+        }`}
+        onClick={onClose}
+      >
+        <div
+          className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] max-h-[90vh] flex flex-col transition-transform ${
+            isDragging ? "duration-0" : "duration-500 ease-out"
+          } ${isOpen ? "translate-y-0" : "translate-y-full"}`}
+          style={{
+            transform: isOpen
+              ? `translateY(${dragOffset}px)`
+              : "translateY(100%)",
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Drag Handle Area */}
+          <div
+            className="w-full py-4 cursor-grab active:cursor-grabbing"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto" />
+          </div>
+
+          <Content />
+        </div>
+      </div>
+    </>
   );
 }
