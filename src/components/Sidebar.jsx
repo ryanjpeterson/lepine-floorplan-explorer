@@ -6,6 +6,21 @@ import {
   ChevronRight,
   Image as ImageIcon,
   MapPin,
+  Maximize,
+  Bed,
+  Bath,
+  Banknote,
+  Home,
+  DoorOpen,
+  Waves,
+  Utensils,
+  Trees,
+  Monitor,
+  Shirt,
+  Accessibility,
+  Hammer,
+  Wind,
+  Sparkles,
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
 
@@ -19,7 +34,7 @@ export default function Sidebar({
 }) {
   const { data } = useBuilding();
 
-  // Unified status styling for the new enumeration schema
+  // Color mapping for the status enumeration
   const statusStyles = {
     Available: "bg-emerald-50 text-emerald-700 border-emerald-100",
     Leased: "bg-rose-50 text-rose-700 border-rose-100",
@@ -30,9 +45,25 @@ export default function Sidebar({
     statusStyles[unit?.status] || statusStyles["Available"];
   const hasGallery = unit?.gallery && unit.gallery.length > 0;
 
+  // Icon mapping for boolean and special attributes
+  const attributeIcons = {
+    sqft: { label: "sqft", icon: Maximize },
+    numOfBeds: { label: "Beds", icon: Bed },
+    numOfBaths: { label: "Baths", icon: Bath },
+    balcony: { label: "Balcony", icon: DoorOpen },
+    tub: { label: "Tub", icon: Waves },
+    pantry: { label: "Pantry", icon: Utensils },
+    terrace: { label: "Terrace", icon: Trees },
+    officeDen: { label: "Office/Den", icon: Monitor },
+    walkInCloset: { label: "Walk-in Closet", icon: Shirt },
+    barrierFree: { label: "Barrier Free", icon: Accessibility },
+    builtIns: { label: "Built-ins", icon: Hammer },
+    juliet: { label: "Juliet Balcony", icon: Wind },
+    modelSuite: { label: "Model Suite", icon: Sparkles },
+  };
+
   return (
     <div className="flex-1 w-full flex flex-col bg-white shadow-xl z-20 md:w-[420px] md:flex-none md:h-full md:border-l border-slate-100 min-h-0 relative">
-      {/* Building Header */}
       <div className="hidden md:block px-8 py-6 border-b border-slate-100">
         <h2 className="text-xl font-bold text-slate-900 tracking-tight">
           {data?.name}
@@ -50,11 +81,15 @@ export default function Sidebar({
         ) : (
           <div className="animate-fade-in flex flex-col h-full">
             <div className="flex-1 p-4 md:p-8">
-              {/* Unit Title & Status Pill */}
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-slate-900">
-                  {unit.title}
-                </h3>
+                <div>
+                  <h3 className="text-2xl font-bold text-slate-900 leading-tight">
+                    {unit.title}
+                  </h3>
+                  <p className="text-xs text-slate-400 font-medium">
+                    {unit.model} — {unit.type}
+                  </p>
+                </div>
                 <span
                   className={`px-3 py-1.5 rounded-md text-[11px] font-bold uppercase border ${currentStatusClass}`}
                 >
@@ -62,58 +97,90 @@ export default function Sidebar({
                 </span>
               </div>
 
-              {/* Gallery Trigger Image Section */}
+              {/* Gallery Trigger Image */}
               <div
                 onClick={hasGallery ? onOpenGallery : undefined}
-                className={`mb-6 relative rounded-2xl overflow-hidden shadow-lg aspect-video ${hasGallery ? "cursor-pointer group" : ""}`}
+                className={`mb-8 relative rounded-2xl overflow-hidden shadow-lg aspect-video bg-slate-100 ${hasGallery ? "cursor-pointer group" : ""}`}
               >
                 <img
                   src={unit.image}
                   alt={unit.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-
                 {hasGallery && (
-                  <>
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/40 transition-colors duration-300" />
-
-                    {/* Bottom Left Badge */}
-                    <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/20">
-                      <ImageIcon size={14} />
-                      <span className="text-[10px] font-bold uppercase tracking-wider">
-                        View Gallery
-                      </span>
-                    </div>
-                  </>
+                  <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <ImageIcon size={14} />
+                    <span className="text-[10px] font-bold uppercase tracking-wider">
+                      View Gallery
+                    </span>
+                  </div>
                 )}
               </div>
 
-              {/* Unit Specs Grid */}
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                <div className="p-4 rounded-xl border border-slate-100 bg-slate-50/50">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase">
-                    Area
-                  </p>
-                  <p className="text-lg font-bold text-slate-800">
-                    {unit.sqft} sqft
-                  </p>
+              {/* Dynamic Attribute Section */}
+              <div className="space-y-6 mb-8">
+                {/* Core Specs List */}
+                <div className="flex flex-wrap justify-between gap-4">
+                  {[
+                    { key: "sqft", val: unit.sqft },
+                    { key: "numOfBeds", val: unit.numOfBeds },
+                    { key: "numOfBaths", val: unit.numOfBaths },
+                  ].map((spec) => {
+                    const Config = attributeIcons[spec.key];
+                    if (!spec.val) return null;
+                    return (
+                      <div key={spec.key} className="flex items-center gap-2">
+                        <div className="p-2 bg-slate-50 rounded-lg text-slate-400">
+                          <Config.icon size={16} />
+                        </div>
+                        <div>
+                          <p className="text-xs font-bold text-slate-900 leading-none">
+                            {Config.prefix}
+                            {spec.val}
+                          </p>
+                          <p className="text-[10px] text-slate-400 font-bold uppercase mt-1">
+                            {Config.label}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-                <div className="p-4 rounded-xl border border-slate-100 bg-slate-50/50">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase">
-                    Layout
+
+                <div className="h-px bg-slate-100 w-full" />
+
+                {/* Boolean Features List */}
+                <div className="grid grid-cols-2 gap-y-4">
+                  {Object.entries(attributeIcons)
+                    .filter(
+                      ([key, config]) =>
+                        typeof unit[key] === "boolean" && unit[key] === true,
+                    )
+                    .map(([key, config]) => (
+                      <div
+                        key={key}
+                        className="flex items-center gap-2 text-slate-600"
+                      >
+                        <config.icon size={14} className="text-[#102a43]" />
+                        <span className="text-xs font-medium">
+                          {config.label}
+                        </span>
+                      </div>
+                    ))}
+                </div>
+
+                <div className="h-px bg-slate-100 w-full" />
+
+                <div>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase mb-2 tracking-widest">
+                    Description
                   </p>
-                  <p className="text-lg font-bold text-slate-800">
-                    {unit.numOfBeds}bd / {unit.numOfBaths}ba
+                  <p className="text-sm text-slate-500 leading-relaxed">
+                    {unit.description}
                   </p>
                 </div>
               </div>
 
-              <p className="text-sm text-slate-500 leading-relaxed mb-8">
-                {unit.description}
-              </p>
-
-              {/* Dynamic Download Button */}
               <a
                 href={unit.pdf || "/assets/floorplan.pdf"}
                 target="_blank"
@@ -124,7 +191,7 @@ export default function Sidebar({
               </a>
             </div>
 
-            {/* Sticky Footer Navigation */}
+            {/* Footer Navigation */}
             <div className="flex items-center justify-between px-8 py-6 border-t border-slate-50 bg-white sticky bottom-0">
               <button
                 onClick={onPrev}
