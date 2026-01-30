@@ -34,7 +34,8 @@ export default function UnitGrid({ onSelectUnit }) {
             : "border-transparent hover:border-slate-200"
         }`}
       >
-        <div className="relative aspect-video overflow-hidden">
+        {/* Responsive Aspect Ratio with a 300px height ceiling */}
+        <div className="relative overflow-hidden max-h-[12rem]">
           <img
             src={unit.image}
             alt={unit.title}
@@ -55,28 +56,30 @@ export default function UnitGrid({ onSelectUnit }) {
           </button>
         </div>
 
-        <div className="p-6 flex-1 flex flex-col">
-          <div className="mb-6">
-            <h4 className="text-lg font-bold text-slate-900">{unit.title}</h4>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+        <div className="p-5 sm:p-6 flex-1 flex flex-col">
+          <div className="mb-4 sm:mb-6">
+            <h4 className="text-base sm:text-lg font-bold text-slate-900 truncate">
+              {unit.title}
+            </h4>
+            <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest">
               {unit.model}
             </p>
           </div>
 
-          {/* Mirrored Sidebar Attribute Layout */}
-          <div className="flex flex-wrap justify-between gap-4 mb-8">
+          {/* Attributes layout mirrored from Sidebar */}
+          <div className="flex flex-wrap justify-between gap-2 mb-6 sm:mb-8">
             {["sqft", "numOfBeds", "numOfBaths"].map((key) => {
               const Config = attributeIcons[key];
               return (
                 <div key={key} className="flex items-center gap-2">
-                  <div className="p-2 bg-slate-50 rounded-lg text-slate-400">
-                    <Config.icon size={16} />
+                  <div className="p-2 bg-slate-50 rounded-lg text-slate-400 shrink-0">
+                    <Config.icon size={15} />
                   </div>
-                  <div>
-                    <p className="text-xs font-bold text-slate-900 leading-none">
+                  <div className="min-w-0">
+                    <p className="text-[11px] sm:text-xs font-bold text-slate-900 leading-none">
                       {unit[key]}
                     </p>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest">
+                    <p className="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest truncate">
                       {Config.label}
                     </p>
                   </div>
@@ -85,7 +88,7 @@ export default function UnitGrid({ onSelectUnit }) {
             })}
           </div>
 
-          <button className="mt-auto w-full py-3 rounded-xl bg-slate-50 text-[#102a43] text-xs font-bold group-hover:bg-[#102a43] group-hover:text-white transition-all flex items-center justify-center gap-2">
+          <button className="mt-auto w-full py-3 rounded-xl bg-slate-50 text-[#102a43] text-[10px] sm:text-xs font-bold group-hover:bg-[#102a43] group-hover:text-white transition-all flex items-center justify-center gap-2">
             View Details <ArrowRight size={14} />
           </button>
         </div>
@@ -109,34 +112,43 @@ export default function UnitGrid({ onSelectUnit }) {
             background: #102a43 !important;
           }
           .swiper-pagination-bullet {
-            opacity: 0.5;
+            opacity: 0.3;
+          }
+          .unit-swiper {
+            padding-bottom: 60px !important;
+            overflow: visible !important;
+          }
+          .unit-swiper .swiper-pagination {
+            bottom: 0px !important;
           }
         `}
       </style>
 
-      {/* Mobile/Small Slider View */}
+      {/* Swiper Layout: Active below 1024px (lg) */}
       <div className="block lg:hidden">
         <Swiper
           modules={[Pagination, Navigation]}
-          spaceBetween={20}
-          slidesPerView={1.2}
+          spaceBetween={16}
+          slidesPerView={1.15}
           centeredSlides={true}
           pagination={{ clickable: true }}
-          className="pb-12 !px-4"
+          className="unit-swiper !px-4"
           breakpoints={{
-            640: { slidesPerView: 2, centeredSlides: false },
+            480: { slidesPerView: 1.4 },
+            640: { slidesPerView: 1.8 },
+            768: { slidesPerView: 2.2, centeredSlides: false },
           }}
         >
           {filteredUnits.map((unit) => (
-            <SwiperSlide key={unit.id}>
+            <SwiperSlide key={unit.id} className="h-auto">
               <UnitCard unit={unit} />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
 
-      {/* Desktop Grid View */}
-      <div className="hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+      {/* Grid Layout: Active at and above 1024px (lg) */}
+      <div className="hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
         {filteredUnits.map((unit) => (
           <UnitCard key={unit.id} unit={unit} />
         ))}

@@ -25,7 +25,7 @@ import { useBuilding } from "../context/BuildingContext";
 export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
   const { activeUnit, favorites, toggleFavorite } = useBuilding();
 
-  // Drag-to-close state
+  // Drag-to-close state for mobile/tablet bottom sheet
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const startY = useRef(0);
@@ -55,8 +55,6 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
   const handleTouchMove = (e) => {
     const currentY = e.touches[0].clientY;
     const deltaY = currentY - startY.current;
-
-    // Only allow dragging downwards
     if (deltaY > 0) {
       setDragOffset(deltaY);
     }
@@ -64,21 +62,19 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
 
   const handleTouchEnd = () => {
     setIsDragging(false);
-    // If dragged down more than 100px, close it
     if (dragOffset > 100) {
       onClose();
     }
-    // Reset offset
     setDragOffset(0);
   };
 
   const Content = () => (
-    <div className="flex-1 overflow-y-auto no-scrollbar p-6 md:p-8">
+    <div className="flex-1 overflow-y-auto no-scrollbar p-6 lg:p-8">
       {activeUnit ? (
         <>
           <div className="flex items-start justify-between mb-6">
             <div>
-              <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
+              <h3 className="text-xl lg:text-2xl font-bold text-slate-900 leading-tight">
                 {activeUnit.title}
               </h3>
               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
@@ -88,7 +84,11 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => toggleFavorite(activeUnit.id)}
-                className={`p-2 rounded-full transition-colors ${favorites.includes(activeUnit.id) ? "text-rose-500 bg-rose-50" : "text-slate-300 hover:bg-slate-50"}`}
+                className={`p-2 rounded-full transition-colors ${
+                  favorites.includes(activeUnit.id)
+                    ? "text-rose-500 bg-rose-50"
+                    : "text-slate-300 hover:bg-slate-50"
+                }`}
               >
                 <Heart
                   size={22}
@@ -99,7 +99,7 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
               </button>
               <button
                 onClick={onClose}
-                className="md:hidden p-2 text-slate-400 hover:bg-slate-50 rounded-full"
+                className="lg:hidden p-2 text-slate-400 hover:bg-slate-50 rounded-full"
               >
                 <X size={22} />
               </button>
@@ -108,7 +108,9 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
 
           <div
             onClick={activeUnit.gallery?.length > 0 ? onOpenGallery : undefined}
-            className={`mb-8 relative rounded-2xl overflow-hidden shadow-lg aspect-video ${activeUnit.gallery?.length > 0 ? "cursor-pointer group" : ""}`}
+            className={`mb-8 relative rounded-2xl overflow-hidden shadow-lg aspect-video ${
+              activeUnit.gallery?.length > 0 ? "cursor-pointer group" : ""
+            }`}
           >
             <img
               src={activeUnit.image}
@@ -189,15 +191,14 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
 
   return (
     <>
-      {/* Desktop Sidebar */}
-      <div className="hidden md:flex flex-col w-[420px] bg-white border-l border-slate-100 h-full shadow-xl z-20 overflow-hidden">
+      {/* Desktop Sidebar - Transitions in at 1024px */}
+      <div className="hidden lg:flex flex-col w-[420px] bg-white border-l border-slate-100 h-full shadow-xl z-20 overflow-hidden">
         <Content />
       </div>
 
-      {/* Mobile Bottom Sheet Popup with Drag Handle */}
-      {/* Sidebar is collapsed on mobile load via the isOpen prop check */}
+      {/* Mobile/Tablet Bottom Sheet - Active below 1024px */}
       <div
-        className={`md:hidden fixed inset-0 z-[2000] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`lg:hidden fixed inset-0 z-[2000] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
           isOpen
             ? "opacity-100 visible"
             : "opacity-0 invisible pointer-events-none"
@@ -215,7 +216,7 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
           }}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Drag Handle Area - allows dragging down to collapse */}
+          {/* Drag Handle Area */}
           <div
             className="w-full py-4 cursor-grab active:cursor-grabbing"
             onTouchStart={handleTouchStart}

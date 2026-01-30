@@ -7,7 +7,7 @@ export default function UnitFilters() {
   const { filters, setFilters, allUnits } = useBuilding();
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Compute local limits for the slider constraints
+  // Compute local limits for the slider constraints based on building data
   const unitSqfts = allUnits.map((u) => u.sqft || 0);
   const minSqftLimit = unitSqfts.length > 0 ? Math.min(...unitSqfts) : 0;
   const maxSqftLimit = unitSqfts.length > 0 ? Math.max(...unitSqfts) : 5000;
@@ -47,7 +47,7 @@ export default function UnitFilters() {
 
   return (
     <div className="bg-white border-b border-slate-200 shrink-0 relative z-[1001]">
-      {/* Toggle Header */}
+      {/* Toggle Header - Visible on all screen sizes, collapsed by default */}
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-2 text-[#102a43]">
           <Filter size={18} />
@@ -69,16 +69,16 @@ export default function UnitFilters() {
         </div>
       </div>
 
-      {/* Overlay Filter Panel */}
+      {/* Overlay Filter Panel - Absolute positioning to overlap content without pushing it down */}
       <div
         className={`${
           isExpanded
             ? "max-h-[600px] opacity-100 pb-8 border-b border-slate-200 shadow-2xl"
             : "max-h-0 opacity-0 pointer-events-none"
-        } absolute top-full left-0 w-full z-[1002] bg-white overflow-y-auto transition-all duration-300 ease-in-out px-4 md:px-8 no-scrollbar`}
+        } absolute top-full left-0 w-full z-[1002] bg-white overflow-y-auto transition-all duration-300 ease-in-out px-4 lg:px-8 no-scrollbar`}
       >
         <div className="flex flex-col gap-8 pt-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:flex md:flex-wrap items-end gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-end gap-6 lg:gap-8">
             <div className="flex flex-col gap-1.5 min-w-[120px]">
               <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                 Beds
@@ -142,7 +142,7 @@ export default function UnitFilters() {
 
             <button
               onClick={resetFilters}
-              className="hidden md:flex items-center gap-2 text-slate-400 hover:text-rose-500 transition-colors text-xs font-bold py-2 px-3"
+              className="hidden lg:flex items-center gap-2 text-slate-400 hover:text-rose-500 transition-colors text-xs font-bold py-2 px-3"
             >
               <RotateCcw size={14} /> Reset
             </button>
