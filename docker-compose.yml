@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: lepine-postgres
+    restart: unless-stopped
+    env_file: ./backend/.env
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME:-strapi}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+      POSTGRES_DB: ${DATABASE_NAME:-lepine_floorplan}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - lepine-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../backend.Dockerfile
+    container_name: lepine-backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      NODE_ENV: development
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - '1337:1337'
+    depends_on:
+      - postgres
+    networks:
+      - lepine-network
+    command: npm run develop
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../frontend.Dockerfile
+    container_name: lepine-frontend
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - '5173:5173'
+    environment:
+      - VITE_API_URL=http://localhost:1337
+    networks:
+      - lepine-network
+    command: npm run dev -- --host
+
+volumes:
+  postgres-data:
+
+networks:
+  lepine-network:
+    driver: bridge

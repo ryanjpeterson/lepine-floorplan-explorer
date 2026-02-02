@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "floors",
+  "info": {
+    "singularName": "floor",
+    "pluralName": "floors",
+    "displayName": "Floor",
+    "description": "Floor entity with units and VR tours"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "floorId": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "polygon": {
+      "type": "json",
+      "required": true
+    },
+    "config": {
+      "type": "json",
+      "required": true
+    },
+    "building": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::building.building",
+      "inversedBy": "floors"
+    },
+    "units": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::unit.unit",
+      "mappedBy": "floor"
+    },
+    "vrTours": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vr-tour.vr-tour",
+      "mappedBy": "floor"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "buildings",
+  "info": {
+    "singularName": "building",
+    "pluralName": "buildings",
+    "displayName": "Building",
+    "description": "Building entity with floors and units"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "config": {
+      "type": "json",
+      "required": true
+    },
+    "floors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::floor.floor",
+      "mappedBy": "building"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    }
+  }
+}

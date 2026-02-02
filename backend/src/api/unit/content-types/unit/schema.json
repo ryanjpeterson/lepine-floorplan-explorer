@@ -1,0 +1,129 @@
+{
+  "kind": "collectionType",
+  "collectionName": "units",
+  "info": {
+    "singularName": "unit",
+    "pluralName": "units",
+    "displayName": "Unit",
+    "description": "Unit entity with all property details"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "unitId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "model": {
+      "type": "string"
+    },
+    "sqft": {
+      "type": "integer",
+      "required": true
+    },
+    "numOfBeds": {
+      "type": "integer",
+      "required": true
+    },
+    "numOfBaths": {
+      "type": "decimal",
+      "required": true
+    },
+    "balcony": {
+      "type": "boolean",
+      "default": false
+    },
+    "tub": {
+      "type": "boolean",
+      "default": false
+    },
+    "pantry": {
+      "type": "boolean",
+      "default": false
+    },
+    "terrace": {
+      "type": "boolean",
+      "default": false
+    },
+    "officeDen": {
+      "type": "boolean",
+      "default": false
+    },
+    "walkInCloset": {
+      "type": "boolean",
+      "default": false
+    },
+    "barrierFree": {
+      "type": "boolean",
+      "default": false
+    },
+    "builtIns": {
+      "type": "boolean",
+      "default": false
+    },
+    "juliet": {
+      "type": "boolean",
+      "default": false
+    },
+    "modelSuite": {
+      "type": "boolean",
+      "default": false
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "default": false
+    },
+    "image": {
+      "type": "string"
+    },
+    "gallery": {
+      "type": "json"
+    },
+    "pdf": {
+      "type": "string"
+    },
+    "property": {
+      "type": "string",
+      "default": "Residential"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["Available", "Leased", "On Hold", "Reserved"],
+      "default": "Available",
+      "required": true
+    },
+    "onHoldExpires": {
+      "type": "datetime"
+    },
+    "polygon": {
+      "type": "json",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "floor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::floor.floor",
+      "inversedBy": "units"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "pricePerSqft": {
+      "type": "decimal"
+    }
+  }
+}
