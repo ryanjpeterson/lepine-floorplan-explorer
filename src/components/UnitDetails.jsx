@@ -140,8 +140,8 @@ export default function UnitDetails({ onOpenGallery, onClose }) {
         </div>
 
         <div className="h-px bg-slate-100 w-full" />
-        <p className="text-sm text-slate-500 leading-relaxed italic">
-          "{activeUnit.description}"
+        <p className="text-sm text-slate-500 leading-relaxed">
+          {activeUnit.description}
         </p>
       </div>
 
