@@ -7,7 +7,7 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { Unit, Floor, BuildingData, Filters } from "../types/building";
+import { BuildingData, Floor, Unit, Filters } from "../types/building";
 
 interface BuildingContextType {
   data: BuildingData | null;
@@ -42,7 +42,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const [activeFloorId, setActiveFloorId] = useState<string | null>(null);
   const [activeUnitId, setActiveUnitId] = useState<string | null>(null);
-
   const [viewMode, setViewMode] = useState("map");
   const [gridTab, setGridTab] = useState("all");
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -65,7 +64,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       })
       .then((json: BuildingData) => {
         setData(json);
-
         const allUnits = json.config.floors.flatMap((f) => f.units);
         if (allUnits.length > 0) {
           const sqfts = allUnits.map((u) => u.sqft || 0);
@@ -75,7 +73,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
             maxSqft: Math.max(...sqfts),
           }));
         }
-
         setLoading(false);
       })
       .catch((err) => {
@@ -86,7 +83,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
 
   const floors = useMemo(() => data?.config?.floors || [], [data]);
 
-  const allUnits = useMemo(() => {
+  const allUnits = useMemo((): Unit[] => {
     return floors.flatMap((floor) =>
       floor.units.map((unit) => ({
         ...unit,
@@ -100,7 +97,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     () => floors.find((f) => f.id === activeFloorId) || null,
     [floors, activeFloorId],
   );
-  
+
   const activeUnit = useMemo(
     () => allUnits.find((u) => u.id === activeUnitId) || null,
     [allUnits, activeUnitId],
@@ -116,42 +113,36 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       const matchBeds =
         filters.beds === "All" || unit.numOfBeds === parseInt(filters.beds);
       const matchBaths =
-        filters.baths === "All" ||
-        unit.numOfBaths === parseFloat(filters.baths);
+        filters.baths === "All" || unit.numOfBaths === parseFloat(filters.baths);
       const matchStatus =
         filters.status === "All" || unit.status === filters.status;
       const matchSqft =
         unit.sqft >= filters.minSqft && unit.sqft <= filters.maxSqft;
-      const matchFeatures = filters.features.every((f) => unit[f] === true);
 
-      return (
-        matchBeds && matchBaths && matchStatus && matchFeatures && matchSqft
-      );
+      // Fixes TS7053 indexing error
+      const matchFeatures = filters.features.every((f) => unit[f as keyof Unit] === true);
+
+      return matchBeds && matchBaths && matchStatus && matchFeatures && matchSqft;
     });
   }, [allUnits, filters, favorites, gridTab]);
 
-  const selectFloor = useCallback(
-    (id: string) => {
-      setActiveFloorId(id);
-      const floor = floors.find((f) => f.id === id);
-      if (floor && floor.units.length > 0) {
-        setActiveUnitId(floor.units[0].id);
-      }
-      setViewMode("map");
-    },
-    [floors],
-  );
+  const selectFloor = useCallback((id: string) => {
+    setActiveFloorId(id);
+    const floor = floors.find((f) => f.id === id);
+    // Automatically select the first unit of the floor
+    if (floor && floor.units.length > 0) {
+      setActiveUnitId(floor.units[0].id);
+    }
+    setViewMode("map");
+  }, [floors]);
 
-  const handleUnitSelect = useCallback(
-    (unitId: string) => {
-      const unitData = allUnits.find((u) => u.id === unitId);
-      if (unitData) {
-        setActiveFloorId(unitData.floorId);
-        setActiveUnitId(unitId);
-      }
-    },
-    [allUnits],
-  );
+  const handleUnitSelect = useCallback((unitId: string) => {
+    const unitData = allUnits.find((u) => u.id === unitId);
+    if (unitData) {
+      setActiveFloorId(unitData.floorId);
+      setActiveUnitId(unitId);
+    }
+  }, [allUnits]);
 
   const toggleFavorite = useCallback((id: string) => {
     setFavorites((prev) =>
@@ -191,11 +182,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       activeTour,
       setActiveTour,
     }),
-    [
-      data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits,
-      floors, favorites, gridTab, viewMode, filters, selectFloor,
-      handleUnitSelect, toggleFavorite, clearFavorites, goBackToBuilding, activeTour,
-    ],
+    [data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, floors, favorites, gridTab, viewMode, filters, handleUnitSelect, selectFloor, toggleFavorite, clearFavorites, goBackToBuilding, activeTour],
   );
 
   return (
@@ -207,7 +194,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
 
 export const useBuilding = () => {
   const context = useContext(BuildingContext);
-  if (!context)
-    throw new Error("useBuilding must be used within a BuildingProvider");
+  if (!context) throw new Error("useBuilding must be used within a BuildingProvider");
   return context;
 };

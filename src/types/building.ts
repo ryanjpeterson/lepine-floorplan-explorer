@@ -1,4 +1,3 @@
-// src/types/building.ts
 export interface Unit {
   id: string;
   title: string;
@@ -14,9 +13,11 @@ export interface Unit {
   gallery: string[];
   floorId: string;
   floorName: string;
+  // Index signature to allow dynamic feature filtering and resolve TS7053
   [key: string]: any; 
 }
 
+// Exported to resolve TS2305 in UnitMap and VirtualTourPolygon
 export interface VRTour {
   id: string;
   label: string;
