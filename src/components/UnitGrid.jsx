@@ -15,14 +15,14 @@ const attributeIcons = {
 };
 
 const UnitCard = memo(
-  ({ unit, isActive, isFav, toggleFavorite, onSelectUnit }) => {
+  ({ unit, isActive, isFav, toggleFavorite, onSelectUnit, isDesktop }) => {
     const [isPulsing, setIsPulsing] = useState(false);
 
     if (!unit) return null;
 
     const handleFavorite = (e) => {
       e.preventDefault();
-      e.stopPropagation();
+      e.stopPropagation(); // Prevents triggering card-level click on desktop
       if (!isFav) {
         setIsPulsing(true);
         setTimeout(() => setIsPulsing(false), 500);
@@ -30,10 +30,20 @@ const UnitCard = memo(
       toggleFavorite(unit.id);
     };
 
+    // On desktop, clicking the card triggers selection.
+    // On mobile, the wrapper does nothing to avoid interfering with swiper gestures.
+    const handleCardClick = () => {
+      if (isDesktop) {
+        onSelectUnit(unit.id);
+      }
+    };
+
     return (
       <div
-        onClick={() => onSelectUnit(unit.id)}
-        className={`group bg-white rounded-2xl overflow-hidden border-2 transition-all cursor-pointer h-full flex flex-col shadow-xl ${
+        onClick={handleCardClick}
+        className={`group bg-white rounded-2xl overflow-hidden border-2 transition-all h-full flex flex-col shadow-xl ${
+          isDesktop ? "cursor-pointer" : ""
+        } ${
           isActive
             ? "border-[#102a43]"
             : "border-transparent hover:border-slate-200"
@@ -90,7 +100,16 @@ const UnitCard = memo(
             })}
           </div>
 
-          <button className="mt-auto w-full py-3 rounded-xl bg-slate-50 text-[#102a43] text-[10px] sm:text-xs font-bold group-hover:bg-[#102a43] group-hover:text-white transition-all flex items-center justify-center gap-2">
+          <button
+            onClick={(e) => {
+              if (!isDesktop) {
+                // On mobile, explicitly trigger selection here
+                onSelectUnit(unit.id);
+              }
+              // On desktop, the card's onClick handles it via bubbling
+            }}
+            className="mt-auto w-full py-3 rounded-xl bg-slate-50 text-[#102a43] text-[10px] sm:text-xs font-bold hover:bg-[#102a43] hover:text-white transition-all flex items-center justify-center gap-2"
+          >
             View Details <ArrowRight size={14} />
           </button>
         </div>
@@ -124,7 +143,7 @@ export default function UnitGrid({ onSelectUnit }) {
         .unit-swiper .swiper-pagination { bottom: 0px !important; }
       `}</style>
 
-      {/* Mobile Swiper */}
+      {/* Mobile Swiper Section */}
       <div className="block lg:hidden">
         <Swiper
           modules={[Pagination, Navigation]}
@@ -147,13 +166,14 @@ export default function UnitGrid({ onSelectUnit }) {
                 isFav={favorites.includes(unit.id)}
                 toggleFavorite={toggleFavorite}
                 onSelectUnit={onSelectUnit}
+                isDesktop={false} // Card click disabled for mobile
               />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
 
-      {/* Desktop Grid - Responsive columns with max-width constraint */}
+      {/* Desktop Grid Section */}
       <div className="hidden lg:block">
         <div className="grid gap-6 lg:gap-8 grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] max-w-[2400px] mx-auto">
           {filteredUnits.map((unit) => (
@@ -164,6 +184,7 @@ export default function UnitGrid({ onSelectUnit }) {
               isFav={favorites.includes(unit.id)}
               toggleFavorite={toggleFavorite}
               onSelectUnit={onSelectUnit}
+              isDesktop={true} // Whole card is clickable
             />
           ))}
         </div>

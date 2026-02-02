@@ -5,13 +5,13 @@ import {
   LayoutGrid,
   Heart,
   ArrowLeft,
-  Info,
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
 import UnitMap from "./UnitMap";
 import UnitGrid from "./UnitGrid";
 import UnitFilters from "./UnitFilters";
-import Sidebar from "./Sidebar";
+import UnitSidebar from "./UnitSidebar";
+import UnitDrawer from "./UnitDrawer";
 import VirtualTourEmbed from "./VirtualTourEmbed";
 import GalleryModal from "./GalleryModal";
 
@@ -37,18 +37,25 @@ export default function FloorplanView() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
 
+  // Close sidebar automatically when changing floors to prevent layout confusion
   useEffect(() => {
     setIsMobileSidebarOpen(false);
   }, [activeFloor?.id]);
+
+  // FIX: Ensure the mobile sidebar opens immediately on unit selection,
+  // even if a floor change just occurred.
+  useEffect(() => {
+    if (activeUnit && window.innerWidth < 1024) {
+      setIsMobileSidebarOpen(true);
+    }
+  }, [activeUnit?.id]);
 
   if (!activeFloor) return null;
 
   const handleUnitSelect = useCallback(
     (unitId) => {
       selectUnit(unitId);
-      // Re-activate sidebar on selection
       setIsDesktopSidebarOpen(true);
-      if (window.innerWidth < 1024) setIsMobileSidebarOpen(true);
     },
     [selectUnit],
   );
@@ -56,7 +63,6 @@ export default function FloorplanView() {
   return (
     <div className="flex flex-col lg:flex-row h-screen w-full overflow-hidden bg-slate-50 font-['Jost']">
       <div className="flex-1 relative flex flex-col min-w-0 h-full">
-        {/* Top Header */}
         <div className="z-[1001] bg-white border-b border-slate-200 p-4 shrink-0">
           <div className="flex items-center justify-between gap-4">
             <button
@@ -122,7 +128,6 @@ export default function FloorplanView() {
             )}
           </div>
 
-          {/* Floor Selector */}
           {viewMode === "map" && (
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center pointer-events-none w-full px-4">
               <div
@@ -156,12 +161,16 @@ export default function FloorplanView() {
         </div>
       </div>
 
-      <Sidebar
+      <UnitSidebar
+        isOpen={isDesktopSidebarOpen}
+        onToggle={() => setIsDesktopSidebarOpen(!isDesktopSidebarOpen)}
         onOpenGallery={() => setIsGalleryOpen(true)}
+      />
+
+      <UnitDrawer
         isOpen={isMobileSidebarOpen}
         onClose={() => setIsMobileSidebarOpen(false)}
-        isDesktopOpen={isDesktopSidebarOpen}
-        onToggleDesktop={() => setIsDesktopSidebarOpen(!isDesktopSidebarOpen)}
+        onOpenGallery={() => setIsGalleryOpen(true)}
       />
 
       <VirtualTourEmbed
