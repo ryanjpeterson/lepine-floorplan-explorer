@@ -2,7 +2,7 @@ import { BACKGROUND_FILL } from "./mapStyles";
 
 export const MAP_VIEW_SETTINGS = {
   debug: import.meta.env.VITE_DEBUG === "true",
-  animationDuration: 0.5,
+  animationDuration: 0,
   defaultBackground: BACKGROUND_FILL,
 
   building: {
@@ -20,13 +20,13 @@ export const MAP_VIEW_SETTINGS = {
   floorplan: {
     fitType: "contain",
     zoomControl: true,
-    dragging: false,
-    scrollWheelZoom: false,
+    dragging: true,
+    scrollWheelZoom: true,
     doubleClickZoom: true,
     touchZoom: true,
     minZoomOffset: -1,
-    maxZoomOffset: 1,
-    padding: [0, 0],
+    maxZoomOffset: 2,
+    padding: [20, 20],
   },
 };
 
