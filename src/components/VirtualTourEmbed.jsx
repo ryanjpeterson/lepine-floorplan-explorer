@@ -13,15 +13,15 @@ export default function VirtualTourEmbed({ isOpen, url, label, onClose }) {
     >
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 text-white/50 hover:text-white z-[100] p-2 hover:bg-white/10 rounded-full transition-colors"
+        className="absolute top-4 right-4 text-white/50 hover:text-white z-[100] p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
       >
         <X size={24} />
       </button>
 
       <div
-        className={`w-full h-full flex flex-col p-4 md:p-12 transition-transform duration-500 ${isOpen ? "scale-100" : "scale-95"}`}
+        className={`w-full h-full flex flex-col transition-transform duration-500 ${isOpen ? "scale-100" : "scale-95"}`}
       >
-        <div className="w-full h-full bg-black rounded-xl overflow-hidden shadow-2xl relative">
+        <div className="w-full h-full bg-black overflow-hidden shadow-2xl relative">
           {isOpen && (
             <iframe
               src={url}
@@ -32,10 +32,6 @@ export default function VirtualTourEmbed({ isOpen, url, label, onClose }) {
             />
           )}
         </div>
-      </div>
-
-      <div className="absolute bottom-10 px-6 py-2 bg-black/60 text-white rounded-full text-xs font-bold tracking-widest border border-white/10 z-[100] uppercase">
-        Virtual Tour: {label}
       </div>
     </div>
   );

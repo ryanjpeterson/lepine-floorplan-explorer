@@ -49,7 +49,7 @@ const UnitCard = memo(
             : "border-transparent hover:border-slate-200"
         }`}
       >
-        <div className="relative overflow-hidden max-h-[300px] aspect-video md:aspect-square lg:aspect-square xl:aspect-video">
+        <div className="relative overflow-hidden max-h-[12rem] aspect-video md:aspect-square lg:aspect-square xl:aspect-video">
           <img
             src={unit.image}
             alt={unit.title}
