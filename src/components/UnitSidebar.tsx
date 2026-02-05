@@ -25,7 +25,7 @@ export default function UnitSidebar({
       {/* Toggle Button - positioned to stay accessible when sidebar is collapsed */}
       <button
         onClick={onToggle}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full bg-white border border-slate-200 p-2 rounded-l-xl shadow-md text-[#102a43] hover:bg-slate-50 z-30"
+        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full bg-white border border-slate-200 p-2 rounded-l-xl shadow-md text-[#102a43] hover:bg-slate-50 z-1002"
       >
         {isOpen ? <PanelRightClose size={20} /> : <PanelRightOpen size={20} />}
       </button>

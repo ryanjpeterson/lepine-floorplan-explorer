@@ -64,7 +64,7 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
   };
 
   return (
-    <div className="flex-1 overflow-y-auto no-scrollbar px-6 lg:px-8">
+    <div className="flex-1 overflow-y-auto no-scrollbar px-6 lg:p-8">
       <div className="flex items-start justify-between mb-6">
         <div>
           <h3 className="text-xl lg:text-2xl font-bold text-slate-900 leading-tight">
