@@ -8,7 +8,7 @@
     "floors": [
       {
         "id": "1",
-        "name": "1st Floor",
+        "name": "Ground Level",
         "polygon": [
           [300, 808],
           [514, 808],

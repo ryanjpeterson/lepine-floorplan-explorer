@@ -18,13 +18,13 @@ export default function TourModal({
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] bg-[#0f172a]/95 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${
+      className={`fixed inset-0 z-[9999] bg-[#fff]/95 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${
         isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
       }`}
     >
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 text-white/50 hover:text-white z-[100] p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+        className="absolute top-4 right-4 text-white/50 hover:text-white z-[100] p-2 bg-black/60 hover:bg-black/80 rounded-full transition-colors"
       >
         <X size={24} />
       </button>
