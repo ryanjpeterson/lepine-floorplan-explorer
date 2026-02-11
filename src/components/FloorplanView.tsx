@@ -114,7 +114,7 @@ export default function FloorplanView() {
               <img 
                 src={data?.logo} 
                 alt={data?.name}
-                className="max-h-full w-auto object-contain py-1" 
+                className="max-h-full w-auto object-contain" 
               />
             </div>
 

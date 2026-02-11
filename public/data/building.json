@@ -29,7 +29,7 @@
           {
             "id": "at110",
             "label": "Amenity Tour",
-            "position": [435, 585],
+            "position": [300, 600],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
         ],
@@ -59,7 +59,7 @@
           {
             "id": "at210",
             "label": "Amenity Tour",
-            "position": [435, 585],
+            "position": [522, 408],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
         ],
@@ -97,10 +97,10 @@
             "modelSuite": false,
             "isFeatured": true,
             "polygon": [
-              [648, 624],
-              [708, 624],
-              [709, 563],
-              [647, 563]
+              [583, 258],
+              [583, 314],
+              [678, 314],
+              [678, 258]
             ],
             "description": "This expansive 2-bedroom + office apartment offers 1,132 sq. ft. of thoughtfully designed, open-concept living, complete with a private balcony. The versatile office provides the perfect space for working from home or a quiet retreat. Premium finishes include multilayered hardwood flooring, granite countertops, natural wood cabinetry, and soaring 9-foot ceilings. Solid concrete construction ensures superior soundproofing, while floor-to-ceiling windows flood the space with natural light. Enjoy modern comforts such as individual temperature control and high-efficiency climate systems for year-round comfort."
           },
@@ -129,10 +129,10 @@
             "modelSuite": false,
             "isFeatured": false,
             "polygon": [
-              [612, 311],
-              [708, 311],
-              [708, 254],
-              [613, 255]
+              [617, 571],
+              [617, 632],
+              [678, 632],
+              [678, 571]
             ],
             "description": "Modern open-concept living space."
           },
@@ -195,7 +195,7 @@
           {
             "id": "at310",
             "label": "Amenity Tour",
-            "position": [435, 585],
+            "position": [522, 408],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
         ],
@@ -229,10 +229,10 @@
             "modelSuite": false,
             "isFeatured": true,
             "polygon": [
-              [648, 624],
-              [708, 624],
-              [709, 563],
-              [647, 563]
+              [583, 258],
+              [583, 314],
+              [678, 314],
+              [678, 258]
             ],
             "virtualTour": {
               "label": "Suite 301 Virtual Tour",
@@ -271,7 +271,7 @@
           {
             "id": "at410",
             "label": "Amenity Tour",
-            "position": [435, 585],
+            "position": [522, 408],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
         ],
@@ -301,10 +301,10 @@
             "modelSuite": false,
             "isFeatured": false,
             "polygon": [
-              [612, 311],
-              [708, 311],
-              [708, 254],
-              [613, 255]
+              [617, 571],
+              [617, 632],
+              [678, 632],
+              [678, 571]
             ],
             "description": "Modern open-concept living space."
           }
@@ -337,7 +337,7 @@
           {
             "id": "at510",
             "label": "Amenity Tour",
-            "position": [435, 585],
+            "position": [522, 408],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
         ],
@@ -367,10 +367,10 @@
             "modelSuite": false,
             "isFeatured": false,
             "polygon": [
-              [612, 311],
-              [708, 311],
-              [708, 254],
-              [613, 255]
+              [617, 571],
+              [617, 632],
+              [678, 632],
+              [678, 571]
             ],
             "description": "Modern open-concept living space."
           }
