@@ -98,14 +98,28 @@ export default function FloorplanView() {
       {/* Main Content: Set to z-10 to stay above the background */}
       <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
         <div className="z-[1001] bg-white/90 backdrop-blur-sm border-b border-slate-200 p-4 shrink-0">
-          <div className="flex items-center justify-between gap-4">
-            <button
-              onClick={goBackToBuilding}
-              className="bg-[#102a43] text-white px-4 lg:px-5 py-2.5 rounded-xl font-bold text-[10px] lg:text-xs transition-all flex items-center gap-2"
-            >
-              <ArrowLeft size={14} /> Back
-            </button>
-            <div className="flex items-center gap-3 lg:gap-6">
+          <div className="flex items-center justify-between gap-4 h-8"> 
+            {/* 1. Left Section: Fixed width or shrinkable to keep center clear */}
+            <div className="flex-1 flex justify-start">
+              <button
+                onClick={goBackToBuilding}
+                className="bg-[#102a43] text-white px-4 lg:px-5 py-2.5 rounded-xl font-bold text-[10px] lg:text-xs transition-all flex items-center gap-2 whitespace-nowrap"
+              >
+                <ArrowLeft size={14} /> Back
+              </button>
+            </div>
+
+            {/* 2. Center Section: The Logo Container */}
+            <div className="flex-[2] flex justify-center items-center h-full min-w-0">
+              <img 
+                src={data?.logo} 
+                alt={data?.name}
+                className="max-h-full w-auto object-contain py-1" 
+              />
+            </div>
+
+            {/* 3. Right Section: Fixed width or shrinkable */}
+            <div className="flex-1 flex justify-end">
               <div className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-xl">
                 <button
                   onClick={() => setViewMode("map")}

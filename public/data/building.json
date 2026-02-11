@@ -1,6 +1,7 @@
 {
   "name": "Carré Saint Louis",
   "address": "1050 Canadian Shield Ave",
+  "logo": "/assets/carre-saint-louis-logo.svg",
   "config": {
     "width": 2000,
     "height": 1122,

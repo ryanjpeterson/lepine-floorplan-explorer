@@ -44,6 +44,7 @@ export interface Floor {
 
 export interface BuildingData {
   name: string;
+  logo: string;
   address: string;
   config: {
     url: string;
