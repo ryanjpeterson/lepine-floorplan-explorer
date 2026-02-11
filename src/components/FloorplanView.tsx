@@ -89,7 +89,7 @@ export default function FloorplanView() {
             backgroundImage: `url(${bgImageUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'grayscale(100%) blur(5px)',
+            filter: 'grayscale(100%) blur(10px)',
             transform: 'scale(1.05)' // Prevents white edges caused by the blur
           }}
         />
