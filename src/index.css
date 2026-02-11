@@ -16,6 +16,7 @@ body,
 }
 
 .leaflet-container {
+  background: transparent !important;
   height: 100%;
   width: 100%;
 }
