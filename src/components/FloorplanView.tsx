@@ -17,6 +17,7 @@ import { Unit } from "../types/building";
 
 export default function FloorplanView() {
   const {
+    data, // Destructured to access the building config
     activeFloor,
     activeUnit,
     selectUnit,
@@ -58,7 +59,7 @@ export default function FloorplanView() {
   }, []);
 
   const handleUnitSelect = useCallback(
-    (id: string) => { // Renamed from unitId
+    (id: string) => {
       const wasClosed = !isDesktopSidebarOpen;
       selectUnit(id);
       setIsDesktopSidebarOpen(true);
@@ -72,10 +73,31 @@ export default function FloorplanView() {
     [selectUnit, isDesktopSidebarOpen],
   );
 
+  // Background image URL from the building configuration
+  const bgImageUrl = data?.config?.url;
+
   return (
-    <div className="flex flex-col lg:flex-row h-screen w-full overflow-hidden bg-slate-50 font-['Jost']">
-      <div className="flex-1 relative flex flex-col min-w-0 h-full">
-        <div className="z-[1001] bg-white border-b border-slate-200 p-4 shrink-0">
+    <div className="flex flex-col lg:flex-row h-screen w-full overflow-hidden relative bg-slate-50 font-['Jost']">
+      {/* Background Image Layer: 
+        Uses absolute positioning to sit behind the main content (z-0).
+        Applied grayscale and blur filters as requested.
+      */}
+      {bgImageUrl && (
+        <div 
+          className="absolute inset-0 z-0 pointer-events-none opacity-25"
+          style={{
+            backgroundImage: `url(${bgImageUrl})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: 'grayscale(100%) blur(10px)',
+            transform: 'scale(1.05)' // Prevents white edges caused by the blur
+          }}
+        />
+      )}
+
+      {/* Main Content: Set to z-10 to stay above the background */}
+      <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
+        <div className="z-[1001] bg-white/90 backdrop-blur-sm border-b border-slate-200 p-4 shrink-0">
           <div className="flex items-center justify-between gap-4">
             <button
               onClick={goBackToBuilding}
@@ -84,7 +106,7 @@ export default function FloorplanView() {
               <ArrowLeft size={14} /> Back
             </button>
             <div className="flex items-center gap-3 lg:gap-6">
-              <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+              <div className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-xl">
                 <button
                   onClick={() => setViewMode("map")}
                   className={`flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all ${viewMode === "map" ? "bg-white text-[#102a43] shadow-sm" : "text-slate-400"}`}
@@ -111,7 +133,7 @@ export default function FloorplanView() {
                 config={activeFloor.config}
                 units={activeFloor.units}
                 amenityTours={activeFloor.amenityTours || []}
-                activeId={activeUnit?.id} // Updated prop name
+                activeId={activeUnit?.id}
                 onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
                 onTourSelect={setActiveTour}
                 recenterTrigger={recenterTrigger}
@@ -167,7 +189,7 @@ export default function FloorplanView() {
       </div>
 
       {hasUnits && (
-        <>
+        <div className="relative z-20">
           <UnitSidebar
             isOpen={isDesktopSidebarOpen}
             onToggle={toggleSidebar}
@@ -178,7 +200,7 @@ export default function FloorplanView() {
             onClose={() => setIsMobileSidebarOpen(false)}
             onOpenGallery={() => setIsGalleryOpen(true)}
           />
-        </>
+        </div>
       )}
 
       <TourModal
