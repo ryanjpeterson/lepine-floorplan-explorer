@@ -1,3 +1,5 @@
+/* src/components/FloorplanView.tsx */
+
 import React, { useState, useEffect, useCallback } from "react";
 import {
   ChevronDown,
@@ -15,6 +17,94 @@ import UnitDrawer from "./UnitDrawer";
 import TourModal from "./TourModal";
 import GalleryModal from "./GalleryModal";
 import { Unit } from "../types/building";
+
+/**
+ * INTERNAL COMPONENT: FloorDropdown
+ * Consolidated logic for the floor selection menu
+ */
+const FloorDropdown = ({ 
+  activeFloor, 
+  floors, 
+  selectFloor, 
+  isMenuOpen, 
+  setIsMenuOpen,
+  isMobile = false 
+}: any) => {
+  return (
+    <div className={`z-[1001] flex flex-col items-center pointer-events-none w-full px-4 ${
+      isMobile ? "absolute bottom-24 left-1/2 -translate-x-1/2" : "absolute top-4 left-1/2 -translate-x-1/2"
+    }`}>
+      {/* On mobile, the menu appears ABOVE the button */}
+      {isMobile && (
+        <div
+          className={`transition-all duration-300 flex flex-col gap-1 bg-white p-1.5 rounded-2xl shadow-xl border border-slate-200 min-w-[160px] overflow-hidden pointer-events-auto mb-3 ${
+            isMenuOpen
+              ? "opacity-100 translate-y-0 max-h-[40vh] overflow-y-auto"
+              : "opacity-0 translate-y-4 max-h-0"
+          }`}
+        >
+          {floors.map((floor: any) => (
+            <button
+              key={floor.id}
+              onClick={() => {
+                selectFloor(floor.id);
+                setIsMenuOpen(false);
+              }}
+              className={`p-2 rounded-xl text-left text-sm font-medium cursor-pointer ${
+                activeFloor.id === floor.id
+                  ? "bg-[#102a43] text-white"
+                  : "text-slate-600 hover:bg-slate-100"
+              }`}
+            >
+              {floor.name}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className="flex items-center gap-3 bg-white text-[#102a43] px-4 py-2 rounded-xl shadow-xl border border-slate-200 hover:bg-slate-50 pointer-events-auto cursor-pointer"
+      >
+        <span className="text-sm font-bold">{activeFloor.name}</span>
+        <ChevronDown
+          size={18}
+          className={`transition-transform duration-300 ${
+            isMenuOpen ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {/* On desktop, the menu appears BELOW the button */}
+      {!isMobile && (
+        <div
+          className={`transition-all duration-300 flex flex-col gap-1 bg-white p-1.5 rounded-2xl shadow-xl border border-slate-200 min-w-[160px] overflow-hidden pointer-events-auto mt-3 ${
+            isMenuOpen
+              ? "opacity-100 translate-y-0 max-h-[40vh] overflow-y-auto"
+              : "opacity-0 -translate-y-4 max-h-0"
+          }`}
+        >
+          {floors.map((floor: any) => (
+            <button
+              key={floor.id}
+              onClick={() => {
+                selectFloor(floor.id);
+                setIsMenuOpen(false);
+              }}
+              className={`p-2 rounded-xl text-left text-sm font-medium cursor-pointer ${
+                activeFloor.id === floor.id
+                  ? "bg-[#102a43] text-white"
+                  : "text-slate-600 hover:bg-slate-100"
+              }`}
+            >
+              {floor.name}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default function FloorplanView() {
   const {
@@ -89,44 +179,17 @@ export default function FloorplanView() {
 
       <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
         
+        {/* DESKTOP FLOOR DROPDOWN */}
         {viewMode === "map" && (
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center pointer-events-none w-full px-4">
-            <button
-              onClick={() => setIsFloorMenuOpen(!isFloorMenuOpen)}
-              className="flex items-center gap-3 bg-white text-[#102a43] px-4 py-2 rounded-xl shadow-xl border border-slate-200 hover:bg-slate-50 pointer-events-auto cursor-pointer"
-            >
-              <span className="text-sm font-bold">{activeFloor.name}</span>
-              <ChevronDown
-                size={18}
-                className={`transition-transform duration-300 ${
-                  isFloorMenuOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            <div
-              className={`transition-all duration-300 flex flex-col gap-1 bg-white p-1.5 rounded-2xl shadow-xl border border-slate-200 min-w-[160px] overflow-hidden pointer-events-auto mt-3 ${
-                isFloorMenuOpen
-                  ? "opacity-100 translate-y-0 max-h-[40vh] overflow-y-auto"
-                  : "opacity-0 -translate-y-4 max-h-0"
-              }`}
-            >
-              {floors.map((floor) => (
-                <button
-                  key={floor.id}
-                  onClick={() => {
-                    selectFloor(floor.id);
-                    setIsFloorMenuOpen(false);
-                  }}
-                  className={`p-2 rounded-xl text-left text-sm font-medium cursor-pointer ${
-                    activeFloor.id === floor.id
-                      ? "bg-[#102a43] text-white"
-                      : "text-slate-600 hover:bg-slate-100"
-                  }`}
-                >
-                  {floor.name}
-                </button>
-              ))}
-            </div>
+          <div className="hidden lg:block">
+            <FloorDropdown 
+              activeFloor={activeFloor}
+              floors={floors}
+              selectFloor={selectFloor}
+              isMenuOpen={isFloorMenuOpen}
+              setIsMenuOpen={setIsFloorMenuOpen}
+              isMobile={false}
+            />
           </div>
         )}
 
@@ -152,13 +215,25 @@ export default function FloorplanView() {
           </div>
         </div>
 
+        {/* MOBILE FLOOR DROPDOWN (Positioned at bottom) */}
+        {viewMode === "map" && (
+          <div className="lg:hidden">
+            <FloorDropdown 
+              activeFloor={activeFloor}
+              floors={floors}
+              selectFloor={selectFloor}
+              isMenuOpen={isFloorMenuOpen}
+              setIsMenuOpen={setIsFloorMenuOpen}
+              isMobile={true}
+            />
+          </div>
+        )}
+
         {/* BOTTOM NAVIGATION BAR */}
         <div className="z-[1001] bg-white/90 backdrop-blur-sm border-t border-slate-200 p-4 shrink-0">
           <div className="flex items-center justify-between gap-4 h-8"> 
             
-            {/* LEFT SECTION: Logo (Mobile) or Back Button (Desktop) */}
             <div className="flex-1 flex justify-start items-center">
-              {/* Desktop-only Back Button */}
               <button
                 onClick={goBackToBuilding}
                 className="hidden lg:flex bg-[#102a43] text-white px-4 py-2 rounded-xl font-bold text-xs transition-all items-center gap-2 whitespace-nowrap cursor-pointer"
@@ -167,7 +242,6 @@ export default function FloorplanView() {
               </button>
             </div>
 
-            {/* CENTER SECTION: Desktop Logo Only */}
             <div className="flex flex-1 justify-center items-center h-full">
               <img 
                 src={data?.logo} 
@@ -176,11 +250,9 @@ export default function FloorplanView() {
               />
             </div>
 
-            {/* RIGHT SECTION: View Toggle Container */}
             <div className="flex-1 flex justify-end">
               <div className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-xl">
                 
-                {/* Favorites Toggle */}
                 <button
                   disabled={favoritesCount === 0}
                   onClick={() => {
@@ -199,7 +271,6 @@ export default function FloorplanView() {
                   <span className="hidden sm:inline">({favoritesCount})</span>
                 </button>
 
-                {/* Map Toggle */}
                 <button
                   onClick={() => {
                     setGridTab("all");
@@ -214,7 +285,6 @@ export default function FloorplanView() {
                   <MapIcon size={14} /> Map
                 </button>
                 
-                {/* List Toggle */}
                 <button
                   onClick={() => {
                     setGridTab("all");

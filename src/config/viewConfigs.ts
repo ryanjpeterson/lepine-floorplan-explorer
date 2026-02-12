@@ -50,7 +50,7 @@ export const MAP_VIEW_SETTINGS = {
     padding: [50, 50] as PointExpression, 
 
     mobile: {
-      minZoomOffset: -0.5,
+      minZoomOffset: -1,
       maxZoomOffset: 1,
       padding: [0, 0] as PointExpression,
     }
