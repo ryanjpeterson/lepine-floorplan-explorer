@@ -46,9 +46,6 @@ export default function FloorplanView() {
     setIsMobileSidebarOpen(false);
   }, [activeFloor?.id]);
 
-  // REMOVED: The useEffect that previously triggered setIsMobileSidebarOpen(true) 
-  // automatically when activeUnit changed.
-
   if (!activeFloor) return null;
 
   const hasUnits = activeFloor.units && activeFloor.units.length > 0;
@@ -170,9 +167,10 @@ export default function FloorplanView() {
         <div className="z-[1001] bg-white/90 backdrop-blur-sm border-t border-slate-200 p-4 shrink-0">
           <div className="flex items-center justify-between gap-4 h-8"> 
             <div className="flex-1 flex justify-start">
+              {/* Back button is now hidden on mobile and only visible on lg screens */}
               <button
                 onClick={goBackToBuilding}
-                className="bg-[#102a43] text-white px-4 py-2 rounded-xl font-bold text-[10px] lg:text-xs transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer"
+                className="hidden lg:flex bg-[#102a43] text-white px-4 py-2 rounded-xl font-bold text-xs transition-all items-center gap-2 whitespace-nowrap cursor-pointer"
               >
                 <ArrowLeft size={14} /> Back
               </button>
