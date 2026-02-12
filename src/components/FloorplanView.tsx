@@ -4,6 +4,7 @@ import {
   Map as MapIcon,
   LayoutGrid,
   ArrowLeft,
+  Heart,
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
 import UnitMap from "./UnitMap";
@@ -28,6 +29,9 @@ export default function FloorplanView() {
     goBackToBuilding,
     activeTour,
     setActiveTour,
+    gridTab,
+    setGridTab,
+    favorites,
   } = useBuilding();
 
   const [isFloorMenuOpen, setIsFloorMenuOpen] = useState(false);
@@ -50,6 +54,8 @@ export default function FloorplanView() {
   if (!activeFloor) return null;
 
   const hasUnits = activeFloor.units && activeFloor.units.length > 0;
+  const favoritesCount = favorites.length;
+  const isFavoritesActive = gridTab === "favorites";
 
   const toggleSidebar = useCallback(() => {
     setIsDesktopSidebarOpen((prev) => !prev);
@@ -90,10 +96,8 @@ export default function FloorplanView() {
         />
       )}
 
-      {/* Main Content */}
       <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
         
-        {/* VIEW MODE: MAP - TOP OVERLAY (Floor Dropdown) */}
         {viewMode === "map" && (
           <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center pointer-events-none w-full px-4">
             <button
@@ -137,7 +141,6 @@ export default function FloorplanView() {
 
         {viewMode === "grid" && <UnitFilters />}
 
-        {/* Central Viewport */}
         <div className="flex-1 relative overflow-hidden flex flex-col min-h-0">
           <div className="flex-1 relative overflow-y-auto no-scrollbar">
             {viewMode === "map" ? (
@@ -181,6 +184,24 @@ export default function FloorplanView() {
             <div className="flex-1 flex justify-end">
               <div className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-xl">
                 <button
+                  disabled={favoritesCount === 0}
+                  onClick={() => {
+                    setGridTab(isFavoritesActive ? "all" : "favorites");
+                    setViewMode("grid");
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all border ${
+                    favoritesCount === 0
+                      ? "bg-transparent text-slate-300 border-transparent cursor-not-allowed"
+                      : isFavoritesActive
+                      ? "bg-rose-600 text-white border-rose-600 cursor-pointer shadow-sm"
+                      : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm"
+                  }`}
+                >
+                  <Heart size={14} fill={isFavoritesActive ? "currentColor" : "none"} />
+                  <span className="hidden sm:inline">({favoritesCount})</span>
+                </button>
+
+                <button
                   onClick={() => setViewMode("map")}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all cursor-pointer ${viewMode === "map" ? "bg-white text-[#102a43] shadow-sm" : "text-slate-400"}`}
                 >
@@ -211,7 +232,6 @@ export default function FloorplanView() {
         </div>
       )}
 
-      {/* Modals omitted for brevity */}
       <TourModal
         isOpen={!!activeTour}
         url={activeTour?.url}
