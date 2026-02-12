@@ -41,7 +41,6 @@ export default function FloorplanView() {
   const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false);
   const [recenterTrigger, setRecenterTrigger] = useState(0);
 
-  // Close the mobile drawer when switching floors
   useEffect(() => {
     setIsMobileSidebarOpen(false);
   }, [activeFloor?.id]);
@@ -52,22 +51,12 @@ export default function FloorplanView() {
   const favoritesCount = favorites.length;
   const isFavoritesActive = gridTab === "favorites";
 
-  const toggleSidebar = useCallback(() => {
-    setIsDesktopSidebarOpen((prev) => !prev);
-    setTimeout(() => {
-      setRecenterTrigger((prev) => prev + 1);
-    }, 500);
-  }, []);
-
   const handleUnitSelect = useCallback(
     (id: string) => {
       const wasClosed = !isDesktopSidebarOpen;
       selectUnit(id);
-      
-      // Always open the desktop sidebar on click
       setIsDesktopSidebarOpen(true);
       
-      // Explicitly trigger the mobile drawer ONLY on click
       if (window.innerWidth < 1024) {
         setIsMobileSidebarOpen(true);
       }
@@ -166,8 +155,10 @@ export default function FloorplanView() {
         {/* BOTTOM NAVIGATION BAR */}
         <div className="z-[1001] bg-white/90 backdrop-blur-sm border-t border-slate-200 p-4 shrink-0">
           <div className="flex items-center justify-between gap-4 h-8"> 
-            <div className="flex-1 flex justify-start">
-              {/* Back button is now hidden on mobile and only visible on lg screens */}
+            
+            {/* LEFT SECTION: Logo (Mobile) or Back Button (Desktop) */}
+            <div className="flex-1 flex justify-start items-center">
+              {/* Desktop-only Back Button */}
               <button
                 onClick={goBackToBuilding}
                 className="hidden lg:flex bg-[#102a43] text-white px-4 py-2 rounded-xl font-bold text-xs transition-all items-center gap-2 whitespace-nowrap cursor-pointer"
@@ -176,7 +167,8 @@ export default function FloorplanView() {
               </button>
             </div>
 
-            <div className="flex-[2] flex justify-center items-center h-full min-w-0">
+            {/* CENTER SECTION: Desktop Logo Only */}
+            <div className="flex flex-1 justify-center items-center h-full">
               <img 
                 src={data?.logo} 
                 alt={data?.name}
@@ -184,15 +176,18 @@ export default function FloorplanView() {
               />
             </div>
 
+            {/* RIGHT SECTION: View Toggle Container */}
             <div className="flex-1 flex justify-end">
               <div className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-xl">
+                
+                {/* Favorites Toggle */}
                 <button
                   disabled={favoritesCount === 0}
                   onClick={() => {
                     setGridTab(isFavoritesActive ? "all" : "favorites");
                     setViewMode("grid");
                   }}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all border ${
+                  className={`flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all border ${
                     favoritesCount === 0
                       ? "bg-transparent text-slate-300 border-transparent cursor-not-allowed"
                       : isFavoritesActive
@@ -204,15 +199,32 @@ export default function FloorplanView() {
                   <span className="hidden sm:inline">({favoritesCount})</span>
                 </button>
 
+                {/* Map Toggle */}
                 <button
-                  onClick={() => setViewMode("map")}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all cursor-pointer ${viewMode === "map" ? "bg-white text-[#102a43] shadow-sm" : "text-slate-400"}`}
+                  onClick={() => {
+                    setGridTab("all");
+                    setViewMode("map");
+                  }}
+                  className={`flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all cursor-pointer ${
+                    viewMode === "map" && !isFavoritesActive 
+                      ? "bg-white text-[#102a43] shadow-sm" 
+                      : "text-slate-400"
+                  }`}
                 >
                   <MapIcon size={14} /> Map
                 </button>
+                
+                {/* List Toggle */}
                 <button
-                  onClick={() => setViewMode("grid")}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all cursor-pointer ${viewMode === "grid" ? "bg-white text-[#102a43] shadow-sm" : "text-slate-400"}`}
+                  onClick={() => {
+                    setGridTab("all");
+                    setViewMode("grid");
+                  }}
+                  className={`flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all cursor-pointer ${
+                    viewMode === "grid" && !isFavoritesActive 
+                      ? "bg-white text-[#102a43] shadow-sm" 
+                      : "text-slate-400"
+                  }`}
                 >
                   <LayoutGrid size={14} /> List
                 </button>
@@ -224,9 +236,7 @@ export default function FloorplanView() {
 
       {hasUnits && (
         <div className="relative z-20">
-          <UnitSidebar
-            onOpenGallery={() => setIsGalleryOpen(true)}
-          />
+          <UnitSidebar onOpenGallery={() => setIsGalleryOpen(true)} />
           <UnitDrawer
             isOpen={isMobileSidebarOpen}
             onClose={() => setIsMobileSidebarOpen(false)}
