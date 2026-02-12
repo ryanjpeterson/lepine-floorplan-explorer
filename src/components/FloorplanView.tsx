@@ -41,15 +41,13 @@ export default function FloorplanView() {
   const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false);
   const [recenterTrigger, setRecenterTrigger] = useState(0);
 
+  // Close the mobile drawer when switching floors
   useEffect(() => {
     setIsMobileSidebarOpen(false);
   }, [activeFloor?.id]);
 
-  useEffect(() => {
-    if (activeUnit && window.innerWidth < 1024) {
-      setIsMobileSidebarOpen(true);
-    }
-  }, [activeUnit?.id]);
+  // REMOVED: The useEffect that previously triggered setIsMobileSidebarOpen(true) 
+  // automatically when activeUnit changed.
 
   if (!activeFloor) return null;
 
@@ -68,7 +66,14 @@ export default function FloorplanView() {
     (id: string) => {
       const wasClosed = !isDesktopSidebarOpen;
       selectUnit(id);
+      
+      // Always open the desktop sidebar on click
       setIsDesktopSidebarOpen(true);
+      
+      // Explicitly trigger the mobile drawer ONLY on click
+      if (window.innerWidth < 1024) {
+        setIsMobileSidebarOpen(true);
+      }
       
       if (wasClosed) {
         setTimeout(() => {
