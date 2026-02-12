@@ -1,3 +1,4 @@
+// src/config/viewConfigs.ts
 import { PointExpression } from "leaflet";
 import { BACKGROUND_FILL } from "./mapStyles";
 
@@ -7,6 +8,7 @@ export const MAP_VIEW_SETTINGS = {
   defaultBackground: BACKGROUND_FILL,
 
   building: {
+    // Desktop Defaults
     fitType: "cover",
     zoomControl: false,
     dragging: false,
@@ -16,6 +18,12 @@ export const MAP_VIEW_SETTINGS = {
     minZoomOffset: 0,
     maxZoomOffset: 0,
     padding: [0, 0] as PointExpression,
+
+    // Mobile Overrides
+    mobile: {
+      fitType: "contain",
+      padding: [0, 0] as PointExpression, // No padding to ensure it fits perfectly edge-to-edge
+    }
   },
 
   floorplan: {
@@ -25,9 +33,14 @@ export const MAP_VIEW_SETTINGS = {
     scrollWheelZoom: true,
     doubleClickZoom: true,
     touchZoom: true,
-    minZoomOffset: -0,
+    minZoomOffset: 0,
     maxZoomOffset: 2,
     padding: [20, 20] as PointExpression,
+
+    mobile: {
+      minZoomOffset: -1,
+      maxZoomOffset: 1,
+    }
   },
 };
 

@@ -17,12 +17,20 @@ const MapController: React.FC<MapControllerProps> = ({
   imageHeight,
 }) => {
   const map = useMap();
-  const config = (MAP_VIEW_SETTINGS as any)[mode];
 
   useEffect(() => {
-    if (!map || !config) return;
-
     const handleSizing = () => {
+      const baseConfig = (MAP_VIEW_SETTINGS as any)[mode];
+      if (!map || !baseConfig) return;
+
+      // Detect mobile (standard 768px breakpoint)
+      const isMobile = window.innerWidth < 768;
+      
+      // Merge mobile overrides if they exist for this mode
+      const config = isMobile && baseConfig.mobile 
+        ? { ...baseConfig, ...baseConfig.mobile } 
+        : baseConfig;
+
       map.invalidateSize({ animate: false });
       const container = map.getContainer();
 
@@ -35,8 +43,11 @@ const MapController: React.FC<MapControllerProps> = ({
         map.setMinZoom(coverZoom + config.minZoomOffset);
         map.setMaxZoom(coverZoom + config.maxZoomOffset);
       } else {
+        // Fits the floorplan SVG within the viewport
         map.fitBounds(bounds, { padding: config.padding, animate: false });
         const minZoom = map.getBoundsZoom(bounds);
+        
+        // Applies the -1 (zoom out further) or +1 (zoom in less) offsets on mobile
         map.setMinZoom(minZoom + config.minZoomOffset);
         map.setMaxZoom(minZoom + config.maxZoomOffset);
       }
@@ -50,7 +61,7 @@ const MapController: React.FC<MapControllerProps> = ({
       window.removeEventListener("resize", handleSizing);
       clearTimeout(timer);
     };
-  }, [map, mode, bounds, imageWidth, imageHeight, config]);
+  }, [map, mode, bounds, imageWidth, imageHeight]);
 
   return null;
 };
