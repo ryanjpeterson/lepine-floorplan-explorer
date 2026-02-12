@@ -19,7 +19,6 @@ export const MAP_VIEW_SETTINGS = {
     maxZoomOffset: 0,
     padding: [0, 0] as PointExpression,
 
-    // Mobile Overrides
     mobile: {
       fitType: "contain",
       padding: [0, 0] as PointExpression, // No padding to ensure it fits perfectly edge-to-edge
@@ -33,9 +32,9 @@ export const MAP_VIEW_SETTINGS = {
     scrollWheelZoom: true,
     doubleClickZoom: true,
     touchZoom: true,
-    minZoomOffset: 0,
-    maxZoomOffset: 2,
-    padding: [20, 20] as PointExpression,
+    minZoomOffset: -1,
+    maxZoomOffset: 1,
+    padding: [50, 50] as PointExpression,
 
     mobile: {
       minZoomOffset: -1,
