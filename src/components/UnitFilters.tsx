@@ -7,19 +7,26 @@ import {
   RotateCcw,
   Trash2,
 } from "lucide-react";
-// 1. Import the Unit type if you want to be stricter with feature keys
 import { Unit } from "../types/building";
 
 export default function UnitFilters() {
-  const { filters, setFilters, allUnits, gridTab, clearFavorites } =
-    useBuilding();
+  const { 
+    filters, 
+    setFilters, 
+    allUnits, 
+    gridTab, 
+    setGridTab, 
+    favorites, 
+    clearFavorites 
+  } = useBuilding();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const unitSqfts = allUnits.map((u: Unit) => u.sqft || 0);
   const minSqftLimit = unitSqfts.length > 0 ? Math.min(...unitSqfts) : 0;
   const maxSqftLimit = unitSqfts.length > 0 ? Math.max(...unitSqfts) : 5000;
 
-  // 2. Type the 'feature' parameter as a string to resolve error 7006
+  const favoritesCount = favorites.length;
+
   const handleCheckboxChange = (feature: string) => {
     setFilters((prev) => ({
       ...prev,
@@ -59,11 +66,17 @@ export default function UnitFilters() {
         <div className="flex items-center gap-2 text-[#102a43]">
           <Filter size={18} />
           <span className="text-sm font-bold">Filters</span>
-          {gridTab === "favorites" && (
-            <span className="ml-2 px-2 py-0.5 bg-rose-50 text-rose-600 text-[10px] font-bold rounded-full uppercase tracking-tighter cursor-pointer">
-              Favorites
-            </span>
-          )}
+          <button
+            disabled={favoritesCount === 0}
+            onClick={() => setGridTab(gridTab === "favorites" ? "all" : "favorites")}
+            className={`ml-2 px-2 py-0.5 rounded-full uppercase tracking-tighter text-[10px] font-bold transition-colors ${
+              favoritesCount === 0 
+                ? "bg-slate-100 text-slate-400 cursor-not-allowed" 
+                : "bg-rose-50 text-rose-600 cursor-pointer hover:bg-rose-100"
+            }`}
+          >
+            Favorites ({favoritesCount})
+          </button>
         </div>
         <div className="flex items-center gap-2">
           {gridTab === "favorites" && (

@@ -41,7 +41,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeFloorId, setActiveFloorId] = useState<string | null>(null);
-  const [activeId, setActiveId] = useState<string | null>(null); // Renamed from activeUnitId
+  const [activeId, setActiveId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState("map");
   const [gridTab, setGridTab] = useState("all");
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -80,6 +80,13 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
         setLoading(false);
       });
   }, []);
+
+  // Effect to switch back to grid view if favorites are cleared while viewing them
+  useEffect(() => {
+    if (gridTab === "favorites" && favorites.length === 0) {
+      setGridTab("all");
+    }
+  }, [favorites, gridTab]);
 
   const floors = useMemo(() => data?.config?.floors || [], [data]);
 
@@ -134,7 +141,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     setViewMode("map");
   }, [floors]);
 
-  const handleUnitSelect = useCallback((id: string) => { // Parameter renamed for consistency
+  const handleUnitSelect = useCallback((id: string) => {
     const unitData = allUnits.find((u) => u.id === id);
     if (unitData) {
       setActiveFloorId(unitData.floorId);
