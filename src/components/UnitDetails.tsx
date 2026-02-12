@@ -105,7 +105,7 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         {activeUnit.gallery && activeUnit.gallery.length > 0 && (
-          <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white bg-[#102a43]/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+          <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white bg-[#102a43]/40 backdrop-blur-md px-4 py-2 rounded-lg border border-white/10">
             <ImageIcon size={14} />
             <span className="text-[10px] font-bold uppercase tracking-wider">
               View Gallery
@@ -114,22 +114,24 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
         )}
       </div>
 
-      <div className="flex flex-col gap-3 mb-8">
+      <div className="grid grid-cols-2 gap-3 mb-8">
         <a
           href={activeUnit.pdf}
           target="_blank"
           rel="noreferrer"
-          className="w-full flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold py-4 rounded-xl hover:bg-[#1b3a5a] shadow-lg transition-all"
+          className="w-full flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold px-4 py-2 rounded-xl hover:bg-[#1b3a5a] shadow-lg transition-all text-center"
         >
-          <Download size={18} /> Download Floorplan
+          <Download size={18} className="shrink-0" /> 
+          <span className="text-xs lg:text-sm">Download PDF</span>
         </a>
 
         {activeUnit.virtualTour && (
           <button
             onClick={() => setActiveTour(activeUnit.virtualTour || null)}
-            className="w-full flex items-center justify-center gap-2 bg-white text-[#102a43] border-2 border-[#102a43] font-semibold py-4 rounded-xl hover:bg-slate-50 transition-all"
+            className="w-full flex items-center justify-center gap-2 bg-white text-[#102a43] border-2 border-[#102a43] font-semibold px-4 py-2 rounded-xl hover:bg-slate-50 transition-all text-center"
           >
-            <Eye size={18} /> Take Virtual Tour
+            <Eye size={18} className="shrink-0" /> 
+            <span className="text-xs lg:text-sm">Virtual Tour</span>
           </button>
         )}
       </div>

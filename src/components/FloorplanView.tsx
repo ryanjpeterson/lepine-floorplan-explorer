@@ -98,7 +98,7 @@ export default function FloorplanView() {
           <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center pointer-events-none w-full px-4">
             <button
               onClick={() => setIsFloorMenuOpen(!isFloorMenuOpen)}
-              className="flex items-center gap-3 bg-white text-[#102a43] px-6 py-3 rounded-xl shadow-xl border border-slate-200 hover:bg-slate-50 pointer-events-auto"
+              className="flex items-center gap-3 bg-white text-[#102a43] px-4 py-2 rounded-xl shadow-xl border border-slate-200 hover:bg-slate-50 pointer-events-auto"
             >
               <span className="text-sm font-bold">{activeFloor.name}</span>
               <ChevronDown
@@ -122,7 +122,7 @@ export default function FloorplanView() {
                     selectFloor(floor.id);
                     setIsFloorMenuOpen(false);
                   }}
-                  className={`px-4 py-2.5 rounded-xl text-left text-sm font-medium ${
+                  className={`p-2 rounded-xl text-left text-sm font-medium ${
                     activeFloor.id === floor.id
                       ? "bg-[#102a43] text-white"
                       : "text-slate-600 hover:bg-slate-100"
@@ -164,7 +164,7 @@ export default function FloorplanView() {
             <div className="flex-1 flex justify-start">
               <button
                 onClick={goBackToBuilding}
-                className="bg-[#102a43] text-white px-4 lg:px-5 py-2.5 rounded-xl font-bold text-[10px] lg:text-xs transition-all flex items-center gap-2 whitespace-nowrap"
+                className="bg-[#102a43] text-white px-4 py-2 rounded-xl font-bold text-[10px] lg:text-xs transition-all flex items-center gap-2 whitespace-nowrap"
               >
                 <ArrowLeft size={14} /> Back
               </button>
@@ -182,13 +182,13 @@ export default function FloorplanView() {
               <div className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-xl">
                 <button
                   onClick={() => setViewMode("map")}
-                  className={`flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all ${viewMode === "map" ? "bg-white text-[#102a43] shadow-sm" : "text-slate-400"}`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all ${viewMode === "map" ? "bg-white text-[#102a43] shadow-sm" : "text-slate-400"}`}
                 >
                   <MapIcon size={14} /> Map
                 </button>
                 <button
                   onClick={() => setViewMode("grid")}
-                  className={`flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all ${viewMode === "grid" ? "bg-white text-[#102a43] shadow-sm" : "text-slate-400"}`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all ${viewMode === "grid" ? "bg-white text-[#102a43] shadow-sm" : "text-slate-400"}`}
                 >
                   <LayoutGrid size={14} /> List
                 </button>
