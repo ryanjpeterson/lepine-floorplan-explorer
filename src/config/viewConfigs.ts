@@ -43,16 +43,20 @@ export const MAP_VIEW_SETTINGS = {
     scrollWheelZoom: false,
     doubleClickZoom: true,
     touchZoom: true,
+    zoom: 0,
     minZoomOffset: -0.5,    // Locks minimum zoom to the "fitted" size
     maxZoomOffset: 1,  // Prevents excessive zooming in
-    
-    // Internal buffer: SVG will stay 60px away from the edges
-    padding: [50, 50] as PointExpression, 
+        padding: [50, 50] as PointExpression, 
 
     mobile: {
       minZoomOffset: -1,
       maxZoomOffset: 1,
       padding: [0, 0] as PointExpression,
+      zoomControl: true,
+      dragging: true,
+      scrollWheelZoom: false,
+      doubleClickZoom: true,
+
     }
   },
 };
