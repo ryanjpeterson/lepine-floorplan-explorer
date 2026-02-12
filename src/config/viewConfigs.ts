@@ -1,5 +1,5 @@
 // src/config/viewConfigs.ts
-import { PointExpression } from "leaflet";
+import L, { PointExpression } from "leaflet";
 import { BACKGROUND_FILL } from "./mapStyles";
 
 export const MAP_VIEW_SETTINGS = {
@@ -7,8 +7,19 @@ export const MAP_VIEW_SETTINGS = {
   animationDuration: 0,
   defaultBackground: BACKGROUND_FILL,
 
+  // Shared MapContainer props moved from UnitMap.tsx
+  mapDefaults: {
+    crs: L.CRS.Simple,
+    attributionControl: false,
+    keyboard: false,
+    fadeAnimation: false,
+    zoomAnimation: false,
+    markerZoomAnimation: false,
+    maxBoundsViscosity: 1.0, // Ensures the map doesn't "bounce" outside of bounds
+    zoomSnap: 0,              // Allows for precise fractional zoom levels
+  },
+
   building: {
-    // Desktop Defaults
     fitType: "cover",
     zoomControl: false,
     dragging: false,
@@ -21,24 +32,27 @@ export const MAP_VIEW_SETTINGS = {
 
     mobile: {
       fitType: "contain",
-      padding: [0, 0] as PointExpression, // No padding to ensure it fits perfectly edge-to-edge
+      padding: [0, 0] as PointExpression,
     }
   },
 
   floorplan: {
-    fitType: "contain",
+    fitType: "contain", // Mandatory to fit SVG in both dimensions
     zoomControl: true,
     dragging: true,
-    scrollWheelZoom: true,
+    scrollWheelZoom: false,
     doubleClickZoom: true,
     touchZoom: true,
-    minZoomOffset: -1,
-    maxZoomOffset: 1,
-    padding: [50, 50] as PointExpression,
+    minZoomOffset: -0.5,    // Locks minimum zoom to the "fitted" size
+    maxZoomOffset: 1,  // Prevents excessive zooming in
+    
+    // Internal buffer: SVG will stay 60px away from the edges
+    padding: [50, 50] as PointExpression, 
 
     mobile: {
       minZoomOffset: -0.5,
       maxZoomOffset: 1,
+      padding: [0, 0] as PointExpression,
     }
   },
 };
