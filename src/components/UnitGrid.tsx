@@ -65,7 +65,7 @@ const UnitCard = memo<UnitCardProps>(
           />
           <button
             onClick={handleFavorite}
-            className={`absolute top-4 right-4 p-2.5 rounded-full backdrop-blur-md transition-all ${
+            className={`absolute top-4 right-4 p-2.5 rounded-full backdrop-blur-md transition-all cursor-pointer ${
               isPulsing ? "animate-fav-pulse" : ""
             } ${
               isFav
@@ -114,7 +114,7 @@ const UnitCard = memo<UnitCardProps>(
                 onSelectUnit(unit.id);
               }
             }}
-            className="mt-auto w-full py-3 rounded-xl bg-slate-50 text-[#102a43] text-[10px] sm:text-xs font-bold hover:bg-[#102a43] hover:text-white transition-all flex items-center justify-center gap-2"
+            className="mt-auto w-full py-3 rounded-xl bg-slate-50 text-[#102a43] text-[10px] sm:text-xs font-bold hover:bg-[#102a43] hover:text-white transition-all flex items-center justify-center gap-2 cursor-pointer"
           >
             View Details <ArrowRight size={14} />
           </button>

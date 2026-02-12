@@ -77,7 +77,7 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
         <div className="flex items-center gap-2">
           <button
             onClick={handleFavoriteClick}
-            className={`p-2 rounded-full transition-all ${
+            className={`cursor-pointer p-2 rounded-full transition-all ${
               isPulsing ? "animate-fav-pulse bg-rose-50" : ""
             } ${favorites.includes(activeUnit.id) ? "text-rose-500 bg-rose-50" : "text-slate-300 hover:bg-slate-50"}`}
           >
@@ -88,7 +88,7 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
           </button>
           <button
             onClick={onClose}
-            className="lg:hidden p-2 text-slate-400 hover:bg-slate-50 rounded-full"
+            className="lg:hidden p-2 text-slate-400 hover:bg-slate-50 rounded-full cursor-pointer"
           >
             <X size={22} />
           </button>
@@ -128,7 +128,7 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
         {activeUnit.virtualTour && (
           <button
             onClick={() => setActiveTour(activeUnit.virtualTour || null)}
-            className="w-full flex items-center justify-center gap-2 bg-white text-[#102a43] border-2 border-[#102a43] font-semibold px-4 py-2 rounded-xl hover:bg-slate-50 transition-all text-center"
+            className="w-full flex items-center justify-center gap-2 bg-white text-[#102a43] border-2 border-[#102a43] font-semibold px-4 py-2 rounded-xl hover:bg-slate-50 transition-all text-center cursor-pointer"
           >
             <Eye size={18} className="shrink-0" /> 
             <span className="text-xs lg:text-sm">Virtual Tour</span>

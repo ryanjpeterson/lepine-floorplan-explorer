@@ -60,7 +60,7 @@ export default function UnitFilters() {
           <Filter size={18} />
           <span className="text-sm font-bold">Filters</span>
           {gridTab === "favorites" && (
-            <span className="ml-2 px-2 py-0.5 bg-rose-50 text-rose-600 text-[10px] font-bold rounded-full uppercase tracking-tighter">
+            <span className="ml-2 px-2 py-0.5 bg-rose-50 text-rose-600 text-[10px] font-bold rounded-full uppercase tracking-tighter cursor-pointer">
               Favorites
             </span>
           )}
@@ -69,7 +69,7 @@ export default function UnitFilters() {
           {gridTab === "favorites" && (
             <button
               onClick={clearFavorites}
-              className="flex items-center gap-2 px-3 py-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-all text-xs font-bold mr-2"
+              className="flex items-center gap-2 px-3 py-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-all text-xs font-bold mr-2 cursor-pointer"
             >
               <Trash2 size={16} />
               <span className="hidden sm:inline">Clear All</span>
@@ -77,13 +77,13 @@ export default function UnitFilters() {
           )}
           <button
             onClick={resetFilters}
-            className="p-2 text-slate-400 hover:text-rose-500 transition-colors"
+            className="p-2 text-slate-400 hover:text-rose-500 transition-colors cursor-pointer"
           >
             <RotateCcw size={18} />
           </button>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="p-2 bg-slate-100 rounded-lg text-slate-600 hover:bg-slate-200 transition-all"
+            className="p-2 bg-slate-100 rounded-lg text-slate-600 hover:bg-slate-200 transition-all cursor-pointer"
           >
             {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </button>
@@ -108,7 +108,7 @@ export default function UnitFilters() {
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setFilters({ ...filters, beds: e.target.value })
                 }
-                className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-[#102a43] focus:ring-2 focus:ring-[#102a43]/10 outline-none"
+                className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-[#102a43] focus:ring-2 focus:ring-[#102a43]/10 outline-none cursor-pointer"
               >
                 <option value="All">All Beds</option>
                 {[1, 2, 3, 4].map((n) => (
@@ -128,7 +128,7 @@ export default function UnitFilters() {
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setFilters({ ...filters, baths: e.target.value })
                 }
-                className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-[#102a43] focus:ring-2 focus:ring-[#102a43]/10 outline-none"
+                className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-[#102a43] focus:ring-2 focus:ring-[#102a43]/10 outline-none cursor-pointer"
               >
                 <option value="All">All Baths</option>
                 {[1, 1.5, 2, 2.5, 3].map((n) => (
@@ -162,7 +162,7 @@ export default function UnitFilters() {
 
             <button
               onClick={resetFilters}
-              className="hidden lg:flex items-center gap-2 text-slate-400 hover:text-rose-500 transition-colors text-xs font-bold py-2 px-3"
+              className="hidden lg:flex items-center gap-2 text-slate-400 hover:text-rose-500 transition-colors text-xs font-bold py-2 px-4 cursor-pointer"
             >
               <RotateCcw size={14} /> Reset
             </button>
