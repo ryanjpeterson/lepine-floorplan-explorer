@@ -41,7 +41,7 @@ export const MAP_VIEW_SETTINGS = {
     zoomControl: true,
     dragging: true,
     scrollWheelZoom: false,
-    doubleClickZoom: true,
+    doubleClickZoom: false,
     touchZoom: true,
     zoom: 0,
     minZoomOffset: -0.5,    // Locks minimum zoom to the "fitted" size
