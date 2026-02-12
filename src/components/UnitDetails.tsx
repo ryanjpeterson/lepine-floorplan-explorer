@@ -65,7 +65,7 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
 
   return (
     <div className="flex-1 overflow-y-auto no-scrollbar px-6 lg:p-8">
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex items-start justify-between mb-4">
         <div>
           <h3 className="text-xl lg:text-2xl font-bold text-slate-900 leading-tight">
             {activeUnit.title}
@@ -97,7 +97,7 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
 
       <div
         onClick={activeUnit.gallery && activeUnit.gallery.length > 0 ? onOpenGallery : undefined}
-        className={`mb-8 relative rounded-xl overflow-hidden shadow-lg aspect-video ${activeUnit.gallery && activeUnit.gallery.length > 0 ? "cursor-pointer group" : ""}`}
+        className={`mb-4 relative rounded-xl overflow-hidden shadow-lg aspect-video ${activeUnit.gallery && activeUnit.gallery.length > 0 ? "cursor-pointer group" : ""}`}
       >
         <img
           src={activeUnit.image}
@@ -114,12 +114,12 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-3 mb-8">
+      <div className="grid grid-cols-2 gap-4 mb-4">
         <a
           href={activeUnit.pdf}
           target="_blank"
           rel="noreferrer"
-          className={`flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold px-4 py-2 rounded-xl hover:bg-[#1b3a5a] shadow-lg transition-all text-center ${
+          className={`flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold p-4 rounded-xl hover:bg-[#1b3a5a] shadow-lg transition-all text-center ${
             !activeUnit.virtualTour ? "col-span-2" : "w-full"
           }`}
         >
@@ -130,7 +130,7 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
         {activeUnit.virtualTour && (
           <button
             onClick={() => setActiveTour(activeUnit.virtualTour || null)}
-            className="w-full flex items-center justify-center gap-2 bg-white text-[#102a43] border-2 border-[#102a43] font-semibold px-4 py-2 rounded-xl hover:bg-slate-50 transition-all text-center cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 bg-white text-[#102a43] border-2 border-[#102a43] font-semibold p-4 rounded-xl hover:bg-slate-50 transition-all text-center cursor-pointer"
           >
             <Eye size={18} className="shrink-0" /> 
             <span className="text-xs lg:text-sm">Virtual Tour</span>
@@ -138,7 +138,11 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
         )}
       </div>
 
-      <div className="space-y-6 mb-8">
+
+
+      <div className="space-y-6 mb-4">
+        <div className="h-px w-full" />
+
         <div className="flex flex-wrap justify-between gap-4">
           {["sqft", "numOfBeds", "numOfBaths"].map((key) => {
             const Config = attributeIcons[key];
