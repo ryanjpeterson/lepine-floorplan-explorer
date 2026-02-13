@@ -81,8 +81,11 @@
             "barrierFree": false,
             "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
             "gallery": [
-              "https://images.unsplash.com/photo-1484154218962-a197022b5858",
-              "https://images.unsplash.com/photo-1522770179533-24471fcdba45"
+              "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1560448204-616b341f16f9?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1560185043-dddd440a00a1?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1556912167-4500130e30ee?auto=format&fit=crop&w=800&q=80"
             ],
             "virtualTour": {
               "label": "Suite 201 Virtual Tour",
@@ -92,7 +95,6 @@
             "builtIns": true,
             "juliet": false,
             "modelSuite": false,
-            "isFeatured": true,
             "description": "This expansive 2-bedroom + office apartment offers 1,132 sq. ft. of thoughtfully designed, open-concept living, complete with a private balcony."
           },
           {
@@ -112,13 +114,17 @@
             "barrierFree": true,
             "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
             "pdf": "/assets/floorplan.pdf",
-            "onHoldExpires": null,
-            "status": "Leased",
             "builtIns": false,
             "juliet": true,
             "modelSuite": false,
-            "isFeatured": false,
-            "description": "Modern open-concept living space."
+            "description": "Modern open-concept living space.",
+            "gallery": [
+              "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1536376074432-8d240d71b675?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1515263487990-61f08bd0960c?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1522770179533-24471fcdba45?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=800&q=80"
+            ]
           },
           {
             "id": "203",
@@ -137,8 +143,11 @@
             "barrierFree": false,
             "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
             "gallery": [
-              "https://images.unsplash.com/photo-1484154218962-a197022b5858",
-              "https://images.unsplash.com/photo-1522770179533-24471fcdba45"
+              "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1499916156339-bcdd5227e7f6?auto=format&fit=crop&w=800&q=80"
             ],
             "virtualTour": {
               "label": "Suite 203 Virtual Tour",
@@ -148,7 +157,6 @@
             "builtIns": true,
             "juliet": false,
             "modelSuite": false,
-            "isFeatured": true,
             "description": "This expansive 2-bedroom + office apartment offers 1,132 sq. ft. of thoughtfully designed, open-concept living."
           },
           {
@@ -168,15 +176,16 @@
             "barrierFree": false,
             "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
             "gallery": [
-              "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
-              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6"
+              "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80"
             ],
             "pdf": "/assets/floorplan.pdf",
-            "status": "Available",
             "builtIns": true,
             "juliet": false,
             "modelSuite": true,
-            "isFeatured": true,
             "description": "A premium 3-bedroom layout featuring a massive terrace and luxury built-ins."
           },
           {
@@ -196,14 +205,16 @@
             "barrierFree": true,
             "image": "https://images.unsplash.com/photo-1536376074432-8d240d71b675?auto=format&fit=crop&w=800&q=80",
             "gallery": [
-              "https://images.unsplash.com/photo-1554995207-c18c203602cb"
+              "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1515263487990-61f08bd0960c?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1556912167-4500130e30ee?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1556912177-c54030639840?auto=format&fit=crop&w=800&q=80"
             ],
             "pdf": "/assets/floorplan.pdf",
-            "status": "Available",
             "builtIns": false,
             "juliet": true,
             "modelSuite": false,
-            "isFeatured": false,
             "description": "Efficient urban living with a dedicated den space and barrier-free access."
           },
           {
@@ -223,14 +234,16 @@
             "barrierFree": false,
             "image": "https://images.unsplash.com/photo-1499916156339-bcdd5227e7f6?auto=format&fit=crop&w=800&q=80",
             "gallery": [
-              "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85"
+              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1556912177-c54030639840?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1560448204-616b341f16f9?auto=format&fit=crop&w=800&q=80"
             ],
             "pdf": "/assets/floorplan.pdf",
-            "status": "On Hold",
             "builtIns": true,
             "juliet": false,
             "modelSuite": false,
-            "isFeatured": false,
             "description": "Bright 2-bedroom suite with a spacious pantry and walk-in closets."
           },
           {
@@ -250,14 +263,16 @@
             "barrierFree": false,
             "image": "https://images.unsplash.com/photo-1505691938895-1758d7eaa511?auto=format&fit=crop&w=800&q=80",
             "gallery": [
-              "https://images.unsplash.com/photo-1460317442991-0ec209397118"
+              "https://images.unsplash.com/photo-1556912173-3bb8b39c0a48?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=800&q=80"
             ],
             "pdf": "/assets/floorplan.pdf",
-            "status": "Available",
             "builtIns": true,
             "juliet": true,
             "modelSuite": false,
-            "isFeatured": true,
             "description": "Spacious executive living with both a balcony and a Juliet railing."
           },
           {
@@ -277,14 +292,16 @@
             "barrierFree": true,
             "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
             "gallery": [
-              "https://images.unsplash.com/photo-1556912177-c54030639840"
+              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80"
             ],
             "pdf": "/assets/floorplan.pdf",
-            "status": "Available",
             "builtIns": false,
             "juliet": false,
             "modelSuite": false,
-            "isFeatured": false,
             "description": "Cozy 1-bedroom unit perfect for professionals, featuring accessible design."
           }
         ]
@@ -336,19 +353,218 @@
             "barrierFree": false,
             "image": "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80",
             "gallery": [
-              "https://images.unsplash.com/photo-1501183007986-d0d080b147f9",
-              "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1"
+              "https://images.unsplash.com/photo-1556912167-4500130e30ee?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1582266255075-d8129372a09c?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1556912177-c54030639840?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?auto=format&fit=crop&w=800&q=80"
             ],
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": false,
             "modelSuite": false,
-            "isFeatured": true,
             "virtualTour": {
               "label": "Suite 301 Virtual Tour",
               "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
             },
             "description": "Premium corner unit on the 3rd floor."
+          },
+          {
+            "id": "302",
+            "title": "Unit 302",
+            "type": "Studio Plus",
+            "model": "The Ottawa",
+            "sqft": 1490,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "balcony": true,
+            "tub": false,
+            "pantry": false,
+            "terrace": false,
+            "officeDen": false,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1556912173-3bb8b39c0a48?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1512918766775-da41de3e738d?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=800&q=80"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "builtIns": true,
+            "juliet": true,
+            "modelSuite": false,
+            "description": "Beautiful 1-bedroom layout with approximately 1490 sq. ft. of modern living space."
+          },
+          {
+            "id": "303",
+            "title": "Unit 303",
+            "type": "Executive Suite",
+            "model": "The Opeongo",
+            "sqft": 1350,
+            "numOfBeds": 3,
+            "numOfBaths": 2,
+            "balcony": false,
+            "tub": true,
+            "pantry": true,
+            "terrace": true,
+            "officeDen": true,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1502672023488-70e25813efdf",
+              "https://images.unsplash.com/photo-1560185127-6ed189bf02f4",
+              "https://images.unsplash.com/photo-1556912167-4500130e30ee",
+              "https://images.unsplash.com/photo-1512918583167-27380bb74ada"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "builtIns": true,
+            "juliet": true,
+            "modelSuite": true,
+            "description": "Spacious 3-bedroom unit with dual balconies."
+          },
+          {
+            "id": "304",
+            "title": "Unit 304",
+            "type": "Standard Suite",
+            "model": "The Renfrew",
+            "sqft": 720,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "balcony": true,
+            "tub": false,
+            "pantry": false,
+            "terrace": false,
+            "officeDen": false,
+            "walkInCloset": false,
+            "barrierFree": true,
+            "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1556912173-3bb8b39c0a48",
+              "https://images.unsplash.com/photo-1501183007986-d0d080b147f9",
+              "https://images.unsplash.com/photo-1527030280862-64139fba04ca",
+              "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "builtIns": false,
+            "juliet": false,
+            "modelSuite": false,
+            "description": "Cozy studio-style living."
+          },
+          {
+            "id": "305",
+            "title": "Unit 305",
+            "type": "Penthouse Lite",
+            "model": "The Calabogie",
+            "sqft": 1480,
+            "numOfBeds": 3,
+            "numOfBaths": 2,
+            "balcony": true,
+            "tub": true,
+            "pantry": true,
+            "terrace": true,
+            "officeDen": false,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1560448204-616b341f16f9",
+              "https://images.unsplash.com/photo-1502005075163-5d557d9be19b",
+              "https://images.unsplash.com/photo-1505691938895-1758d7eaa511",
+              "https://images.unsplash.com/photo-1460317442991-0ec209397118"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": false,
+            "description": "Luxury layout with high ceilings."
+          },
+          {
+            "id": "306",
+            "title": "Unit 306",
+            "type": "Standard Suite",
+            "model": "The Ottawa",
+            "sqft": 980,
+            "numOfBeds": 2,
+            "numOfBaths": 1,
+            "balcony": true,
+            "tub": true,
+            "pantry": false,
+            "terrace": false,
+            "officeDen": true,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1512918766775-da41de3e738d",
+              "https://images.unsplash.com/photo-1582266255075-d8129372a09c",
+              "https://images.unsplash.com/photo-1515263487990-61f08bd0960c",
+              "https://images.unsplash.com/photo-1499916156339-bcdd5227e7f6"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "builtIns": false,
+            "juliet": true,
+            "modelSuite": false,
+            "description": "Classic 2-bedroom design."
+          },
+          {
+            "id": "307",
+            "title": "Unit 307",
+            "type": "Studio Plus",
+            "model": "The Madawaska",
+            "sqft": 810,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "balcony": false,
+            "tub": false,
+            "pantry": true,
+            "terrace": false,
+            "officeDen": true,
+            "walkInCloset": false,
+            "barrierFree": true,
+            "image": "https://images.unsplash.com/photo-1536376074432-8d240d71b675?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1554995207-c18c203602cb",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": false,
+            "description": "Efficient use of space."
+          },
+          {
+            "id": "308",
+            "title": "Unit 308",
+            "type": "Executive Suite",
+            "model": "The Bonnechere",
+            "sqft": 1290,
+            "numOfBeds": 2,
+            "numOfBaths": 2,
+            "balcony": true,
+            "tub": true,
+            "pantry": true,
+            "terrace": false,
+            "officeDen": true,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1505691938895-1758d7eaa511?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1512918583167-27380bb74ada",
+              "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1",
+              "https://images.unsplash.com/photo-1512918766775-da41de3e738d",
+              "https://images.unsplash.com/photo-1493809842364-78817add7ffb"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "builtIns": true,
+            "juliet": true,
+            "modelSuite": false,
+            "description": "Premium finishings throughout."
           }
         ]
       },
@@ -387,6 +603,34 @@
         ],
         "units": [
           {
+            "id": "401",
+            "title": "Unit 401",
+            "type": "Standard Suite",
+            "model": "The Gatineau",
+            "sqft": 1050,
+            "numOfBeds": 2,
+            "numOfBaths": 1,
+            "balcony": true,
+            "tub": true,
+            "pantry": false,
+            "terrace": false,
+            "officeDen": false,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1556912167-4500130e30ee?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1560448204-616b341f16f9",
+              "https://images.unsplash.com/photo-1502005075163-5d557d9be19b",
+              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": false,
+            "description": "Bright 4th floor corner unit."
+          },
+          {
             "id": "402",
             "title": "Unit 402",
             "type": "Standard Suite",
@@ -406,8 +650,124 @@
             "builtIns": false,
             "juliet": true,
             "modelSuite": false,
-            "isFeatured": false,
-            "description": "Modern open-concept living space."
+            "description": "Modern open-concept living space.",
+            "gallery": [
+              "https://images.unsplash.com/photo-1515263487990-61f08bd0960c",
+              "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85",
+              "https://images.unsplash.com/photo-1556912173-3bb8b39c0a48",
+              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6"
+            ]
+          },
+          {
+            "id": "403",
+            "title": "Unit 403",
+            "type": "Studio Plus",
+            "model": "The Renfrew",
+            "sqft": 690,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "balcony": false,
+            "pantry": false,
+            "image": "https://images.unsplash.com/photo-1536376074432-8d240d71b675?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1527030280862-64139fba04ca",
+              "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
+              "https://images.unsplash.com/photo-1512918766775-da41de3e738d",
+              "https://images.unsplash.com/photo-1501183007986-d0d080b147f9"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Efficient city living."
+          },
+          {
+            "id": "404",
+            "title": "Unit 404",
+            "type": "Executive Suite",
+            "model": "The Bonnechere",
+            "sqft": 1310,
+            "numOfBeds": 2,
+            "numOfBaths": 2,
+            "balcony": true,
+            "image": "https://images.unsplash.com/photo-1505691938895-1758d7eaa511?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1560185127-6ed189bf02f4",
+              "https://images.unsplash.com/photo-1556912167-4500130e30ee",
+              "https://images.unsplash.com/photo-1502672023488-70e25813efdf",
+              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Spacious executive floor."
+          },
+          {
+            "id": "405",
+            "title": "Unit 405",
+            "type": "Standard Suite",
+            "model": "The Madawaska",
+            "sqft": 1100,
+            "numOfBeds": 2,
+            "numOfBaths": 2,
+            "image": "https://images.unsplash.com/photo-1499916156339-bcdd5227e7f6?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+              "https://images.unsplash.com/photo-1554995207-c18c203602cb",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Beautiful 2-bed suite."
+          },
+          {
+            "id": "406",
+            "title": "Unit 406",
+            "type": "Penthouse Lite",
+            "model": "The Calabogie",
+            "sqft": 1450,
+            "numOfBeds": 3,
+            "numOfBaths": 2,
+            "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1523217582562-09d0def993a6",
+              "https://images.unsplash.com/photo-1460317442991-0ec209397118",
+              "https://images.unsplash.com/photo-1582266255075-d8129372a09c",
+              "https://images.unsplash.com/photo-1560448204-616b341f16f9"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Premium top-tier living."
+          },
+          {
+            "id": "407",
+            "title": "Unit 407",
+            "type": "Standard Suite",
+            "model": "The Ottawa",
+            "sqft": 920,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1",
+              "https://images.unsplash.com/photo-1515263487990-61f08bd0960c",
+              "https://images.unsplash.com/photo-1556912173-3bb8b39c0a48",
+              "https://images.unsplash.com/photo-1502005075163-5d557d9be19b"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Perfect for singles."
+          },
+          {
+            "id": "408",
+            "title": "Unit 408",
+            "type": "Studio Plus",
+            "model": "The Opeongo",
+            "sqft": 750,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1536376074432-8d240d71b675",
+              "https://images.unsplash.com/photo-1512918583167-27380bb74ada",
+              "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
+              "https://images.unsplash.com/photo-1527030280862-64139fba04ca"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Modern studio."
           }
         ]
       },
@@ -444,6 +804,24 @@
         ],
         "units": [
           {
+            "id": "501",
+            "title": "Unit 501",
+            "type": "Penthouse Lite",
+            "model": "The Gatineau",
+            "sqft": 1490,
+            "numOfBeds": 3,
+            "numOfBaths": 2,
+            "image": "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6",
+              "https://images.unsplash.com/photo-1502672023488-70e25813efdf",
+              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Top floor luxury."
+          },
+          {
             "id": "502",
             "title": "Unit 502",
             "type": "Standard Suite",
@@ -463,8 +841,121 @@
             "builtIns": false,
             "juliet": true,
             "modelSuite": false,
-            "isFeatured": false,
-            "description": "Modern open-concept living space."
+            "description": "Modern open-concept living space.",
+            "gallery": [
+              "https://images.unsplash.com/photo-1560185043-dddd440a00a1",
+              "https://images.unsplash.com/photo-1556912167-4500130e30ee",
+              "https://images.unsplash.com/photo-1501183007986-d0d080b147f9",
+              "https://images.unsplash.com/photo-1527030280862-64139fba04ca"
+            ]
+          },
+          {
+            "id": "503",
+            "title": "Unit 503",
+            "type": "Standard Suite",
+            "model": "The Opeongo",
+            "sqft": 880,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+              "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+              "https://images.unsplash.com/photo-1554995207-c18c203602cb",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Beautiful 5th floor views."
+          },
+          {
+            "id": "504",
+            "title": "Unit 504",
+            "type": "Executive Suite",
+            "model": "The Bonnechere",
+            "sqft": 1350,
+            "numOfBeds": 3,
+            "numOfBaths": 2,
+            "image": "https://images.unsplash.com/photo-1505691938895-1758d7eaa511?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1523217582562-09d0def993a6",
+              "https://images.unsplash.com/photo-1460317442991-0ec209397118",
+              "https://images.unsplash.com/photo-1582266255075-d8129372a09c",
+              "https://images.unsplash.com/photo-1560448204-616b341f16f9"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Large executive layout."
+          },
+          {
+            "id": "505",
+            "title": "Unit 505",
+            "type": "Corner Suite",
+            "model": "The Madawaska",
+            "sqft": 1150,
+            "numOfBeds": 2,
+            "numOfBaths": 2,
+            "image": "https://images.unsplash.com/photo-1499916156339-bcdd5227e7f6?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1",
+              "https://images.unsplash.com/photo-1515263487990-61f08bd0960c",
+              "https://images.unsplash.com/photo-1556912173-3bb8b39c0a48",
+              "https://images.unsplash.com/photo-1502005075163-5d557d9be19b"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Corner suite with balcony."
+          },
+          {
+            "id": "506",
+            "title": "Unit 506",
+            "type": "Studio Plus",
+            "model": "The Renfrew",
+            "sqft": 710,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "image": "https://images.unsplash.com/photo-1536376074432-8d240d71b675?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1501183007986-d0d080b147f9",
+              "https://images.unsplash.com/photo-1527030280862-64139fba04ca",
+              "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
+              "https://images.unsplash.com/photo-1512918766775-da41de3e738d"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "High floor studio."
+          },
+          {
+            "id": "507",
+            "title": "Unit 507",
+            "type": "Standard Suite",
+            "model": "The Ottawa",
+            "sqft": 990,
+            "numOfBeds": 2,
+            "numOfBaths": 2,
+            "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1512918583167-27380bb74ada",
+              "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1",
+              "https://images.unsplash.com/photo-1515263487990-61f08bd0960c",
+              "https://images.unsplash.com/photo-1556912173-3bb8b39c0a48"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Modern 2-bed suite."
+          },
+          {
+            "id": "508",
+            "title": "Unit 508",
+            "type": "Executive Suite",
+            "model": "The Calabogie",
+            "sqft": 1400,
+            "numOfBeds": 3,
+            "numOfBaths": 2,
+            "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6",
+              "https://images.unsplash.com/photo-1502672023488-70e25813efdf",
+              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "description": "Expansive top-floor living."
           }
         ]
       }
