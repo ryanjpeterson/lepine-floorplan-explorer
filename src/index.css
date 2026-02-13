@@ -76,11 +76,6 @@ body,
   scrollbar-width: none;
 }
 
-/* Map & UI Overrides */
-.bg-midnight-900 {
-  background-color: #102a43 !important;
-}
-
 .polygon-label {
   background: transparent !important;
   border: none !important;
@@ -121,25 +116,25 @@ body,
 }
 
 /* Debug Red Mode */
-.unit-interactive {
+.unit-interactive, .unit-interactive path, .unit-interactive polygon {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  fill: #ef4444; 
-  fill-opacity: 0.25;
-  stroke: #b91c1c;
+  fill: #d9e2ec; 
+  fill-opacity: 1;
+  stroke: #ffffff;
   stroke-width: 1px;
 }
 
-.unit-interactive:hover {
-  fill: #dc2626;
-  fill-opacity: 0.5;
+.unit-interactive:hover, .unit-interactive:hover path, .unit-interactive:hover polygon {
+  fill: #102a43;
+  fill-opacity: 1;
   stroke: #ffffff;
-  stroke-width: 2px;
+  stroke-width: 1px;
 }
 
-.unit-active {
-  fill: #991b1b !important;
-  fill-opacity: 0.7 !important;
+.unit-active, .unit-active path, .unit-active polygon {
+  fill: #243b53 !important;
+  fill-opacity: 1 !important;
   stroke: #ffffff !important;
-  stroke-width: 4px !important;
+  stroke-width: 1px !important;
 }

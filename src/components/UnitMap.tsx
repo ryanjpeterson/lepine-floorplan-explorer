@@ -17,8 +17,8 @@ const ResizeHandler = ({ config }: { config: FloorConfig }) => {
     const wrapper = instance.wrapperComponent;
     if (!wrapper) return;
 
-    // 1. Define your desired padding (e.g., 24px on each side)
-    const padding = 48; 
+    // 1. Define your desired padding (e.g., 48px on each side)
+    const padding = 48 * 2; 
 
     // 2. Calculate available space minus padding
     const availableWidth = Math.max(wrapper.offsetWidth - padding, 0);
@@ -72,13 +72,13 @@ export default function UnitMap({
       >
         {(utils) => {
           // Dynamic fit for the manual recenter button
-          const manualRecenter = () => {
+          const handleManualRecenter = () => {
             const wrapper = utils.instance.wrapperComponent;
             if (wrapper) {
-              const padding = 48;
+              const PADDING_BUFFER = 48 * 2;
               const scale = Math.min(
-                (wrapper.offsetWidth - padding) / SVG_WIDTH,
-                (wrapper.offsetHeight - padding) / SVG_HEIGHT
+                (wrapper.offsetWidth - PADDING_BUFFER) / SVG_WIDTH,
+                (wrapper.offsetHeight - PADDING_BUFFER) / SVG_HEIGHT
               );
               utils.centerView(scale, 300);
             }
@@ -98,7 +98,7 @@ export default function UnitMap({
                   className="w-10 h-10 bg-slate-800/90 backdrop-blur text-white rounded-lg border border-slate-700 hover:bg-slate-700 transition-all font-bold shadow-xl"
                 > − </button>
                 <button 
-                  onClick={manualRecenter} 
+                  onClick={handleManualRecenter} 
                   className="w-10 h-10 bg-slate-800/90 backdrop-blur text-white rounded-lg border border-slate-700 hover:bg-slate-700 transition-all shadow-xl"
                 > ⟲ </button>
               </div>
@@ -124,12 +124,26 @@ export default function UnitMap({
                       svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
                       
                       units.forEach(unit => {
+                        // Supports multiple ID formats commonly found in exported SVGs
                         const element = svg.querySelector(
                           `[id="${unit.id}"], [data-name="${unit.id}"], [id="_${unit.id}"]`
-                        );
+                        ) as SVGElement | null; // Cast to SVGElement to access style/attributes
+                        
                         if (element) {
+                          element.removeAttribute('style');
+                          element.removeAttribute('fill');
+
+                          const children = element.querySelectorAll('path, polygon, rect, circle');
+                            children.forEach(child => {
+                              child.removeAttribute('style');
+                              child.removeAttribute('fill');
+                          });
+
                           element.classList.add('unit-interactive');
-                          if (unit.id === activeId) element.classList.add('unit-active');
+                          if (unit.id === activeId) {
+                            element.classList.add('unit-active');
+                          }
+                          
                           element.addEventListener('click', (e) => {
                             e.stopPropagation();
                             onSelect(unit);
