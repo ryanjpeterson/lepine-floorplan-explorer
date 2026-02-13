@@ -80,7 +80,7 @@ export default function UnitMap({
                 (wrapper.offsetWidth - PADDING_BUFFER) / SVG_WIDTH,
                 (wrapper.offsetHeight - PADDING_BUFFER) / SVG_HEIGHT
               );
-              utils.centerView(scale, 300);
+              utils.centerView(scale, 400);
             }
           };
 
