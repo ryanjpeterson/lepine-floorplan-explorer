@@ -3,11 +3,6 @@ export interface Tour {
   label: string;
 }
 
-export interface AmenityTour extends Tour {
-  id: string;
-  position: [number, number];
-}
-
 export interface FloorConfig {
   url: string;
   width: number;
@@ -38,7 +33,6 @@ export interface Floor {
   name: string;
   config: FloorConfig;
   units: Unit[];
-  amenityTours?: AmenityTour[];
   polygon: [number, number][];
 }
 
