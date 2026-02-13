@@ -2,35 +2,30 @@ import React, { memo } from "react";
 import { Polygon, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import { POLYGON_STYLES } from "../config/mapStyles";
-// 1. Import the Unit type to resolve implicit 'any' and property access errors
 import { Unit } from "../types/building";
 
-// 2. Define an interface for the component props to solve errors 2339
 interface UnitPolygonProps {
   unit: Unit;
   isActive: boolean;
   onSelect: (unit: Unit) => void;
+  positions: [number, number][];
 }
 
-// 3. Apply the interface to React.memo to ensure properties exist on the destructured object
-const UnitPolygon = memo<UnitPolygonProps>(({ unit, isActive, onSelect }) => {
-  const currentStyle = isActive
-    ? POLYGON_STYLES.active
-    : POLYGON_STYLES.inactive;
+const UnitPolygon = memo<UnitPolygonProps>(({ unit, isActive, onSelect, positions }) => {
+  // If no matching ID was found in the SVG, do not render
+  if (!positions || positions.length === 0) return null;
 
-  // Fix: Swap [x, y] to [lat, lng]
-  const leafletCoordinates = unit.polygon.map((point) => [point[1], point[0]] as [number, number]);
+  const currentStyle = isActive ? POLYGON_STYLES.active : POLYGON_STYLES.inactive;
 
   return (
     <Polygon
-      positions={leafletCoordinates}
+      positions={positions}
       pathOptions={currentStyle}
       eventHandlers={{
         click: (e: L.LeafletMouseEvent) => {
           L.DomEvent.stopPropagation(e);
           onSelect(unit);
         },
-        // 5. Explicitly typing event parameters as a best practice
         mouseover: (e: L.LeafletMouseEvent) => e.target.setStyle(POLYGON_STYLES.hover),
         mouseout: (e: L.LeafletMouseEvent) => e.target.setStyle(currentStyle),
       }}
