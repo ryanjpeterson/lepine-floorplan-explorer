@@ -42,7 +42,7 @@ export default function UnitDrawer({ isOpen, onClose, onOpenGallery }: UnitDrawe
       onClick={onClose}
     >
       <div
-        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] max-h-[90vh] flex flex-col transition-transform ${
+        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] max-h-[90dvh] flex flex-col transition-transform ${
           isDragging ? "duration-0" : "duration-500 ease-out"
         } ${isOpen ? "translate-y-0" : "translate-y-full"}`}
         style={{
