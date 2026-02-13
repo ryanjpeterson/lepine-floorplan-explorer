@@ -163,7 +163,7 @@ export default function FloorplanView() {
   const bgImageUrl = data?.config?.url;
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen w-full overflow-hidden relative bg-slate-50 font-['Jost']">
+    <div className="flex flex-col lg:flex-row h-[100dvh] w-full overflow-hidden relative bg-slate-50 font-['Jost']">
       {bgImageUrl && (
         <div 
           className="absolute inset-0 z-0 pointer-events-none opacity-25"
