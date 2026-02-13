@@ -142,7 +142,7 @@ export default function FloorplanView() {
       <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
         
         {/* TOP NAVIGATION HEADER */}
-        <div className="z-[1001] bg-white/90 backdrop-blur-sm border-b border-slate-200 p-3 shrink-0">
+        <div className="z-[1001] bg-white backdrop-blur-sm border-b border-slate-200 p-3 shrink-0">
           <div className="flex items-center justify-between gap-2 h-10">
             
             {/* Left: Back Button (Desktop only) */}
@@ -241,7 +241,7 @@ export default function FloorplanView() {
         </div>
 
         {/* BOTTOM LOGO BAR */}
-        <div className="z-[1001] bg-white/90 backdrop-blur-sm border-t border-slate-200 p-4 shrink-0">
+        <div className="z-[1001] bg-white backdrop-blur-sm border-t border-slate-200 p-4 shrink-0">
           <div className="flex justify-center items-center h-8"> 
             <img 
               src={data?.logo} 
