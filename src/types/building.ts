@@ -25,7 +25,7 @@ export interface Unit {
   numOfBaths: number;
   status: string;
   sqft: number;
-  polygon: [number, number][];
+  // Removed polygon: [number, number][];
   gallery: string[];
   floorId: string;
   floorName: string;
@@ -36,7 +36,7 @@ export interface Unit {
 export interface Floor {
   id: string;
   name: string;
-  config: FloorConfig; // Use the interface here
+  config: FloorConfig;
   units: Unit[];
   amenityTours?: AmenityTour[];
   polygon: [number, number][];

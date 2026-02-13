@@ -21,8 +21,8 @@
           [142, 186]
         ],
         "config": {
-          "width": 1224,
-          "height": 792,
+          "width": 624.4,
+          "height": 476.9,
           "url": "/assets/csl-parking.svg"
         },
         "amenityTours": [
@@ -51,8 +51,8 @@
           [142, 304]
         ],
         "config": {
-          "width": 1224,
-          "height": 792,
+          "width": 750,
+          "height": 559.78,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
@@ -135,6 +135,46 @@
               [678, 571]
             ],
             "description": "Modern open-concept living space."
+          },
+          {
+            "id": "203",
+            "title": "Unit 203",
+            "type": "Corner Suite",
+            "model": "2 Bed + Office + Balcony",
+            "sqft": 1132,
+            "numOfBeds": 2,
+            "numOfBaths": 2,
+            "balcony": true,
+            "tub": true,
+            "pantry": true,
+            "terrace": false,
+            "officeDen": true,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+              "https://images.unsplash.com/photo-1522770179533-24471fcdba45"
+            ],
+            "virtualTour": {
+              "label": "Suite 203 Virtual Tour",
+              "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+            },
+            "pdf": "/assets/floorplan.pdf",
+            "property": "Residential",
+            "onHoldExpires": null,
+            "status": "Available",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": false,
+            "isFeatured": true,
+            "polygon": [
+              [583, 258],
+              [583, 314],
+              [678, 314],
+              [678, 258]
+            ],
+            "description": "This expansive 2-bedroom + office apartment offers 1,132 sq. ft. of thoughtfully designed, open-concept living, complete with a private balcony. The versatile office provides the perfect space for working from home or a quiet retreat. Premium finishes include multilayered hardwood flooring, granite countertops, natural wood cabinetry, and soaring 9-foot ceilings. Solid concrete construction ensures superior soundproofing, while floor-to-ceiling windows flood the space with natural light. Enjoy modern comforts such as individual temperature control and high-efficiency climate systems for year-round comfort."
           }
         ]
       },
@@ -155,8 +195,8 @@
           [784, 450]
         ],
         "config": {
-          "width": 1224,
-          "height": 792,
+          "width": 750,
+          "height": 559.78,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
@@ -231,8 +271,8 @@
           [205, 428]
         ],
         "config": {
-          "width": 1224,
-          "height": 792,
+          "width": 750,
+          "height": 559.78,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
@@ -297,8 +337,8 @@
           [742, 647]
         ],
         "config": {
-          "width": 1224,
-          "height": 792,
+          "width": 750,
+          "height": 559.78,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [

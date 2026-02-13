@@ -1,111 +1,48 @@
-// src/components/UnitMap.tsx
-import React, { useEffect } from "react";
-import { MapContainer, ImageOverlay, useMap } from "react-leaflet";
-import L from "leaflet";
-import MapController from "./MapController";
-import UnitPolygon from "./UnitPolygon";
-import AmenityTourMarker from "./AmenityTourMarker"; 
-import RecenterControl from "./RecenterControl";
-import { MAP_VIEW_SETTINGS } from "../config/viewConfigs";
-import { Unit, AmenityTour, Tour, FloorConfig } from "../types/building";
-import "leaflet/dist/leaflet.css";
-
-import "@geoman-io/leaflet-geoman-free";
-import "@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css";
+import React, { useEffect, useCallback } from "react";
+import { ReactSVG } from "react-svg";
+import { TransformWrapper, TransformComponent, useControls } from "react-zoom-pan-pinch";
+import { Unit, FloorConfig } from "../types/building";
 
 interface UnitMapProps {
   config: FloorConfig;
   units: Unit[];
-  amenityTours: AmenityTour[];
   activeId: string | undefined;
   onSelect: (unit: Unit) => void;
-  onTourSelect: (tour: Tour) => void;
-  recenterTrigger?: number;
 }
 
-// Logic to re-fit the SVG whenever the window size changes
-function ResizeHandler({ bounds, padding }: { bounds: L.LatLngBoundsExpression, padding: L.PointExpression }) {
-  const map = useMap();
+const ResizeHandler = ({ config }: { config: FloorConfig }) => {
+  const { centerView, instance } = useControls();
+
+  const handleFitView = useCallback((animationMs: number = 200) => {
+    const wrapper = instance.wrapperComponent;
+    if (!wrapper) return;
+
+    // Use actual container pixels vs SVG data dimensions
+    const scaleX = wrapper.offsetWidth / config.width;
+    const scaleY = wrapper.offsetHeight / config.height;
+    
+    // Math.min ensures the entire SVG is visible with no clipping
+    const fitScale = Math.min(scaleX, scaleY);
+
+    centerView(fitScale, animationMs);
+  }, [centerView, instance, config.width, config.height]);
 
   useEffect(() => {
     const handleResize = () => {
-      map.invalidateSize(); // Invalidate size to pick up new container dimensions
-      map.fitBounds(bounds, { padding, animate: false }); // Fit to new screen size
+      const timeoutId = setTimeout(() => handleFitView(200), 50);
+      return () => clearTimeout(timeoutId);
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Initial call to fit on mount
+    
+    // Initial load: 0ms animation to "snap" into place immediately
+    const loadTimeout = setTimeout(() => handleFitView(0), 50);
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, [map, bounds, padding]);
-
-  return null;
-}
-
-function AutoRecenter({ trigger, bounds, padding }: { trigger: number; bounds: L.LatLngBoundsExpression; padding: L.PointExpression }) {
-  const map = useMap();
-  useEffect(() => {
-    if (trigger > 0) {
-      map.invalidateSize();
-      map.fitBounds(bounds, { padding, animate: true });
-    }
-  }, [trigger, map, bounds, padding]);
-  return null;
-}
-
-const formatCoordinates = (latLngs: any[]): number[][] => {
-  const ring = Array.isArray(latLngs[0]) ? latLngs[0] : latLngs;
-  return ring.map((pt: any) => [Math.round(pt.lng), Math.round(pt.lat)]);
-};
-
-const DebugControls = () => {
-  const map = useMap();
-  const isDebug = MAP_VIEW_SETTINGS.debug;
-
-  useEffect(() => {
-    if (!isDebug) return;
-    const pmMap = map as any;
-    if (pmMap.pm) {
-      pmMap.pm.addControls({
-        position: "topleft",
-        drawPolygon: true,
-        drawRectangle: true,
-        editMode: true,
-        dragMode: true,
-        cutPolygon: true,
-        removalMode: true,
-        drawCircle: false,
-        drawCircleMarker: false,
-        drawText: false,
-        drawMarker: false,
-        drawPolyline: false,
-        rotateMode: false,
-      });
-    }
-
-    const logCoords = (layer: any, action: string) => {
-      if (layer.getLatLngs) {
-        const latLngs = layer.getLatLngs();
-        const formattedPoints = formatCoordinates(latLngs);
-        console.log(`%c[${action}] JSON Format:`, "color: #00dbb5; font-weight: bold;");
-        console.log(`"polygon": ${JSON.stringify(formattedPoints, null, 2)},`);
-      }
-    };
-
-    const handleCreate = (e: any) => {
-      const layer = e.layer;
-      logCoords(layer, "CREATED");
-      layer.on("pm:edit", () => logCoords(layer, "EDITED"));
-      layer.on("pm:dragend", () => logCoords(layer, "DRAGGED"));
-      layer.on("pm:cut", () => logCoords(layer, "CUT"));
-    };
-
-    map.on("pm:create", handleCreate);
     return () => {
-      if (pmMap.pm) pmMap.pm.removeControls();
-      map.off("pm:create", handleCreate);
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(loadTimeout);
     };
-  }, [map, isDebug]);
+  }, [handleFitView, config.url]);
 
   return null;
 };
@@ -113,62 +50,95 @@ const DebugControls = () => {
 export default function UnitMap({
   config,
   units,
-  amenityTours,
   activeId,
   onSelect,
-  onTourSelect,
-  recenterTrigger = 0,
 }: UnitMapProps) {
-  const bounds: L.LatLngBoundsExpression = [
-    [0, 0],
-    [config.height, config.width],
-  ];
-  
-  const settings = MAP_VIEW_SETTINGS.floorplan;
-  const mapDefaults = MAP_VIEW_SETTINGS.mapDefaults;
+  const { width: SVG_WIDTH, height: SVG_HEIGHT } = config;
 
   return (
-    <div className="w-full h-full relative">
-      <MapContainer
-        className="h-full w-full"
-        style={{ background: MAP_VIEW_SETTINGS.defaultBackground }}
-        maxBounds={bounds} // Restricts user from panning the SVG off-screen
-        {...mapDefaults}   // Common settings like zoomSnap
-        {...settings}      // Floorplan specific settings
+    <div className="relative w-full h-full overflow-hidden">
+      <TransformWrapper
+        key={config.url}
+        // Lower minScale allows massive 2560px SVGs to fit on 375px mobile screens
+        minScale={1} 
+        maxScale={4}
+        centerOnInit={false} 
+        limitToBounds={false}
+        doubleClick={{ disabled: true }}
       >
-        <DebugControls />
-        <AutoRecenter trigger={recenterTrigger} bounds={bounds} padding={settings.padding} />
-        
-        {/* Handles the automatic screen fitting */}
-        <ResizeHandler bounds={bounds} padding={settings.padding} />
+        {(utils) => {
+          // Dynamic fit for the manual recenter button
+          const manualRecenter = () => {
+            const wrapper = utils.instance.wrapperComponent;
+            if (wrapper) {
+              const scale = Math.min(
+                wrapper.offsetWidth / SVG_WIDTH,
+                wrapper.offsetHeight / SVG_HEIGHT
+              );
+              utils.centerView(scale, 300);
+            }
+          };
 
-        <ImageOverlay url={config.url} bounds={bounds} />
-        <MapController
-          mode="floorplan"
-          bounds={bounds}
-          imageWidth={config.width}
-          imageHeight={config.height}
-        />
+          return (
+            <>
+              <ResizeHandler config={config} />
+              
+              <div className="absolute bottom-8 right-8 z-50 flex flex-col gap-2">
+                <button 
+                  onClick={() => utils.zoomIn()} 
+                  className="w-10 h-10 bg-slate-800/90 backdrop-blur text-white rounded-lg border border-slate-700 hover:bg-slate-700 transition-all font-bold shadow-xl"
+                > + </button>
+                <button 
+                  onClick={() => utils.zoomOut()} 
+                  className="w-10 h-10 bg-slate-800/90 backdrop-blur text-white rounded-lg border border-slate-700 hover:bg-slate-700 transition-all font-bold shadow-xl"
+                > − </button>
+                <button 
+                  onClick={manualRecenter} 
+                  className="w-10 h-10 bg-slate-800/90 backdrop-blur text-white rounded-lg border border-slate-700 hover:bg-slate-700 transition-all shadow-xl"
+                > ⟲ </button>
+              </div>
 
-        {units.map((unit: Unit) => (
-          <UnitPolygon
-            key={unit.id}
-            unit={unit}
-            isActive={activeId === unit.id}
-            onSelect={onSelect}
-          />
-        ))}
-
-        {amenityTours.map((tour: AmenityTour) => (
-          <AmenityTourMarker 
-            key={tour.id} 
-            tour={tour} 
-            onSelect={onTourSelect} 
-          />
-        ))}
-
-        <RecenterControl bounds={bounds} padding={settings.padding} />
-      </MapContainer>
+              <TransformComponent 
+                wrapperClass="!w-full !h-full" 
+                contentClass="w-full h-full"
+              >
+                <div 
+                  className="pointer-events-none"
+                  style={{ 
+                    width: `${SVG_WIDTH}px`,
+                    height: `${SVG_HEIGHT}px`,
+                  }}
+                >
+                  <ReactSVG
+                    src={config.url}
+                    className="floorplan-svg-root pointer-events-auto"
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('width', '100%');
+                      svg.setAttribute('height', '100%');
+                      svg.setAttribute('viewBox', `0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`);
+                      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+                      
+                      units.forEach(unit => {
+                        const element = svg.querySelector(
+                          `[id="${unit.id}"], [data-name="${unit.id}"], [id="_${unit.id}"]`
+                        );
+                        if (element) {
+                          element.classList.add('unit-interactive');
+                          if (unit.id === activeId) element.classList.add('unit-active');
+                          element.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            onSelect(unit);
+                          });
+                        }
+                      });
+                    }}
+                  />
+                </div>
+              </TransformComponent>
+            </>
+          );
+        }}
+      </TransformWrapper>
     </div>
   );
 }
