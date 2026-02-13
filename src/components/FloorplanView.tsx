@@ -201,11 +201,8 @@ export default function FloorplanView() {
               <UnitMap
                 config={activeFloor.config}
                 units={activeFloor.units}
-                amenityTours={activeFloor.amenityTours || []}
                 activeId={activeUnit?.id}
                 onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
-                onTourSelect={setActiveTour}
-                recenterTrigger={recenterTrigger}
               />
             ) : (
               <div className="p-4 lg:p-8">
