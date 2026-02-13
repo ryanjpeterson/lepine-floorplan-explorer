@@ -21,8 +21,8 @@
           [142, 186]
         ],
         "config": {
-          "width": 1224,
-          "height": 792,
+          "width": 624.4,
+          "height": 476.9,
           "url": "/assets/csl-parking.svg"
         },
         "amenityTours": [
@@ -51,8 +51,8 @@
           [142, 304]
         ],
         "config": {
-          "width": 1224,
-          "height": 792,
+          "width": 2560,
+          "height": 1910,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
@@ -195,8 +195,8 @@
           [784, 450]
         ],
         "config": {
-          "width": 1224,
-          "height": 792,
+          "width": 2560,
+          "height": 1910,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
@@ -271,8 +271,8 @@
           [205, 428]
         ],
         "config": {
-          "width": 1224,
-          "height": 792,
+          "width": 2560,
+          "height": 1910,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
@@ -337,8 +337,8 @@
           [742, 647]
         ],
         "config": {
-          "width": 1224,
-          "height": 792,
+          "width": 2560,
+          "height": 1910,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
