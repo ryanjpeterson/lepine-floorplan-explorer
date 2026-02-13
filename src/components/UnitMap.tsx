@@ -17,11 +17,18 @@ const ResizeHandler = ({ config }: { config: FloorConfig }) => {
     const wrapper = instance.wrapperComponent;
     if (!wrapper) return;
 
-    // Use actual container pixels vs SVG data dimensions
-    const scaleX = wrapper.offsetWidth / config.width;
-    const scaleY = wrapper.offsetHeight / config.height;
+    // 1. Define your desired padding (e.g., 24px on each side)
+    const padding = 48; 
+
+    // 2. Calculate available space minus padding
+    const availableWidth = Math.max(wrapper.offsetWidth - padding, 0);
+    const availableHeight = Math.max(wrapper.offsetHeight - padding, 0);
+
+    // 3. Calculate scale based on the "shrunken" available space
+    const scaleX = availableWidth / config.width;
+    const scaleY = availableHeight / config.height;
     
-    // Math.min ensures the entire SVG is visible with no clipping
+    // Math.min ensures "contain" behavior
     const fitScale = Math.min(scaleX, scaleY);
 
     centerView(fitScale, animationMs);
@@ -34,8 +41,6 @@ const ResizeHandler = ({ config }: { config: FloorConfig }) => {
     };
 
     window.addEventListener("resize", handleResize);
-    
-    // Initial load: 0ms animation to "snap" into place immediately
     const loadTimeout = setTimeout(() => handleFitView(0), 50);
 
     return () => {
@@ -46,7 +51,6 @@ const ResizeHandler = ({ config }: { config: FloorConfig }) => {
 
   return null;
 };
-
 export default function UnitMap({
   config,
   units,
@@ -71,9 +75,10 @@ export default function UnitMap({
           const manualRecenter = () => {
             const wrapper = utils.instance.wrapperComponent;
             if (wrapper) {
+              const padding = 48;
               const scale = Math.min(
-                wrapper.offsetWidth / SVG_WIDTH,
-                wrapper.offsetHeight / SVG_HEIGHT
+                (wrapper.offsetWidth - padding) / SVG_WIDTH,
+                (wrapper.offsetHeight - padding) / SVG_HEIGHT
               );
               utils.centerView(scale, 300);
             }
