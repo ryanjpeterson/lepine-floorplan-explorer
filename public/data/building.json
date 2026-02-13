@@ -89,20 +89,11 @@
               "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
             },
             "pdf": "/assets/floorplan.pdf",
-            "property": "Residential",
-            "onHoldExpires": null,
-            "status": "Available",
             "builtIns": true,
             "juliet": false,
             "modelSuite": false,
             "isFeatured": true,
-            "polygon": [
-              [583, 258],
-              [583, 314],
-              [678, 314],
-              [678, 258]
-            ],
-            "description": "This expansive 2-bedroom + office apartment offers 1,132 sq. ft. of thoughtfully designed, open-concept living, complete with a private balcony. The versatile office provides the perfect space for working from home or a quiet retreat. Premium finishes include multilayered hardwood flooring, granite countertops, natural wood cabinetry, and soaring 9-foot ceilings. Solid concrete construction ensures superior soundproofing, while floor-to-ceiling windows flood the space with natural light. Enjoy modern comforts such as individual temperature control and high-efficiency climate systems for year-round comfort."
+            "description": "This expansive 2-bedroom + office apartment offers 1,132 sq. ft. of thoughtfully designed, open-concept living, complete with a private balcony."
           },
           {
             "id": "202",
@@ -121,19 +112,12 @@
             "barrierFree": true,
             "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
             "pdf": "/assets/floorplan.pdf",
-            "property": "Residential",
             "onHoldExpires": null,
             "status": "Leased",
             "builtIns": false,
             "juliet": true,
             "modelSuite": false,
             "isFeatured": false,
-            "polygon": [
-              [617, 571],
-              [617, 632],
-              [678, 632],
-              [678, 571]
-            ],
             "description": "Modern open-concept living space."
           },
           {
@@ -161,20 +145,147 @@
               "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
             },
             "pdf": "/assets/floorplan.pdf",
-            "property": "Residential",
-            "onHoldExpires": null,
-            "status": "Available",
             "builtIns": true,
             "juliet": false,
             "modelSuite": false,
             "isFeatured": true,
-            "polygon": [
-              [583, 258],
-              [583, 314],
-              [678, 314],
-              [678, 258]
+            "description": "This expansive 2-bedroom + office apartment offers 1,132 sq. ft. of thoughtfully designed, open-concept living."
+          },
+          {
+            "id": "204",
+            "title": "Unit 204",
+            "type": "Penthouse Lite",
+            "model": "The Calabogie",
+            "sqft": 1420,
+            "numOfBeds": 3,
+            "numOfBaths": 2,
+            "balcony": true,
+            "tub": true,
+            "pantry": true,
+            "terrace": true,
+            "officeDen": false,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
+              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6"
             ],
-            "description": "This expansive 2-bedroom + office apartment offers 1,132 sq. ft. of thoughtfully designed, open-concept living, complete with a private balcony. The versatile office provides the perfect space for working from home or a quiet retreat. Premium finishes include multilayered hardwood flooring, granite countertops, natural wood cabinetry, and soaring 9-foot ceilings. Solid concrete construction ensures superior soundproofing, while floor-to-ceiling windows flood the space with natural light. Enjoy modern comforts such as individual temperature control and high-efficiency climate systems for year-round comfort."
+            "pdf": "/assets/floorplan.pdf",
+            "status": "Available",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": true,
+            "isFeatured": true,
+            "description": "A premium 3-bedroom layout featuring a massive terrace and luxury built-ins."
+          },
+          {
+            "id": "205",
+            "title": "Unit 205",
+            "type": "Studio Plus",
+            "model": "The Renfrew",
+            "sqft": 685,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "balcony": false,
+            "tub": false,
+            "pantry": false,
+            "terrace": false,
+            "officeDen": true,
+            "walkInCloset": false,
+            "barrierFree": true,
+            "image": "https://images.unsplash.com/photo-1536376074432-8d240d71b675?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1554995207-c18c203602cb"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "status": "Available",
+            "builtIns": false,
+            "juliet": true,
+            "modelSuite": false,
+            "isFeatured": false,
+            "description": "Efficient urban living with a dedicated den space and barrier-free access."
+          },
+          {
+            "id": "206",
+            "title": "Unit 206",
+            "type": "Standard Suite",
+            "model": "The Madawaska",
+            "sqft": 1025,
+            "numOfBeds": 2,
+            "numOfBaths": 2,
+            "balcony": true,
+            "tub": true,
+            "pantry": true,
+            "terrace": false,
+            "officeDen": false,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1499916156339-bcdd5227e7f6?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "status": "On Hold",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": false,
+            "isFeatured": false,
+            "description": "Bright 2-bedroom suite with a spacious pantry and walk-in closets."
+          },
+          {
+            "id": "207",
+            "title": "Unit 207",
+            "type": "Executive Suite",
+            "model": "The Bonnechere",
+            "sqft": 1240,
+            "numOfBeds": 2,
+            "numOfBaths": 2,
+            "balcony": true,
+            "tub": true,
+            "pantry": true,
+            "terrace": false,
+            "officeDen": true,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1505691938895-1758d7eaa511?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1460317442991-0ec209397118"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "status": "Available",
+            "builtIns": true,
+            "juliet": true,
+            "modelSuite": false,
+            "isFeatured": true,
+            "description": "Spacious executive living with both a balcony and a Juliet railing."
+          },
+          {
+            "id": "208",
+            "title": "Unit 208",
+            "type": "Standard Suite",
+            "model": "The Opeongo",
+            "sqft": 815,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "balcony": true,
+            "tub": false,
+            "pantry": false,
+            "terrace": false,
+            "officeDen": false,
+            "walkInCloset": true,
+            "barrierFree": true,
+            "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1556912177-c54030639840"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "status": "Available",
+            "builtIns": false,
+            "juliet": false,
+            "modelSuite": false,
+            "isFeatured": false,
+            "description": "Cozy 1-bedroom unit perfect for professionals, featuring accessible design."
           }
         ]
       },
@@ -229,19 +340,10 @@
               "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1"
             ],
             "pdf": "/assets/floorplan.pdf",
-            "property": "Residential",
-            "onHoldExpires": null,
-            "status": "Available",
             "builtIns": true,
             "juliet": false,
             "modelSuite": false,
             "isFeatured": true,
-            "polygon": [
-              [583, 258],
-              [583, 314],
-              [678, 314],
-              [678, 258]
-            ],
             "virtualTour": {
               "label": "Suite 301 Virtual Tour",
               "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
@@ -301,19 +403,10 @@
             "barrierFree": false,
             "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
             "pdf": "/assets/floorplan.pdf",
-            "property": "Residential",
-            "onHoldExpires": null,
-            "status": "Available",
             "builtIns": false,
             "juliet": true,
             "modelSuite": false,
             "isFeatured": false,
-            "polygon": [
-              [617, 571],
-              [617, 632],
-              [678, 632],
-              [678, 571]
-            ],
             "description": "Modern open-concept living space."
           }
         ]
@@ -367,19 +460,10 @@
             "barrierFree": false,
             "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
             "pdf": "/assets/floorplan.pdf",
-            "property": "Residential",
-            "onHoldExpires": null,
-            "status": "Available",
             "builtIns": false,
             "juliet": true,
             "modelSuite": false,
             "isFeatured": false,
-            "polygon": [
-              [617, 571],
-              [617, 632],
-              [678, 632],
-              [678, 571]
-            ],
             "description": "Modern open-concept living space."
           }
         ]
