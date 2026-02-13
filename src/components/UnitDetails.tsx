@@ -132,7 +132,9 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
               href={activeUnit.pdf}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold p-4 rounded-xl hover:bg-[#1b3a5a] shadow-lg transition-all text-center"
+              className={`flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold p-4 rounded-xl hover:bg-[#1b3a5a] shadow-lg transition-all text-center ${
+                !activeUnit.virtualTour ? "col-span-2" : ""
+              }`}
             >
               <Download size={18} className="shrink-0" /> 
               <span className="text-xs">Download PDF</span>
