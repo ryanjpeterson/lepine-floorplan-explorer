@@ -51,8 +51,8 @@
           [142, 304]
         ],
         "config": {
-          "width": 750,
-          "height": 559.78,
+          "width": 375,
+          "height": 280,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
@@ -195,8 +195,8 @@
           [784, 450]
         ],
         "config": {
-          "width": 750,
-          "height": 559.78,
+          "width": 375,
+          "height": 280,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
@@ -271,8 +271,8 @@
           [205, 428]
         ],
         "config": {
-          "width": 750,
-          "height": 559.78,
+          "width": 375,
+          "height": 280,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
@@ -337,8 +337,8 @@
           [742, 647]
         ],
         "config": {
-          "width": 750,
-          "height": 559.78,
+          "width": 375,
+          "height": 280,
           "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
