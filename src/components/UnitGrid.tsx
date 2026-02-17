@@ -83,7 +83,7 @@ const UnitCard = memo<UnitCardProps>(
               {unit.title}
             </h4>
             <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-              {unit.model}
+              {unit.subtitle}
             </p>
           </div>
 

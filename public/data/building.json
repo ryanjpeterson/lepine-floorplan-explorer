@@ -67,8 +67,7 @@
           {
             "id": "201",
             "title": "Unit 201",
-            "type": "Corner Suite",
-            "model": "2 Bed + Office + Balcony",
+            "subtitle": "2 Bed + Office + Balcony",
             "sqft": 1132,
             "numOfBeds": 2,
             "numOfBaths": 2,
@@ -94,14 +93,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": false,
-            "modelSuite": false,
             "description": "This expansive 2-bedroom + office apartment offers 1,132 sq. ft. of thoughtfully designed, open-concept living, complete with a private balcony."
           },
           {
             "id": "202",
             "title": "Unit 202",
-            "type": "Standard Suite",
-            "model": "The Ottawa",
+            "subtitle": "The Ottawa",
             "sqft": 950,
             "numOfBeds": 2,
             "numOfBaths": 1,
@@ -116,7 +113,6 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": false,
             "juliet": true,
-            "modelSuite": false,
             "description": "Modern open-concept living space.",
             "gallery": [
               "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?auto=format&fit=crop&w=800&q=80",
@@ -129,8 +125,7 @@
           {
             "id": "203",
             "title": "Unit 203",
-            "type": "Corner Suite",
-            "model": "2 Bed + Office + Balcony",
+            "subtitle": "2 Bed + Office + Balcony",
             "sqft": 1132,
             "numOfBeds": 2,
             "numOfBaths": 2,
@@ -156,14 +151,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": false,
-            "modelSuite": false,
             "description": "This expansive 2-bedroom + office apartment offers 1,132 sq. ft. of thoughtfully designed, open-concept living."
           },
           {
             "id": "204",
             "title": "Unit 204",
-            "type": "Penthouse Lite",
-            "model": "The Calabogie",
+            "subtitle": "The Calabogie",
             "sqft": 1420,
             "numOfBeds": 3,
             "numOfBaths": 2,
@@ -185,14 +178,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": false,
-            "modelSuite": true,
             "description": "A premium 3-bedroom layout featuring a massive terrace and luxury built-ins."
           },
           {
             "id": "205",
             "title": "Unit 205",
-            "type": "Studio Plus",
-            "model": "The Renfrew",
+            "subtitle": "The Renfrew",
             "sqft": 685,
             "numOfBeds": 1,
             "numOfBaths": 1,
@@ -214,14 +205,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": false,
             "juliet": true,
-            "modelSuite": false,
             "description": "Efficient urban living with a dedicated den space and barrier-free access."
           },
           {
             "id": "206",
             "title": "Unit 206",
-            "type": "Standard Suite",
-            "model": "The Madawaska",
+            "subtitle": "The Madawaska",
             "sqft": 1025,
             "numOfBeds": 2,
             "numOfBaths": 2,
@@ -243,14 +232,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": false,
-            "modelSuite": false,
             "description": "Bright 2-bedroom suite with a spacious pantry and walk-in closets."
           },
           {
             "id": "207",
             "title": "Unit 207",
-            "type": "Executive Suite",
-            "model": "The Bonnechere",
+            "subtitle": "The Bonnechere",
             "sqft": 1240,
             "numOfBeds": 2,
             "numOfBaths": 2,
@@ -272,14 +259,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": true,
-            "modelSuite": false,
             "description": "Spacious executive living with both a balcony and a Juliet railing."
           },
           {
             "id": "208",
             "title": "Unit 208",
-            "type": "Standard Suite",
-            "model": "The Opeongo",
+            "subtitle": "The Opeongo",
             "sqft": 815,
             "numOfBeds": 1,
             "numOfBaths": 1,
@@ -301,7 +286,6 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": false,
             "juliet": false,
-            "modelSuite": false,
             "description": "Cozy 1-bedroom unit perfect for professionals, featuring accessible design."
           }
         ]
@@ -339,8 +323,7 @@
           {
             "id": "301",
             "title": "Unit 301",
-            "type": "Corner Suite",
-            "model": "The Gatineau",
+            "subtitle": "The Gatineau",
             "sqft": 1136,
             "numOfBeds": 3,
             "numOfBaths": 2,
@@ -362,7 +345,6 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": false,
-            "modelSuite": false,
             "virtualTour": {
               "label": "Suite 301 Virtual Tour",
               "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
@@ -372,8 +354,7 @@
           {
             "id": "302",
             "title": "Unit 302",
-            "type": "Studio Plus",
-            "model": "The Ottawa",
+            "subtitle": "The Ottawa",
             "sqft": 1490,
             "numOfBeds": 1,
             "numOfBaths": 1,
@@ -395,14 +376,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": true,
-            "modelSuite": false,
             "description": "Beautiful 1-bedroom layout with approximately 1490 sq. ft. of modern living space."
           },
           {
             "id": "303",
             "title": "Unit 303",
-            "type": "Executive Suite",
-            "model": "The Opeongo",
+            "subtitle": "The Opeongo",
             "sqft": 1350,
             "numOfBeds": 3,
             "numOfBaths": 2,
@@ -423,14 +402,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": true,
-            "modelSuite": true,
             "description": "Spacious 3-bedroom unit with dual balconies."
           },
           {
             "id": "304",
             "title": "Unit 304",
-            "type": "Standard Suite",
-            "model": "The Renfrew",
+            "subtitle": "The Renfrew",
             "sqft": 720,
             "numOfBeds": 1,
             "numOfBaths": 1,
@@ -451,14 +428,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": false,
             "juliet": false,
-            "modelSuite": false,
             "description": "Cozy studio-style living."
           },
           {
             "id": "305",
             "title": "Unit 305",
-            "type": "Penthouse Lite",
-            "model": "The Calabogie",
+            "subtitle": "The Calabogie",
             "sqft": 1480,
             "numOfBeds": 3,
             "numOfBaths": 2,
@@ -479,14 +454,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": false,
-            "modelSuite": false,
             "description": "Luxury layout with high ceilings."
           },
           {
             "id": "306",
             "title": "Unit 306",
-            "type": "Standard Suite",
-            "model": "The Ottawa",
+            "subtitle": "The Ottawa",
             "sqft": 980,
             "numOfBeds": 2,
             "numOfBaths": 1,
@@ -507,14 +480,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": false,
             "juliet": true,
-            "modelSuite": false,
             "description": "Classic 2-bedroom design."
           },
           {
             "id": "307",
             "title": "Unit 307",
-            "type": "Studio Plus",
-            "model": "The Madawaska",
+            "subtitle": "The Madawaska",
             "sqft": 810,
             "numOfBeds": 1,
             "numOfBaths": 1,
@@ -535,14 +506,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": false,
-            "modelSuite": false,
             "description": "Efficient use of space."
           },
           {
             "id": "308",
             "title": "Unit 308",
-            "type": "Executive Suite",
-            "model": "The Bonnechere",
+            "subtitle": "The Bonnechere",
             "sqft": 1290,
             "numOfBeds": 2,
             "numOfBaths": 2,
@@ -563,7 +532,6 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": true,
-            "modelSuite": false,
             "description": "Premium finishings throughout."
           }
         ]
@@ -605,8 +573,7 @@
           {
             "id": "401",
             "title": "Unit 401",
-            "type": "Standard Suite",
-            "model": "The Gatineau",
+            "subtitle": "The Gatineau",
             "sqft": 1050,
             "numOfBeds": 2,
             "numOfBaths": 1,
@@ -627,14 +594,12 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": true,
             "juliet": false,
-            "modelSuite": false,
             "description": "Bright 4th floor corner unit."
           },
           {
             "id": "402",
             "title": "Unit 402",
-            "type": "Standard Suite",
-            "model": "The Ottawa",
+            "subtitle": "The Ottawa",
             "sqft": 950,
             "numOfBeds": 2,
             "numOfBaths": 1,
@@ -649,7 +614,6 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": false,
             "juliet": true,
-            "modelSuite": false,
             "description": "Modern open-concept living space.",
             "gallery": [
               "https://images.unsplash.com/photo-1515263487990-61f08bd0960c",
@@ -661,8 +625,7 @@
           {
             "id": "403",
             "title": "Unit 403",
-            "type": "Studio Plus",
-            "model": "The Renfrew",
+            "subtitle": "The Renfrew",
             "sqft": 690,
             "numOfBeds": 1,
             "numOfBaths": 1,
@@ -681,8 +644,7 @@
           {
             "id": "404",
             "title": "Unit 404",
-            "type": "Executive Suite",
-            "model": "The Bonnechere",
+            "subtitle": "The Bonnechere",
             "sqft": 1310,
             "numOfBeds": 2,
             "numOfBaths": 2,
@@ -700,8 +662,7 @@
           {
             "id": "405",
             "title": "Unit 405",
-            "type": "Standard Suite",
-            "model": "The Madawaska",
+            "subtitle": "The Madawaska",
             "sqft": 1100,
             "numOfBeds": 2,
             "numOfBaths": 2,
@@ -718,8 +679,7 @@
           {
             "id": "406",
             "title": "Unit 406",
-            "type": "Penthouse Lite",
-            "model": "The Calabogie",
+            "subtitle": "The Calabogie",
             "sqft": 1450,
             "numOfBeds": 3,
             "numOfBaths": 2,
@@ -736,8 +696,7 @@
           {
             "id": "407",
             "title": "Unit 407",
-            "type": "Standard Suite",
-            "model": "The Ottawa",
+            "subtitle": "The Ottawa",
             "sqft": 920,
             "numOfBeds": 1,
             "numOfBaths": 1,
@@ -754,8 +713,7 @@
           {
             "id": "408",
             "title": "Unit 408",
-            "type": "Studio Plus",
-            "model": "The Opeongo",
+            "subtitle": "The Opeongo",
             "sqft": 750,
             "numOfBeds": 1,
             "numOfBaths": 1,
@@ -806,8 +764,7 @@
           {
             "id": "501",
             "title": "Unit 501",
-            "type": "Penthouse Lite",
-            "model": "The Gatineau",
+            "subtitle": "The Gatineau",
             "sqft": 1490,
             "numOfBeds": 3,
             "numOfBaths": 2,
@@ -824,8 +781,7 @@
           {
             "id": "502",
             "title": "Unit 502",
-            "type": "Standard Suite",
-            "model": "The Ottawa",
+            "subtitle": "The Ottawa",
             "sqft": 950,
             "numOfBeds": 2,
             "numOfBaths": 1,
@@ -840,7 +796,6 @@
             "pdf": "/assets/floorplan.pdf",
             "builtIns": false,
             "juliet": true,
-            "modelSuite": false,
             "description": "Modern open-concept living space.",
             "gallery": [
               "https://images.unsplash.com/photo-1560185043-dddd440a00a1",
@@ -852,8 +807,7 @@
           {
             "id": "503",
             "title": "Unit 503",
-            "type": "Standard Suite",
-            "model": "The Opeongo",
+            "subtitle": "The Opeongo",
             "sqft": 880,
             "numOfBeds": 1,
             "numOfBaths": 1,
@@ -870,8 +824,7 @@
           {
             "id": "504",
             "title": "Unit 504",
-            "type": "Executive Suite",
-            "model": "The Bonnechere",
+            "subtitle": "The Bonnechere",
             "sqft": 1350,
             "numOfBeds": 3,
             "numOfBaths": 2,
@@ -888,8 +841,7 @@
           {
             "id": "505",
             "title": "Unit 505",
-            "type": "Corner Suite",
-            "model": "The Madawaska",
+            "subtitle": "The Madawaska",
             "sqft": 1150,
             "numOfBeds": 2,
             "numOfBaths": 2,
@@ -906,8 +858,7 @@
           {
             "id": "506",
             "title": "Unit 506",
-            "type": "Studio Plus",
-            "model": "The Renfrew",
+            "subtitle": "The Renfrew",
             "sqft": 710,
             "numOfBeds": 1,
             "numOfBaths": 1,
@@ -924,8 +875,7 @@
           {
             "id": "507",
             "title": "Unit 507",
-            "type": "Standard Suite",
-            "model": "The Ottawa",
+            "subtitle": "The Ottawa",
             "sqft": 990,
             "numOfBeds": 2,
             "numOfBaths": 2,
@@ -942,8 +892,7 @@
           {
             "id": "508",
             "title": "Unit 508",
-            "type": "Executive Suite",
-            "model": "The Calabogie",
+            "subtitle": "The Calabogie",
             "sqft": 1400,
             "numOfBeds": 3,
             "numOfBaths": 2,

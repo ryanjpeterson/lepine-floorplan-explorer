@@ -12,7 +12,7 @@ export interface FloorConfig {
 export interface Unit {
   id: string;
   title: string;
-  model: string;
+  subtitle: string;
   image: string;
   pdf: string;
   description: string;
@@ -20,7 +20,6 @@ export interface Unit {
   numOfBaths: number;
   status: string;
   sqft: number;
-  // Removed polygon: [number, number][];
   gallery: string[];
   floorId: string;
   floorName: string;

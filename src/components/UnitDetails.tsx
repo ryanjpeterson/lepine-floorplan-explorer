@@ -48,7 +48,6 @@ const attributeIcons: Record<string, AttributeIconConfig> = {
   barrierFree: { label: "Barrier Free", icon: Accessibility },
   builtIns: { label: "Built-ins", icon: Archive },
   juliet: { label: "Juliet Balcony", icon: Wind },
-  modelSuite: { label: "Model Suite", icon: Sparkles },
 };
 
 export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps) {
@@ -76,7 +75,7 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
             {activeUnit.title}
           </h3>
           <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-            {activeUnit.model}
+            {activeUnit.subtitle}
           </p>
         </div>
         <div className="flex items-center gap-2">
