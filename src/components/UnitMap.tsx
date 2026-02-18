@@ -124,10 +124,9 @@ export default function UnitMap({
                       svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
                       
                       units.forEach(unit => {
-                        // Supports multiple ID formats commonly found in exported SVGs
                         const element = svg.querySelector(
                           `[id="${unit.id}"], [data-name="${unit.id}"], [id="_${unit.id}"]`
-                        ) as SVGElement | null; // Cast to SVGElement to access style/attributes
+                        ) as SVGElement | null;
                         
                         if (element) {
                           element.removeAttribute('style');

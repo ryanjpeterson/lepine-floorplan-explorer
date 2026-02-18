@@ -1,3 +1,5 @@
+/* src/context/BuildingContext.tsx */
+
 import React, {
   createContext,
   useContext,
@@ -73,24 +75,32 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
         const screensJson = await screensRes.json();
         const unitsArray: Unit[] = await unitsRes.json();
 
-        // Reconstruct BuildingData by finding unit objects in the array by ID
+        // 1. Create a complete list of units with their floor context
+        const unitsWithFloorContext = unitsArray.map(unit => {
+          // Determine floor ID from the first digit of the unit ID (e.g., "105" -> floor "1")
+          const floorId = unit.id.length >= 3 ? unit.id.charAt(0) : "0";
+          const floorObj = screensJson.floors.find((f: any) => f.id === floorId);
+          
+          return {
+            ...unit,
+            floorId: floorId,
+            floorName: floorObj ? floorObj.name : `Floor ${floorId}`
+          };
+        });
+
+        // 2. Reconstruct Floors to include EVERY unit that belongs to it from the units.json
+        const reconstructedFloors = screensJson.floors.map((floor: any) => ({
+          ...floor,
+          units: unitsWithFloorContext.filter(u => u.floorId === floor.id)
+        }));
+
         const combinedData: BuildingData = {
           ...configJson,
           config: {
             url: screensJson.url,
             width: screensJson.width,
             height: screensJson.height,
-            floors: screensJson.floors.map((floor: any) => ({
-              ...floor,
-              units: floor.units.map((unitId: string) => {
-                const unitMatch = unitsArray.find((u) => u.id === unitId);
-                return {
-                  ...unitMatch,
-                  floorId: floor.id,
-                  floorName: floor.name
-                };
-              })
-            }))
+            floors: reconstructedFloors
           }
         };
 
@@ -123,13 +133,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const floors = useMemo(() => data?.config?.floors || [], [data]);
 
   const allUnits = useMemo((): Unit[] => {
-    return floors.flatMap((floor) =>
-      floor.units.map((unit) => ({
-        ...unit,
-        floorName: floor.name,
-        floorId: floor.id,
-      })),
-    );
+    return floors.flatMap((floor) => floor.units);
   }, [floors]);
 
   const activeFloor = useMemo(
