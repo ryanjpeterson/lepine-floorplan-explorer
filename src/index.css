@@ -119,21 +119,21 @@ body,
 .unit-interactive, .unit-interactive path, .unit-interactive polygon {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  fill: #a7d1ff !important;
+  fill: #518cb2 !important;
   fill-opacity: 1;
   stroke: #ffffff;
   stroke-width: 0.5px;
 }
 
 .unit-interactive:hover, .unit-interactive:hover path, .unit-interactive:hover polygon {
-  fill: #7ebafa !important;
+  fill: #dce8f0 !important;
   fill-opacity: 1;
   stroke: #ffffff;
   stroke-width: 0.5px;
 }
 
 .unit-active, .unit-active path, .unit-active polygon {
-  fill: #3e99fb !important;
+  fill: #518cb2 !important;
   fill-opacity: 1 !important;
   stroke: #ffffff !important;
   stroke-width: 0.5px !important;
