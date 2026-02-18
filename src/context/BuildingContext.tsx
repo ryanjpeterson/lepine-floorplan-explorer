@@ -57,7 +57,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    fetch("/data/building.json")
+    fetch("/assets/carresaintlouis/building.json")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load building data");
         return res.json();

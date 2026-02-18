@@ -43,7 +43,7 @@ export default function UnitFilters() {
     { key: "tub", label: "Tub" },
     { key: "pantry", label: "Pantry" },
     { key: "terrace", label: "Terrace" },
-    { key: "officeDen", label: "Office/Den" },
+    { key: "office", label: "Office" },
     { key: "walkInCloset", label: "Walk-in Closet" },
     { key: "barrierFree", label: "Barrier Free" },
     { key: "builtIns", label: "Built-ins" },

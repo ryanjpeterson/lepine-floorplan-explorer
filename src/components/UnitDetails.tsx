@@ -43,7 +43,7 @@ const attributeIcons: Record<string, AttributeIconConfig> = {
   tub: { label: "Tub", icon: Bath },
   pantry: { label: "Pantry", icon: Utensils },
   terrace: { label: "Terrace", icon: Trees },
-  officeDen: { label: "Office/Den", icon: Monitor },
+  office: { label: "Office", icon: Monitor },
   walkInCloset: { label: "Walk-in Closet", icon: Shirt },
   barrierFree: { label: "Barrier Free", icon: Accessibility },
   builtIns: { label: "Built-ins", icon: Archive },
