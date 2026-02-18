@@ -1,0 +1,164 @@
+{
+  "width": 2000,
+  "height": 1122,
+  "url": "/assets/carresaintlouis/bg.jpg",
+  "floors": [
+    {
+      "id": "groundlevel",
+      "name": "Ground Level",
+      "polygon": [
+        [140, 275],
+        [687, 331],
+        [994, 328],
+        [1846, 266],
+        [1848, 193],
+        [994, 143],
+        [793, 141],
+        [142, 186]
+      ],
+      "config": {
+        "width": 624.4,
+        "height": 476.9,
+        "url": "/assets/carresaintlouis/groundfloor.svg"
+      },
+      "amenityTours": [
+        {
+          "id": "at110",
+          "label": "Amenity Tour",
+          "position": [300, 600],
+          "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+        }
+      ],
+      "units": []
+    },
+    {
+      "id": "2",
+      "name": "2nd Floor",
+      "polygon": [
+        [140, 275],
+        [687, 331],
+        [994, 328],
+        [1846, 266],
+        [1845, 301],
+        [983, 438],
+        [898, 452],
+        [784, 450],
+        [740, 434],
+        [142, 304]
+      ],
+      "config": {
+        "width": 375,
+        "height": 280,
+        "url": "/assets/carresaintlouis/testfloor.svg"
+      },
+      "amenityTours": [
+        {
+          "id": "at210",
+          "label": "Amenity Tour",
+          "position": [522, 408],
+          "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+        }
+      ],
+      "units": ["201", "202", "203", "204", "205", "206", "207", "208"]
+    },
+    {
+      "id": "3",
+      "name": "3rd Floor",
+      "polygon": [
+        [740, 434],
+        [142, 304],
+        [149, 362],
+        [744, 540],
+        [787, 561],
+        [903, 563],
+        [979, 545],
+        [1846, 329],
+        [1845, 301],
+        [898, 452],
+        [784, 450]
+      ],
+      "config": {
+        "width": 375,
+        "height": 280,
+        "url": "/assets/carresaintlouis/floor1.svg"
+      },
+      "amenityTours": [
+        {
+          "id": "at310",
+          "label": "Amenity Tour",
+          "position": [522, 408],
+          "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+        }
+      ],
+      "units": ["301", "302", "303", "304", "305", "306", "307", "308"]
+    },
+    {
+      "id": "4",
+      "name": "4th Floor",
+      "polygon": [
+        [149, 362],
+        [744, 540],
+        [787, 561],
+        [903, 563],
+        [1846, 329],
+        [1846, 376],
+        [1430, 527],
+        [1379, 552],
+        [1324, 539],
+        [979, 663],
+        [897, 694],
+        [788, 693],
+        [742, 659],
+        [742, 647],
+        [205, 428]
+      ],
+      "config": {
+        "width": 375,
+        "height": 280,
+        "url": "/assets/carresaintlouis/floor1.svg"
+      },
+      "amenityTours": [
+        {
+          "id": "at410",
+          "label": "Amenity Tour",
+          "position": [522, 408],
+          "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+        }
+      ],
+      "units": ["401", "402", "403", "404", "405", "406", "407", "408"]
+    },
+    {
+      "id": "5",
+      "name": "5th Floor",
+      "polygon": [
+        [205, 428],
+        [280, 579],
+        [783, 885],
+        [897, 894],
+        [1332, 704],
+        [1849, 443],
+        [1846, 376],
+        [1379, 552],
+        [1324, 539],
+        [897, 694],
+        [788, 693],
+        [742, 659],
+        [742, 647]
+      ],
+      "config": {
+        "width": 375,
+        "height": 280,
+        "url": "/assets/carresaintlouis/floor1.svg"
+      },
+      "amenityTours": [
+        {
+          "id": "at510",
+          "label": "Amenity Tour",
+          "position": [522, 408],
+          "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+        }
+      ],
+      "units": ["501", "502", "503", "504", "505", "506", "507", "508"]
+    }
+  ]
+}
