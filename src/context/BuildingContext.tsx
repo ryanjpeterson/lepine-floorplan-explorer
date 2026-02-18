@@ -57,16 +57,47 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    fetch("/assets/carresaintlouis/building.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load building data");
-        return res.json();
-      })
-      .then((json: BuildingData) => {
-        setData(json);
-        const allUnits = json.config.floors.flatMap((f) => f.units);
-        if (allUnits.length > 0) {
-          const sqfts = allUnits.map((u) => u.sqft || 0);
+    const fetchData = async () => {
+      try {
+        const [configRes, screensRes, unitsRes] = await Promise.all([
+          fetch("/assets/carresaintlouis/data/config.json"),
+          fetch("/assets/carresaintlouis/data/screens.json"),
+          fetch("/assets/carresaintlouis/data/units.json")
+        ]);
+
+        if (!configRes.ok || !screensRes.ok || !unitsRes.ok) {
+          throw new Error("Failed to load building configuration files");
+        }
+
+        const configJson = await configRes.json();
+        const screensJson = await screensRes.json();
+        const unitsArray: Unit[] = await unitsRes.json();
+
+        // Reconstruct BuildingData by finding unit objects in the array by ID
+        const combinedData: BuildingData = {
+          ...configJson,
+          config: {
+            url: screensJson.url,
+            width: screensJson.width,
+            height: screensJson.height,
+            floors: screensJson.floors.map((floor: any) => ({
+              ...floor,
+              units: floor.units.map((unitId: string) => {
+                const unitMatch = unitsArray.find((u) => u.id === unitId);
+                return {
+                  ...unitMatch,
+                  floorId: floor.id,
+                  floorName: floor.name
+                };
+              })
+            }))
+          }
+        };
+
+        setData(combinedData);
+
+        if (unitsArray.length > 0) {
+          const sqfts = unitsArray.map((u) => u.sqft || 0);
           setFilters((prev) => ({
             ...prev,
             minSqft: Math.min(...sqfts),
@@ -74,11 +105,13 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
           }));
         }
         setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err: any) {
         setError(err.message);
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
