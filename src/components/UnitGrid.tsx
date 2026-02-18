@@ -124,10 +124,17 @@ const UnitCard = memo<UnitCardProps>(
   }
 );
 
-export default function UnitGrid({ onSelectUnit }: { onSelectUnit: (id: string) => void }) {
+interface UnitGridProps {
+  onSelectUnit: (id: string) => void;
+  unitsOverride?: Unit[];
+}
+
+export default function UnitGrid({ onSelectUnit, unitsOverride }: UnitGridProps) {
   const { filteredUnits, activeUnit, favorites, toggleFavorite, gridTab } = useBuilding();
 
-  if (filteredUnits.length === 0) {
+  const unitsToDisplay = unitsOverride || filteredUnits;
+
+  if (unitsToDisplay.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-40 text-slate-400">
         <p className="text-lg font-medium">
@@ -163,7 +170,7 @@ export default function UnitGrid({ onSelectUnit }: { onSelectUnit: (id: string) 
             768: { slidesPerView: 2.2, centeredSlides: false },
           }}
         >
-          {filteredUnits.map((unit) => (
+          {unitsToDisplay.map((unit) => (
             <SwiperSlide key={unit.id} className="h-auto">
               <UnitCard
                 unit={unit}
@@ -181,7 +188,7 @@ export default function UnitGrid({ onSelectUnit }: { onSelectUnit: (id: string) 
       {/* Desktop Grid Section */}
       <div className="hidden lg:block">
         <div className="grid gap-6 lg:gap-8 grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] max-w-[2400px] mx-auto">
-          {filteredUnits.map((unit) => (
+          {unitsToDisplay.map((unit) => (
             <UnitCard
               key={unit.id}
               unit={unit}

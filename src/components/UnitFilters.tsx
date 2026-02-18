@@ -5,13 +5,16 @@ import {
   ChevronDown,
   ChevronUp,
   RotateCcw,
-  Trash2,
 } from "lucide-react";
 import { Unit } from "../types/building";
 
 export default function UnitFilters() {
-  const { filters, setFilters, allUnits, gridTab, clearFavorites } =
-    useBuilding();
+  const { 
+    filters, 
+    setFilters, 
+    allUnits, 
+    filteredUnits,
+  } = useBuilding();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const unitSqfts = allUnits.map((u: Unit) => u.sqft || 0);
@@ -57,17 +60,11 @@ export default function UnitFilters() {
         <div className="flex items-center gap-2 text-[#102a43]">
           <Filter size={18} />
           <span className="text-sm font-bold">Filters</span>
+          <span className="text-xs font-medium text-slate-400 ml-1">
+            ({filteredUnits.length} results)
+          </span>
         </div>
         <div className="flex items-center gap-2">
-          {gridTab === "favorites" && (
-            <button
-              onClick={clearFavorites}
-              className="flex items-center gap-2 px-3 py-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-all text-xs font-bold mr-2 cursor-pointer"
-            >
-              <Trash2 size={16} />
-              <span className="hidden sm:inline">Clear All</span>
-            </button>
-          )}
           <button
             onClick={resetFilters}
             className="p-2 text-slate-400 hover:text-rose-500 transition-colors cursor-pointer"

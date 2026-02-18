@@ -23,6 +23,7 @@ interface BuildingContextType {
   favorites: string[];
   gridTab: string;
   viewMode: string;
+  previousViewMode: string;
   filters: Filters;
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
   setGridTab: (tab: string) => void;
@@ -44,8 +45,9 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const [activeFloorId, setActiveFloorId] = useState<string | null>(null);
   const [activeId, setActiveId] = useState<string | null>(null); 
-  const [viewMode, setViewMode] = useState("map");
-  const [gridTab, setGridTab] = useState("all");
+  const [viewMode, setViewModeState] = useState("map");
+  const [previousViewMode, setPreviousViewMode] = useState("map");
+  const [gridTab, setGridTabState] = useState("all");
   const [favorites, setFavorites] = useState<string[]>([]);
   const [activeTour, setActiveTour] = useState<Tour | null>(null);
 
@@ -57,6 +59,20 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     minSqft: 0,
     maxSqft: 0,
   });
+
+  const setViewMode = useCallback((mode: string) => {
+    setViewModeState(mode);
+  }, []);
+
+  const setGridTab = useCallback((tab: string) => {
+    setGridTabState((prevTab) => {
+      // If navigating TO favorites, save the current viewMode as the origin
+      if (tab === "favorites" && prevTab !== "favorites") {
+        setPreviousViewMode(viewMode);
+      }
+      return tab;
+    });
+  }, [viewMode]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,9 +91,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
         const screensJson = await screensRes.json();
         const unitsArray: Unit[] = await unitsRes.json();
 
-        // 1. Create a complete list of units with their floor context
         const unitsWithFloorContext = unitsArray.map(unit => {
-          // Determine floor ID from the first digit of the unit ID (e.g., "105" -> floor "1")
           const floorId = unit.id.length >= 3 ? unit.id.charAt(0) : "0";
           const floorObj = screensJson.floors.find((f: any) => f.id === floorId);
           
@@ -88,7 +102,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
           };
         });
 
-        // 2. Reconstruct Floors to include EVERY unit that belongs to it from the units.json
         const reconstructedFloors = screensJson.floors.map((floor: any) => ({
           ...floor,
           units: unitsWithFloorContext.filter(u => u.floorId === floor.id)
@@ -124,12 +137,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (gridTab === "favorites" && favorites.length === 0) {
-      setGridTab("all");
-    }
-  }, [favorites, gridTab]);
-
   const floors = useMemo(() => data?.config?.floors || [], [data]);
 
   const allUnits = useMemo((): Unit[] => {
@@ -147,12 +154,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   );
 
   const filteredUnits = useMemo(() => {
-    const baseSet =
-      gridTab === "favorites"
-        ? allUnits.filter((u) => favorites.includes(u.id))
-        : allUnits;
-
-    return baseSet.filter((unit) => {
+    return allUnits.filter((unit) => {
       const matchBeds =
         filters.beds === "All" || unit.numOfBeds === parseInt(filters.beds);
       const matchBaths =
@@ -166,7 +168,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
 
       return matchBeds && matchBaths && matchStatus && matchFeatures && matchSqft;
     });
-  }, [allUnits, filters, favorites, gridTab]);
+  }, [allUnits, filters]);
 
   const selectFloor = useCallback((id: string) => {
     setActiveFloorId(id);
@@ -175,7 +177,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       setActiveId(floor.units[0].id);
     }
     setViewMode("map");
-  }, [floors]);
+  }, [floors, setViewMode]);
 
   const handleUnitSelect = useCallback((id: string) => { 
     const unitData = allUnits.find((u) => u.id === id);
@@ -211,6 +213,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       favorites,
       gridTab,
       viewMode,
+      previousViewMode,
       filters,
       setFilters,
       setGridTab,
@@ -223,7 +226,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       activeTour,
       setActiveTour,
     }),
-    [data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, floors, favorites, gridTab, viewMode, filters, handleUnitSelect, selectFloor, toggleFavorite, clearFavorites, goBackToBuilding, activeTour],
+    [data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, floors, favorites, gridTab, viewMode, previousViewMode, filters, handleUnitSelect, selectFloor, toggleFavorite, clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab],
   );
 
   return (

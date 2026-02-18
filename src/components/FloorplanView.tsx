@@ -16,11 +16,9 @@ import UnitSidebar from "./UnitSidebar";
 import UnitDrawer from "./UnitDrawer";
 import TourModal from "./TourModal";
 import GalleryModal from "./GalleryModal";
+import FavouritesView from "./FavouritesView";
 import { Unit } from "../types/building";
 
-/**
- * INTERNAL COMPONENT: FloorDropdown
- */
 const FloorDropdown = ({ 
   activeFloor, 
   floors, 
@@ -85,6 +83,7 @@ export default function FloorplanView() {
     gridTab,
     setGridTab,
     favorites,
+    previousViewMode
   } = useBuilding();
 
   const [isFloorMenuOpen, setIsFloorMenuOpen] = useState(false);
@@ -141,11 +140,9 @@ export default function FloorplanView() {
 
       <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
         
-        {/* TOP NAVIGATION HEADER */}
         <div className="z-[1001] bg-white backdrop-blur-sm border-b border-slate-200 p-3 shrink-0">
           <div className="flex items-center justify-between gap-2 h-10">
             
-            {/* Left: Back Button (Desktop only) */}
             <div className="flex-1 flex justify-start items-center">
               <button
                 onClick={goBackToBuilding}
@@ -155,7 +152,6 @@ export default function FloorplanView() {
               </button>
             </div>
 
-            {/* Center: Floor Selector (Only visible in Map mode and not Favorites) */}
             <div className="flex-shrink-0 min-w-[40px]">
               {viewMode === "map" && !isFavoritesActive && (
                 <FloorDropdown 
@@ -168,27 +164,8 @@ export default function FloorplanView() {
               )}
             </div>
 
-            {/* Right: View Toggles */}
             <div className="flex-1 flex justify-end">
               <div className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-xl">
-                <button
-                  disabled={favoritesCount === 0}
-                  onClick={() => {
-                    setGridTab(isFavoritesActive ? "all" : "favorites");
-                    setViewMode("grid");
-                  }}
-                  className={`flex items-center gap-1.5 px-2 lg:px-3 py-1.5 rounded-lg text-[10px] lg:text-xs font-bold transition-all border ${
-                    favoritesCount === 0
-                      ? "bg-transparent text-slate-300 border-transparent cursor-not-allowed"
-                      : isFavoritesActive
-                      ? "bg-rose-600 text-white border-rose-600 cursor-pointer shadow-sm"
-                      : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm"
-                  }`}
-                >
-                  <Heart size={14} fill={isFavoritesActive ? "currentColor" : "none"} />
-                  <span className="hidden sm:inline">({favoritesCount})</span>
-                </button>
-
                 <button
                   onClick={() => {
                     setGridTab("all");
@@ -216,31 +193,56 @@ export default function FloorplanView() {
                 >
                   <LayoutGrid size={14} /> <span className="hidden xs:inline">List</span>
                 </button>
+
+                <button
+                  disabled={favoritesCount === 0}
+                  onClick={() => {
+                    if (isFavoritesActive) {
+                      setGridTab("all");
+                      setViewMode(previousViewMode || "grid");
+                    } else {
+                      setGridTab("favorites");
+                    }
+                  }}
+                  className={`flex items-center gap-1.5 px-2 lg:px-3 py-1.5 rounded-lg text-[10px] lg:text-xs font-bold transition-all border ${
+                    favoritesCount === 0
+                      ? "bg-transparent text-slate-300 border-transparent cursor-not-allowed"
+                      : isFavoritesActive
+                      ? "bg-rose-600 text-white border-rose-600 cursor-pointer shadow-sm"
+                      : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm"
+                  }`}
+                >
+                  <Heart size={14} fill={isFavoritesActive ? "currentColor" : "none"} />
+                  <span className="hidden sm:inline">({favoritesCount})</span>
+                </button>
               </div>
             </div>
           </div>
         </div>
 
-        {viewMode === "grid" && <UnitFilters />}
+        {viewMode === "grid" && !isFavoritesActive && <UnitFilters />}
 
         <div className="flex-1 relative overflow-hidden flex flex-col min-h-0">
-          <div className="flex-1 relative overflow-y-auto no-scrollbar">
-            {viewMode === "map" ? (
-              <UnitMap
-                config={activeFloor.config}
-                units={activeFloor.units}
-                activeId={activeUnit?.id}
-                onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
-              />
+          <div className="flex-1 relative overflow-hidden">
+            {isFavoritesActive ? (
+              <FavouritesView onSelectUnit={handleUnitSelect} />
+            ) : viewMode === "map" ? (
+              <div className="h-full relative overflow-y-auto no-scrollbar">
+                <UnitMap
+                  config={activeFloor.config}
+                  units={activeFloor.units}
+                  activeId={activeUnit?.id}
+                  onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
+                />
+              </div>
             ) : (
-              <div className="p-4 lg:p-8">
+              <div className="h-full overflow-y-auto no-scrollbar p-4 lg:p-8">
                 <UnitGrid onSelectUnit={handleUnitSelect} />
               </div>
             )}
           </div>
         </div>
 
-        {/* BOTTOM LOGO BAR */}
         <div className="z-[1001] bg-white backdrop-blur-sm border-t border-slate-200 p-4 shrink-0">
           <div className="flex justify-center items-center h-8"> 
             <img 
