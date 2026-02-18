@@ -126,14 +126,17 @@ body,
 }
 
 .unit-interactive:hover, .unit-interactive:hover path, .unit-interactive:hover polygon {
-  fill: #dce8f0 !important;
+  fill: #7daece !important;
   fill-opacity: 1;
   stroke: #ffffff;
   stroke-width: 0.5px;
 }
 
-.unit-active, .unit-active path, .unit-active polygon {
-  fill: #518cb2 !important;
+.unit-active,
+.unit-active:hover,
+.unit-active path,
+.unit-active polygon {
+  fill: #dce8f0 !important;
   fill-opacity: 1 !important;
   stroke: #ffffff !important;
   stroke-width: 0.5px !important;
