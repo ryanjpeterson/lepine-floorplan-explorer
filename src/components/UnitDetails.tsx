@@ -37,17 +37,17 @@ interface AttributeIconConfig {
 
 const attributeIcons: Record<string, AttributeIconConfig> = {
   sqft: { label: "sqft", icon: Maximize },
-  numOfBeds: { label: "Beds", icon: Bed },
-  numOfBaths: { label: "Baths", icon: Toilet },
+  numOfBeds: { label: "Bed", icon: Bed },
+  numOfBaths: { label: "Bath", icon: Toilet },
   balcony: { label: "Balcony", icon: DoorOpen },
-  tub: { label: "Tub", icon: Bath },
-  pantry: { label: "Pantry", icon: Utensils },
+  // tub: { label: "Tub", icon: Bath },
+  // pantry: { label: "Pantry", icon: Utensils },
   terrace: { label: "Terrace", icon: Trees },
   office: { label: "Office", icon: Monitor },
-  walkInCloset: { label: "Walk-in Closet", icon: Shirt },
+  walkInCloset: { label: "Walk-In Closet", icon: Shirt },
   barrierFree: { label: "Barrier Free", icon: Accessibility },
-  builtIns: { label: "Built-ins", icon: Archive },
-  juliet: { label: "Juliet Balcony", icon: Wind },
+  // builtIns: { label: "Built-Ins", icon: Archive },
+  // juliet: { label: "Juliet Balcony", icon: Wind },
   powderRoom: { label: "Powder Room", icon: Sparkle },
 };
 
