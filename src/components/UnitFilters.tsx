@@ -43,15 +43,15 @@ export default function UnitFilters() {
 
   const featureList = [
     { key: "balcony", label: "Balcony" },
-    { key: "tub", label: "Tub" },
-    { key: "pantry", label: "Pantry" },
+    // { key: "tub", label: "Tub" },
+    // { key: "pantry", label: "Pantry" },
     { key: "terrace", label: "Terrace" },
     { key: "office", label: "Office" },
-    { key: "walkInCloset", label: "Walk-in Closet" },
+    { key: "walkInCloset", label: "Walk-In Closet" },
     { key: "barrierFree", label: "Barrier Free" },
-    { key: "builtIns", label: "Built-ins" },
-    { key: "juliet", label: "Juliet" },
-    { key: "modelSuite", label: "Model Suite" },
+    // { key: "builtIns", label: "Built-Ins" },
+    // { key: "juliet", label: "Juliet" },
+    // { key: "modelSuite", label: "Model Suite" },
     { key: "powderRoom", label: "Powder Room" },
   ];
 
@@ -161,7 +161,7 @@ export default function UnitFilters() {
 
           <div className="space-y-3 pt-6 border-t border-slate-100">
             <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
-              Amenities & Features
+              Unit Features
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {featureList.map((item) => (
