@@ -20,8 +20,8 @@ interface UnitCardProps {
 
 const attributeIcons: Record<string, { label: string; icon: LucideIcon }> = {
   sqft: { label: "sqft", icon: Maximize },
-  numOfBeds: { label: "Beds", icon: Bed },
-  numOfBaths: { label: "Baths", icon: Bath },
+  numOfBeds: { label: "Bed", icon: Bed },
+  numOfBaths: { label: "Bath", icon: Bath },
 };
 
 const UnitCard = memo<UnitCardProps>(
