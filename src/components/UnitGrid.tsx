@@ -164,6 +164,7 @@ export default function UnitGrid({ onSelectUnit, unitsOverride }: UnitGridProps)
           centeredSlides={true}
           pagination={{ clickable: true, dynamicBullets: true }}
           className="unit-swiper !px-4"
+          lazyPreloadPrevNext={2}
           breakpoints={{
             480: { slidesPerView: 1.4 },
             640: { slidesPerView: 1.8 },
