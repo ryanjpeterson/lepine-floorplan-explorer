@@ -17,9 +17,9 @@ import {
   Accessibility,
   Archive,
   Wind,
-  Sparkles,
   X,
   Eye,
+  Sparkle,
   LucideIcon
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
@@ -48,6 +48,7 @@ const attributeIcons: Record<string, AttributeIconConfig> = {
   barrierFree: { label: "Barrier Free", icon: Accessibility },
   builtIns: { label: "Built-ins", icon: Archive },
   juliet: { label: "Juliet Balcony", icon: Wind },
+  powderRoom: { label: "Powder Room", icon: Sparkle },
 };
 
 export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps) {

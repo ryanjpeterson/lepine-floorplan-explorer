@@ -52,6 +52,7 @@ export default function UnitFilters() {
     { key: "builtIns", label: "Built-ins" },
     { key: "juliet", label: "Juliet" },
     { key: "modelSuite", label: "Model Suite" },
+    { key: "powderRoom", label: "Powder Room" },
   ];
 
   return (
