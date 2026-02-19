@@ -92,7 +92,7 @@ export default function UnitFilters() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-end gap-6 lg:gap-8">
             <div className="flex flex-col gap-1.5 min-w-[120px]">
               <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                Beds
+                # Bed
               </label>
               <select
                 value={filters.beds}
@@ -101,8 +101,8 @@ export default function UnitFilters() {
                 }
                 className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-[#102a43] focus:ring-2 focus:ring-[#102a43]/10 outline-none cursor-pointer"
               >
-                <option value="All">All Beds</option>
-                {[1, 2, 3, 4].map((n) => (
+                <option value="All">Show All</option>
+                {[1, 2, 3].map((n) => (
                   <option key={n} value={n}>
                     {n} Bed
                   </option>
@@ -112,7 +112,7 @@ export default function UnitFilters() {
 
             <div className="flex flex-col gap-1.5 min-w-[120px]">
               <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                Baths
+                # Bath
               </label>
               <select
                 value={filters.baths}
@@ -121,8 +121,8 @@ export default function UnitFilters() {
                 }
                 className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-[#102a43] focus:ring-2 focus:ring-[#102a43]/10 outline-none cursor-pointer"
               >
-                <option value="All">All Baths</option>
-                {[1, 1.5, 2, 2.5, 3].map((n) => (
+                <option value="All">Show All</option>
+                {[1, 2, 3].map((n) => (
                   <option key={n} value={n}>
                     {n} Bath
                   </option>
