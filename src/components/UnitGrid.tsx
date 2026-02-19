@@ -162,7 +162,7 @@ export default function UnitGrid({ onSelectUnit, unitsOverride }: UnitGridProps)
           spaceBetween={16}
           slidesPerView={1.15}
           centeredSlides={true}
-          pagination={{ clickable: true }}
+          pagination={{ clickable: true, dynamicBullets: true }}
           className="unit-swiper !px-4"
           breakpoints={{
             480: { slidesPerView: 1.4 },
