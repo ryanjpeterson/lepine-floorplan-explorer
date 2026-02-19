@@ -1,6 +1,8 @@
-import React, { memo, useState } from "react";
+/* src/components/UnitGrid.tsx */
+
+import React, { memo, useState, useEffect, useRef, ReactNode } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation } from "swiper/modules";
+import { Pagination, Navigation, Virtual } from "swiper/modules";
 import { useBuilding } from "../context/BuildingContext";
 import { Heart, ArrowRight, Maximize, Bed, Bath, LucideIcon } from "lucide-react";
 import { Unit } from "../types/building";
@@ -8,6 +10,53 @@ import { Unit } from "../types/building";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/virtual";
+
+/**
+ * GLOBAL UTILITY: LazyGridItem
+ * Ensures items only mount when visible and provides a shadow-safe container
+ * to prevent items from being cut off during hover or transitions.
+ */
+interface LazyGridItemProps {
+  children: ReactNode;
+  priority?: boolean;
+}
+
+export const LazyGridItem = ({ children, priority = false }: LazyGridItemProps) => {
+  const [isVisible, setIsVisible] = useState(priority);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (priority || isVisible) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" } // Load slightly before coming into view
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [priority, isVisible]);
+
+  return (
+    <div 
+      ref={containerRef} 
+      className="h-full w-full p-2"
+    >
+      {isVisible ? children : (
+        <div className="w-full aspect-[4/5] bg-slate-100/50 animate-pulse rounded-2xl border border-slate-100" />
+      )}
+    </div>
+  );
+};
 
 interface UnitCardProps {
   unit: Unit;
@@ -55,17 +104,18 @@ const UnitCard = memo<UnitCardProps>(
           isActive
             ? "border-[#102a43]"
             : "border-transparent hover:border-slate-200"
-        }`}
+        } hover:-translate-y-1`}
       >
-        <div className="relative overflow-hidden max-h-[12rem] aspect-video md:aspect-square lg:aspect-square xl:aspect-video">
+        <div className="relative overflow-hidden max-h-[12rem] aspect-video">
           <img
             src={unit.image}
             alt={unit.title}
+            loading="lazy"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <button
             onClick={handleFavorite}
-            className={`absolute top-4 right-4 p-2.5 rounded-full backdrop-blur-md transition-all cursor-pointer ${
+            className={`absolute top-4 right-4 p-2.5 rounded-full backdrop-blur-md transition-all cursor-pointer z-10 ${
               isPulsing ? "animate-fav-pulse" : ""
             } ${
               isFav
@@ -151,27 +201,27 @@ export default function UnitGrid({ onSelectUnit, unitsOverride }: UnitGridProps)
       <style>{`
         .swiper-pagination-bullet-active { background: #102a43 !important; }
         .swiper-pagination-bullet { opacity: 0.3; }
-        .unit-swiper { padding-bottom: 60px !important; overflow: visible !important; }
+        .unit-swiper { padding-bottom: 60px !important; }
         .unit-swiper .swiper-pagination { bottom: 0px !important; }
       `}</style>
 
       {/* Mobile Swiper Section */}
       <div className="block lg:hidden">
         <Swiper
-          modules={[Pagination, Navigation]}
+          modules={[Pagination, Navigation, Virtual]}
           spaceBetween={16}
           slidesPerView={1}
           centeredSlides={true}
+          virtual
           pagination={{ clickable: true, dynamicBullets: true }}
           className="unit-swiper !px-4"
           breakpoints={{
-            480: { slidesPerView: 1.4 },
-            640: { slidesPerView: 1.8 },
-            768: { slidesPerView: 2.2, centeredSlides: false },
+            640: { slidesPerView: 1.5 },
+            768: { slidesPerView: 2, centeredSlides: false },
           }}
         >
-          {unitsToDisplay.map((unit) => (
-            <SwiperSlide key={unit.id} className="h-auto">
+          {unitsToDisplay.map((unit, index) => (
+            <SwiperSlide key={unit.id} virtualIndex={index} className="h-auto">
               <UnitCard
                 unit={unit}
                 isActive={activeUnit?.id === unit.id}
@@ -186,18 +236,19 @@ export default function UnitGrid({ onSelectUnit, unitsOverride }: UnitGridProps)
       </div>
 
       {/* Desktop Grid Section */}
-      <div className="hidden lg:block">
-        <div className="grid gap-6 lg:gap-8 grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] max-w-[2400px] mx-auto">
-          {unitsToDisplay.map((unit) => (
-            <UnitCard
-              key={unit.id}
-              unit={unit}
-              isActive={activeUnit?.id === unit.id}
-              isFav={favorites.includes(unit.id)}
-              toggleFavorite={toggleFavorite}
-              onSelectUnit={onSelectUnit}
-              isDesktop={true}
-            />
+      <div className="hidden lg:block py-4"> {/* Margin at top and bottom */}
+        <div className="grid gap-2 lg:gap-4 grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] max-w-[2400px] mx-auto overflow-visible px-2">
+          {unitsToDisplay.map((unit, index) => (
+            <LazyGridItem key={unit.id} priority={index < 8}>
+              <UnitCard
+                unit={unit}
+                isActive={activeUnit?.id === unit.id}
+                isFav={favorites.includes(unit.id)}
+                toggleFavorite={toggleFavorite}
+                onSelectUnit={onSelectUnit}
+                isDesktop={true}
+              />
+            </LazyGridItem>
           ))}
         </div>
       </div>
