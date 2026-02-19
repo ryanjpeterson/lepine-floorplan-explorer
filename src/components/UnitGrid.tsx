@@ -210,13 +210,12 @@ export default function UnitGrid({ onSelectUnit, unitsOverride }: UnitGridProps)
         <Swiper
           modules={[Pagination, Navigation, Virtual]}
           spaceBetween={16}
-          slidesPerView={1}
+          slidesPerView={1.25}
           centeredSlides={true}
           virtual
           pagination={{ clickable: true, dynamicBullets: true }}
           className="unit-swiper !px-4"
           breakpoints={{
-            640: { slidesPerView: 1.5 },
             768: { slidesPerView: 2, centeredSlides: false },
           }}
         >

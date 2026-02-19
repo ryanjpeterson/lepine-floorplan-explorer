@@ -236,7 +236,7 @@ export default function FloorplanView() {
                 />
               </div>
             ) : (
-              <div className="h-full overflow-y-auto no-scrollbar p-4 lg:p-8">
+              <div className="h-full overflow-y-auto no-scrollbar py-4 lg:p-8">
                 <UnitGrid onSelectUnit={handleUnitSelect} />
               </div>
             )}
