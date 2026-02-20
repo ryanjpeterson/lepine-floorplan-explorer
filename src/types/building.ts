@@ -32,7 +32,8 @@ export interface Floor {
   name: string;
   config: FloorConfig;
   units: Unit[];
-  polygon: [number, number][];
+  label: string;
+  center: [number, number];
 }
 
 export interface BuildingData {

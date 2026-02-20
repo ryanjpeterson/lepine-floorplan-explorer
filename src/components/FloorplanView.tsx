@@ -146,7 +146,7 @@ export default function FloorplanView() {
             <div className="flex-1 flex justify-start items-center">
               <button
                 onClick={goBackToBuilding}
-                className="hidden lg:flex bg-[#102a43] text-white px-4 py-2 rounded-xl font-bold text-xs transition-all items-center gap-2 whitespace-nowrap cursor-pointer hover:bg-[#1a3a5a]"
+                className="flex bg-[#102a43] text-white px-4 py-2 rounded-xl font-bold text-xs transition-all items-center gap-2 whitespace-nowrap cursor-pointer hover:bg-[#1a3a5a]"
               >
                 <ArrowLeft size={14} /> Back
               </button>

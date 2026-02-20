@@ -1,37 +1,21 @@
-import React, { useEffect } from "react"; // 1. Add useEffect
-import { MapContainer, ImageOverlay, useMap } from "react-leaflet"; // 2. Add useMap
+// src/components/BuildingMap.tsx
+import React, { useEffect } from "react";
+import { MapContainer, ImageOverlay, useMap } from "react-leaflet";
 import L from "leaflet";
 import MapController from "./MapController";
-import FloorPolygon from "./FloorPolygon";
+import FloorMarker from "./FloorMarker"; // Import the new component
 import { MAP_VIEW_SETTINGS } from "../config/viewConfigs";
 import { Floor } from "../types/building";
 import "leaflet/dist/leaflet.css";
 
-// 3. Import Geoman JS and CSS
 import "@geoman-io/leaflet-geoman-free";
 import "@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css";
 
 interface BuildingMapProps {
-  config: {
-    url: string;
-    width: number;
-    height: number;
-  };
+  config: { url: string; width: number; height: number; };
   floors: Floor[];
   onSelect: (floor: Floor) => void;
 }
-
-const formatCoordinates = (latLngs: any[]): number[][] => {
-  // Leaflet polygons usually return an array of arrays (rings)
-  // We take the first ring (outer boundary)
-  const ring = Array.isArray(latLngs[0]) ? latLngs[0] : latLngs;
-  
-  return ring.map((pt: any) => {
-    // Round to integers for cleaner JSON (pixel coordinates)
-    // Map lng to x, lat to y
-    return [Math.round(pt.lng), Math.round(pt.lat)];
-  });
-};
 
 const DebugControls = () => {
   const map = useMap();
@@ -44,60 +28,32 @@ const DebugControls = () => {
     if (pmMap.pm) {
       pmMap.pm.addControls({
         position: "topleft",
-        drawCircle: false,
-        drawCircleMarker: false,
-        drawText: false,
-        drawMarker: false,
-        drawPolyline: false,
+        drawMarker: true,
         drawPolygon: true,
-        drawRectangle: true,
         editMode: true,
         dragMode: true,
-        cutPolygon: true,
         removalMode: true,
-        rotateMode: false,
       });
     }
 
     const logCoords = (layer: any, action: string) => {
-      if (layer.getLatLngs) {
-        // 1. Get raw Leaflet LatLngs
-        const latLngs = layer.getLatLngs();
-        
-        // 2. Format to [[x, y], [x, y]]
-        const formattedPoints = formatCoordinates(latLngs);
-        
-        // 3. Log specifically for your JSON file
-        console.log(`%c[${action}] JSON Format:`, "color: #00dbb5; font-weight: bold;");
-        console.log(`"polygon": ${JSON.stringify(formattedPoints, null, 2)},`);
+      if (layer instanceof L.Marker) {
+        const latLng = layer.getLatLng();
+        console.log(`%c[${action}] Center Coord:`, "color: #00dbb5; font-weight: bold;");
+        console.log(`"center": [${Math.round(latLng.lng)}, ${Math.round(latLng.lat)}],`);
+        return;
       }
     };
 
-    const handleCreate = (e: any) => {
-      const layer = e.layer;
-      logCoords(layer, "CREATED");
-
-      layer.on("pm:edit", () => logCoords(layer, "EDITED"));
-      layer.on("pm:dragend", () => logCoords(layer, "DRAGGED"));
-      layer.on("pm:cut", () => logCoords(layer, "CUT"));
-    };
-
-    map.on("pm:create", handleCreate);
-
-    return () => {
-      if (pmMap.pm) pmMap.pm.removeControls();
-      map.off("pm:create", handleCreate);
-    };
+    map.on("pm:create", (e) => logCoords(e.layer, "CREATED"));
+    return () => { if (pmMap.pm) pmMap.pm.removeControls(); };
   }, [map, isDebug]);
 
   return null;
 };
 
 const BuildingMap: React.FC<BuildingMapProps> = ({ config, floors, onSelect }) => {
-  const bounds: L.LatLngBoundsExpression = [
-    [0, 0],
-    [config.height, config.width],
-  ];
+  const bounds: L.LatLngBoundsExpression = [[0, 0], [config.height, config.width]];
   const settings = MAP_VIEW_SETTINGS.building;
 
   return (
@@ -105,28 +61,13 @@ const BuildingMap: React.FC<BuildingMapProps> = ({ config, floors, onSelect }) =
       crs={L.CRS.Simple}
       className="h-full w-full"
       style={{ background: MAP_VIEW_SETTINGS.defaultBackground }}
-      attributionControl={false}
-      keyboard={false}
-      zoomControl={settings.zoomControl}
-      dragging={settings.dragging}
-      scrollWheelZoom={settings.scrollWheelZoom}
-      doubleClickZoom={settings.doubleClickZoom}
-      touchZoom={settings.touchZoom}
-      fadeAnimation={false}
-      zoomAnimation={false}
+      {...settings}
     >
-      {/* 5. Add DebugControls inside MapContainer */}
       <DebugControls />
-
       <ImageOverlay url={config.url} bounds={bounds} />
-      <MapController
-        mode="building"
-        bounds={bounds}
-        imageWidth={config.width}
-        imageHeight={config.height}
-      />
+      <MapController mode="building" bounds={bounds} imageWidth={config.width} imageHeight={config.height} />
       {floors.map((floor) => (
-        <FloorPolygon key={floor.id} floor={floor} onSelect={onSelect} />
+        <FloorMarker key={floor.id} floor={floor} onSelect={onSelect} />
       ))}
     </MapContainer>
   );

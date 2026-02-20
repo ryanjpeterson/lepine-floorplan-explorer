@@ -1,41 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useBuilding } from "./context/BuildingContext";
 import BuildingView from "./components/BuildingView";
 import FloorplanView from "./components/FloorplanView";
 
 const App: React.FC = () => {
-  const { loading, error, activeFloor, floors, selectFloor } = useBuilding();
-
-  useEffect(() => {
-    // 1024px is the 'lg' breakpoint used in FloorplanView
-    const MOBILE_BREAKPOINT = 1024;
-
-    const checkMobileView = () => {
-      const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
-      
-      // If we are on mobile and no floor is currently active, set the default
-      if (isMobile && !activeFloor && floors.length > 0) {
-        // Find the 2nd floor specifically
-        // We check by name or ID depending on your building.json structure
-        const secondFloor = floors.find(f => 
-          f.name.toLowerCase().includes("2nd") || f.id === "floor-2"
-        );
-
-        // Fallback to the first available floor if '2nd Floor' isn't found
-        const defaultFloorId = secondFloor ? secondFloor.id : floors[0].id;
-        selectFloor(defaultFloorId);
-      }
-    };
-
-    // Run check on initial load
-    checkMobileView();
-
-    // Listen for window resize to handle orientation changes or desktop resizing
-    window.addEventListener("resize", checkMobileView);
-    
-    // Cleanup event listener on unmount
-    return () => window.removeEventListener("resize", checkMobileView);
-  }, [activeFloor, floors, selectFloor]);
+  const { loading, error, activeFloor } = useBuilding();
 
   if (loading) {
     return (
@@ -62,8 +31,6 @@ const App: React.FC = () => {
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-slate-50">
-      {/* activeFloor is managed by the useEffect for mobile, 
-          while desktop requires manual selection to show FloorplanView */}
       {activeFloor ? <FloorplanView /> : <BuildingView />}
     </div>
   );
