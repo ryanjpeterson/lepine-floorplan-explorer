@@ -1,6 +1,6 @@
 /* src/components/UnitGrid.tsx */
 
-import React, { memo, useState, useEffect, useRef, ReactNode } from "react";
+import React, { memo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Virtual } from "swiper/modules";
 import { useBuilding } from "../context/BuildingContext";
@@ -11,52 +11,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/virtual";
-
-/**
- * GLOBAL UTILITY: LazyGridItem
- * Ensures items only mount when visible and provides a shadow-safe container
- * to prevent items from being cut off during hover or transitions.
- */
-interface LazyGridItemProps {
-  children: ReactNode;
-  priority?: boolean;
-}
-
-export const LazyGridItem = ({ children, priority = false }: LazyGridItemProps) => {
-  const [isVisible, setIsVisible] = useState(priority);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (priority || isVisible) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "300px" } // Load slightly before coming into view
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [priority, isVisible]);
-
-  return (
-    <div 
-      ref={containerRef} 
-      className="h-full w-full p-2"
-    >
-      {isVisible ? children : (
-        <div className="w-full aspect-[4/5] bg-slate-100/50 animate-pulse rounded-2xl border border-slate-100" />
-      )}
-    </div>
-  );
-};
 
 interface UnitCardProps {
   unit: Unit;
@@ -238,7 +192,6 @@ export default function UnitGrid({ onSelectUnit, unitsOverride }: UnitGridProps)
       <div className="hidden lg:block py-4"> {/* Margin at top and bottom */}
         <div className="grid gap-2 lg:gap-4 grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] max-w-[2400px] mx-auto overflow-visible px-2">
           {unitsToDisplay.map((unit, index) => (
-            <LazyGridItem key={unit.id} priority={index < 8}>
               <UnitCard
                 unit={unit}
                 isActive={activeUnit?.id === unit.id}
@@ -247,7 +200,6 @@ export default function UnitGrid({ onSelectUnit, unitsOverride }: UnitGridProps)
                 onSelectUnit={onSelectUnit}
                 isDesktop={true}
               />
-            </LazyGridItem>
           ))}
         </div>
       </div>
