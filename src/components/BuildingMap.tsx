@@ -2,8 +2,8 @@
 import React, { useEffect } from "react";
 import { MapContainer, ImageOverlay, useMap } from "react-leaflet";
 import L from "leaflet";
-import MapController from "../components/MapController";
-import FloorMarker from "../components/FloorMarker";
+import MapController from "./MapController";
+import FloorMarker from "./FloorMarker";
 import { MAP_VIEW_SETTINGS } from "../config/viewConfigs";
 import { Floor } from "../types/building";
 import "leaflet/dist/leaflet.css";

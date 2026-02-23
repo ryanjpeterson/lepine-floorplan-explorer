@@ -1,6 +1,6 @@
 import React from "react";
 import { useBuilding } from "../context/BuildingContext";
-import BuildingMap from "./BuildingMap";
+import BuildingMap from "../components/BuildingMap";
 
 const BuildingView: React.FC = () => {
   const { data, floors, selectFloor } = useBuilding();
