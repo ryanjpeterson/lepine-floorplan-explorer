@@ -1,4 +1,3 @@
-/* src/components/ObjView.tsx */
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, useGLTF, Preload, Center } from "@react-three/drei";
@@ -45,7 +44,7 @@ const LoadingOverlay = () => (
   </div>
 );
 
-const ObjView: React.FC = () => {
+const Building3DScreen: React.FC = () => {
 const { data } = useBuilding();
 
   return (
@@ -79,12 +78,12 @@ const { data } = useBuilding();
             <Model url={MODEL_PATH} />
           </Center>
 
-          <OrbitControls 
+          <OrbitControls
             enableDamping 
             dampingFactor={0.1} 
             makeDefault
             // Minimum distance the camera can get to the model
-            minDistance={5} 
+            minDistance={10} 
             // Maximum distance the camera can pull away from the model
             maxDistance={100}
           />
@@ -99,7 +98,7 @@ const { data } = useBuilding();
             {data?.name}
           </p>
           <p className="text-white/40 text-[9px] uppercase tracking-widest mt-0.5">
-            Orbit: Left Click • Pan: Right Click
+            {data?.address}
           </p>
         </div>
       </div>
@@ -110,4 +109,4 @@ const { data } = useBuilding();
 // Pre-load the GLB asset
 useGLTF.preload(MODEL_PATH);
 
-export default ObjView;
+export default Building3DScreen;

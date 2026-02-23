@@ -1,8 +1,7 @@
-import React from "react";
 import { useBuilding } from "../context/BuildingContext";
 import BuildingMap from "../components/BuildingMap";
 
-const BuildingView: React.FC = () => {
+export default function BuildingStaticScreen() {
   const { data, floors, selectFloor } = useBuilding();
 
   if (!data) return null;
@@ -27,5 +26,3 @@ const BuildingView: React.FC = () => {
     </div>
   );
 };
-
-export default BuildingView;

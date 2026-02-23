@@ -1,6 +1,6 @@
-/* src/components/FloorplanView.tsx */
+/* src/components/FloorplanSVGScreen.tsx */
 
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   ChevronDown,
   Map as MapIcon,
@@ -17,8 +17,8 @@ import UnitSidebar from "../components/UnitSidebar";
 import UnitDrawer from "../components/UnitDrawer";
 import TourModal from "../components/TourModal";
 import GalleryModal from "../components/GalleryModal";
-import FavouritesView from "./FavouritesView";
-import ObjView from "./ObjView";
+import FavouritesView from "./FavouriteUnitsScreen";
+import ObjView from "./Building3DScreen";
 import { Unit } from "../types/building";
 
 const FloorDropdown = ({ 
@@ -69,7 +69,7 @@ const FloorDropdown = ({
   );
 };
 
-export default function FloorplanView() {
+export default function FloorplanSVGScreen() {
   const {
     data,
     activeFloor,

@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useBuilding } from "../context/BuildingContext";
 import { Unit } from "../types/building";
 import UnitGrid from "../components/UnitGrid";
 import { Trash2 } from "lucide-react";
 
-export default function FavouritesView({ onSelectUnit }: { onSelectUnit: (id: string) => void }) {
+export default function FavouriteUnitsScreen({ onSelectUnit }: { onSelectUnit: (id: string) => void }) {
   const { 
     favorites, 
     allUnits, 

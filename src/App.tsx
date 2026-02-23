@@ -1,7 +1,7 @@
 import React from "react";
 import { useBuilding } from "./context/BuildingContext";
-import BuildingView from "./screens/BuildingView";
-import FloorplanView from "./screens/FloorplanView";
+import BuildingStaticScreen from "./screens/BuildingStaticScreen";
+import FloorplanSVGScreen from "./screens/FloorplanSVGScreen";
 
 const App: React.FC = () => {
   const { loading, error, activeFloor } = useBuilding();
@@ -31,7 +31,7 @@ const App: React.FC = () => {
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-slate-50">
-      {activeFloor ? <FloorplanView /> : <BuildingView />}
+      {activeFloor ? <FloorplanSVGScreen /> : <BuildingStaticScreen />}
     </div>
   );
 };
