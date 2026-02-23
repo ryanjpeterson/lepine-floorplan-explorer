@@ -83,7 +83,7 @@ const { data } = useBuilding();
             dampingFactor={0.1} 
             makeDefault
             // Minimum distance the camera can get to the model
-            minDistance={10} 
+            minDistance={100} 
             // Maximum distance the camera can pull away from the model
             maxDistance={100}
           />
@@ -92,7 +92,7 @@ const { data } = useBuilding();
         </Canvas>
       </Suspense>
       
-      <div className="absolute bottom-6 left-6 z-10 pointer-events-none">
+      {/* <div className="absolute bottom-6 left-6 z-10 pointer-events-none">
         <div className="bg-black/40 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10 shadow-2xl">
           <p className="text-white/80 text-[10px] font-bold uppercase tracking-[0.2em]">
             {data?.name}
@@ -101,7 +101,7 @@ const { data } = useBuilding();
             {data?.address}
           </p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
