@@ -1,7 +1,7 @@
 import React from "react";
 import { useBuilding } from "./context/BuildingContext";
-import BuildingView from "./components/BuildingView";
-import FloorplanView from "./components/FloorplanView";
+import BuildingView from "./screens/BuildingView";
+import FloorplanView from "./screens/FloorplanView";
 
 const App: React.FC = () => {
   const { loading, error, activeFloor } = useBuilding();
