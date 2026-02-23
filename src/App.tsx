@@ -1,7 +1,8 @@
+/* src/App.tsx */
 import React, { lazy, Suspense } from "react";
 import { useBuilding } from "./context/BuildingContext";
+import MainLayout from "./components/MainLayout";
 
-// Lazy load screens to improve initial load time
 const BuildingStaticScreen = lazy(() => import("./screens/BuildingStaticScreen"));
 const FloorplanSVGScreen = lazy(() => import("./screens/FloorplanSVGScreen"));
 
@@ -36,11 +37,17 @@ const App: React.FC = () => {
       <Suspense 
         fallback={
           <div className="h-screen w-screen flex items-center justify-center font-bold text-slate-400">
-            Initializing Floorplans...
+            Initializing...
           </div>
         }
       >
-        {activeFloor ? <FloorplanSVGScreen /> : <BuildingStaticScreen />}
+        {activeFloor ? (
+          <MainLayout>
+            <FloorplanSVGScreen />
+          </MainLayout>
+        ) : (
+          <BuildingStaticScreen />
+        )}
       </Suspense>
     </div>
   );
