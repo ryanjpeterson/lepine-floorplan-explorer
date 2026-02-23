@@ -10,6 +10,7 @@ import React, {
   ReactNode,
 } from "react";
 import { BuildingData, Floor, Unit, Filters, Tour } from "../types/building";
+import { fetchBuildingData, getSqftRange } from "../utils/buildingData";
 
 interface BuildingContextType {
   data: BuildingData | null;
@@ -66,7 +67,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
 
   const setGridTab = useCallback((tab: string) => {
     setGridTabState((prevTab) => {
-      // If navigating TO favorites, save the current viewMode as the origin
       if (tab === "favorites" && prevTab !== "favorites") {
         setPreviousViewMode(viewMode);
       }
@@ -75,58 +75,16 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   }, [viewMode]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const initApp = async () => {
       try {
-        const [configRes, screensRes, unitsRes] = await Promise.all([
-          fetch("/assets/carresaintlouis/data/config.json"),
-          fetch("/assets/carresaintlouis/data/screens.json"),
-          fetch("/assets/carresaintlouis/data/units.json")
-        ]);
+        const buildingData = await fetchBuildingData("/assets/carresaintlouis");
+        setData(buildingData);
 
-        if (!configRes.ok || !screensRes.ok || !unitsRes.ok) {
-          throw new Error("Failed to load building configuration files");
-        }
-
-        const configJson = await configRes.json();
-        const screensJson = await screensRes.json();
-        const unitsArray: Unit[] = await unitsRes.json();
-
-        const unitsWithFloorContext = unitsArray.map(unit => {
-          const floorId = unit.id.length >= 3 ? unit.id.charAt(0) : "0";
-          const floorObj = screensJson.floors.find((f: any) => f.id === floorId);
-          
-          return {
-            ...unit,
-            floorId: floorId,
-            floorName: floorObj ? floorObj.name : `Floor ${floorId}`
-          };
-        });
-
-        const reconstructedFloors = screensJson.floors.map((floor: any) => ({
-          ...floor,
-          units: unitsWithFloorContext.filter(u => u.floorId === floor.id)
-        }));
-
-        const combinedData: BuildingData = {
-          ...configJson,
-          config: {
-            url: screensJson.url,
-            width: screensJson.width,
-            height: screensJson.height,
-            floors: reconstructedFloors
-          }
-        };
-
-        setData(combinedData);
-
-        if (unitsArray.length > 0) {
-          const sqfts = unitsArray.map((u) => u.sqft || 0);
-          setFilters((prev) => ({
-            ...prev,
-            minSqft: Math.min(...sqfts),
-            maxSqft: Math.max(...sqfts),
-          }));
-        }
+        // Set initial filter ranges based on loaded units
+        const allUnits = buildingData.config.floors.flatMap(f => f.units);
+        const { min, max } = getSqftRange(allUnits);
+        setFilters(prev => ({ ...prev, minSqft: min, maxSqft: max }));
+        
         setLoading(false);
       } catch (err: any) {
         setError(err.message);
@@ -134,7 +92,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       }
     };
 
-    fetchData();
+    initApp();
   }, []);
 
   const floors = useMemo(() => data?.config?.floors || [], [data]);
@@ -155,15 +113,10 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
 
   const filteredUnits = useMemo(() => {
     return allUnits.filter((unit) => {
-      const matchBeds =
-        filters.beds === "All" || unit.numOfBeds === parseInt(filters.beds);
-      const matchBaths =
-        filters.baths === "All" || unit.numOfBaths === parseFloat(filters.baths);
-      const matchStatus =
-        filters.status === "All" || unit.status === filters.status;
-      const matchSqft =
-        unit.sqft >= filters.minSqft && unit.sqft <= filters.maxSqft;
-
+      const matchBeds = filters.beds === "All" || unit.numOfBeds === parseInt(filters.beds);
+      const matchBaths = filters.baths === "All" || unit.numOfBaths === parseFloat(filters.baths);
+      const matchStatus = filters.status === "All" || unit.status === filters.status;
+      const matchSqft = unit.sqft >= filters.minSqft && unit.sqft <= filters.maxSqft;
       const matchFeatures = filters.features.every((f) => unit[f as keyof Unit] === true);
 
       return matchBeds && matchBaths && matchStatus && matchFeatures && matchSqft;
@@ -229,11 +182,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     [data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, floors, favorites, gridTab, viewMode, previousViewMode, filters, handleUnitSelect, selectFloor, toggleFavorite, clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab],
   );
 
-  return (
-    <BuildingContext.Provider value={value}>
-      {children}
-    </BuildingContext.Provider>
-  );
+  return <BuildingContext.Provider value={value}>{children}</BuildingContext.Provider>;
 }
 
 export const useBuilding = () => {

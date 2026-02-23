@@ -45,6 +45,7 @@ export interface BuildingData {
     width: number;
     height: number;
     floors: Floor[];
+    modelUrl?: string;
   };
 }
 

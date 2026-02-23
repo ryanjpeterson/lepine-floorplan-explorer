@@ -15,6 +15,23 @@ import { Unit } from "../types/building";
 // Lazy load the heavy 3D view to improve initial load performance
 const ObjView = lazy(() => import("./Building3DScreen"));
 
+const LoadingOverlay = ({ message }: { message: string }) => (
+  <div className="absolute inset-0 flex items-center justify-center text-white font-bold z-50 overflow-hidden">
+    {/* Blurred sky background for the loader */}
+    <div 
+      className="absolute inset-0 bg-cover bg-center blur-xl scale-110 opacity-50" 
+      style={{ backgroundImage: 'url(/sky.jpg)' }} 
+    />
+    
+    <div className="relative flex flex-col items-center gap-3 bg-black/30 backdrop-blur-md p-10 rounded-3xl border border-white/10">
+      <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin" />
+      <p className="text-sm tracking-widest uppercase opacity-80 text-center">
+        {message}
+      </p>
+    </div>
+  </div>
+);
+
 export default function FloorplanSVGScreen() {
   const {
     data,
@@ -23,7 +40,6 @@ export default function FloorplanSVGScreen() {
     selectUnit,
     viewMode,
     gridTab,
-    favorites,
     activeTour,
     setActiveTour,
   } = useBuilding();
@@ -36,11 +52,6 @@ export default function FloorplanSVGScreen() {
   useEffect(() => {
     setIsMobileSidebarOpen(false);
   }, [activeFloor?.id]);
-
-  if (!activeFloor) return null;
-
-  const hasUnits = activeFloor.units && activeFloor.units.length > 0;
-  const isFavoritesActive = gridTab === "favorites";
 
   const handleUnitSelect = useCallback(
     (id: string) => {
@@ -61,11 +72,14 @@ export default function FloorplanSVGScreen() {
     [selectUnit, isDesktopSidebarOpen],
   );
 
+  if (!activeFloor) return null;
+
+  const hasUnits = activeFloor.units && activeFloor.units.length > 0;
+  const isFavoritesActive = gridTab === "favorites";
   const bgImageUrl = data?.config?.url;
 
   return (
     <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative font-['Jost']">
-      {/* Screen-specific blurred background */}
       {bgImageUrl && (
         <div 
           className="absolute inset-0 z-0 pointer-events-none opacity-25"
@@ -80,7 +94,6 @@ export default function FloorplanSVGScreen() {
       )}
 
       <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
-        {/* Filters only show in List view */}
         {viewMode === "grid" && !isFavoritesActive && <UnitFilters />}
 
         <div className="flex-1 relative overflow-hidden flex flex-col min-h-0">
@@ -97,13 +110,7 @@ export default function FloorplanSVGScreen() {
                 />
               </div>
             ) : viewMode === "3d" ? (
-              <Suspense 
-                fallback={
-                  <div className="h-full w-full flex items-center justify-center bg-slate-900 text-white font-bold">
-                    Loading 3D Engine...
-                  </div>
-                }
-              >
+              <Suspense fallback={<LoadingOverlay message="Loading 3D Engine..." />}>
                 <ObjView />
               </Suspense>
             ) : (
@@ -115,7 +122,6 @@ export default function FloorplanSVGScreen() {
         </div>
       </div>
 
-      {/* Unit details overlays */}
       {hasUnits && viewMode !== "3d" && (
         <div className="relative z-20">
           <UnitSidebar onOpenGallery={() => setIsGalleryOpen(true)} />
