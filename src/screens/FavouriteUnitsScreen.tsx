@@ -41,8 +41,8 @@ export default function FavouriteUnitsScreen({ onSelectUnit }: { onSelectUnit: (
 
       <div className="flex-1 overflow-y-auto no-scrollbar p-4 lg:p-8">
         {allFavoritedUnits.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-40 text-slate-400">
-            <p className="text-lg font-medium">You have not selected any favourites</p>
+          <div className="flex flex-col items-center justify-center py-40 text-[#102a43]">
+            <p className="text-lg font-medium">You have not selected any favourites!</p>
           </div>
         ) : (
           <UnitGrid onSelectUnit={onSelectUnit} unitsOverride={allFavoritedUnits} />

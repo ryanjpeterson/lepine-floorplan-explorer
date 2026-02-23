@@ -74,7 +74,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const favoritesCount = favorites.length;
 
   return (
-    <div className="flex flex-col h-full w-full overflow-hidden bg-slate-50 font-['Jost']">
+    <div className="flex flex-col h-full w-full overflow-hidden font-['Jost']">
       {/* Internal App Header */}
       <header className="z-[1001] bg-white backdrop-blur-sm border-b border-slate-200 p-3 shrink-0">
         <div className="flex items-center justify-between gap-2 h-10 max-w-[1920px] mx-auto w-full">

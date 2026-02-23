@@ -10,25 +10,14 @@ import UnitDrawer from "../components/UnitDrawer";
 import TourModal from "../components/TourModal";
 import GalleryModal from "../components/GalleryModal";
 import FavouritesView from "./FavouriteUnitsScreen";
+import ContentLoader from "../components/ContentLoader";
 import { Unit } from "../types/building";
 
 // Lazy load the heavy 3D view to improve initial load performance
 const ObjView = lazy(() => import("./Building3DScreen"));
 
-const LoadingOverlay = ({ message }: { message: string }) => (
-  <div className="absolute inset-0 flex items-center justify-center text-white font-bold z-50 overflow-hidden">
-    <div className="relative flex flex-col items-center gap-3 bg-black/30 backdrop-blur-md p-10 rounded-3xl border border-white/10">
-      <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin" />
-      <p className="text-sm tracking-widest uppercase opacity-80 text-center">
-        {message}
-      </p>
-    </div>
-  </div>
-);
-
 export default function FloorplanSVGScreen() {
   const {
-    data,
     activeFloor,
     activeUnit,
     selectUnit,
@@ -70,23 +59,9 @@ export default function FloorplanSVGScreen() {
 
   const hasUnits = activeFloor.units && activeFloor.units.length > 0;
   const isFavoritesActive = gridTab === "favorites";
-  const bgImageUrl = data?.config?.url;
 
   return (
     <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative font-['Jost']">
-      {bgImageUrl && (
-        <div 
-          className="absolute inset-0 z-0 pointer-events-none opacity-25"
-          style={{
-            backgroundImage: `url(${bgImageUrl})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'grayscale(100%) blur(10px)',
-            transform: 'scale(1.05)'
-          }}
-        />
-      )}
-
       <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
         {viewMode === "grid" && !isFavoritesActive && <UnitFilters />}
 
@@ -105,15 +80,15 @@ export default function FloorplanSVGScreen() {
               </div>
             ) : viewMode === "3d" ? (
               <>
-                <div 
-                  className="absolute inset-0 bg-cover bg-center blur-sm scale-110"
-                  style={{ backgroundImage: 'url(/sky.jpg)' }} 
-                />
-                
-                <Suspense fallback={<LoadingOverlay message="Loading 3D Engine..." />}>
-                <ObjView />
-              </Suspense>
-              </>
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                    style={{ backgroundImage: 'url(/sky.jpg)' }} 
+                  />
+                  
+                  <Suspense fallback={<ContentLoader label="Loading 3D Engine..." />}>
+                    <ObjView />
+                  </Suspense>
+                </>
             ) : (
               <div className="h-full overflow-y-auto no-scrollbar py-4 lg:p-8">
                 <UnitGrid onSelectUnit={handleUnitSelect} />

@@ -4,7 +4,7 @@
   "logo": "/assets/carresaintlouis/logo.svg",
   "modelUrl": "/glb/building.glb",
   "camera": {
-    "position": [-65, 40, 65],
+    "position": [-28.22, 33.07, 90.33],
     "minDistance": 40,
     "maxDistance": 110
   }
