@@ -1,7 +1,9 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { useBuilding } from "./context/BuildingContext";
-import BuildingStaticScreen from "./screens/BuildingStaticScreen";
-import FloorplanSVGScreen from "./screens/FloorplanSVGScreen";
+
+// Lazy load screens to improve initial load time
+const BuildingStaticScreen = lazy(() => import("./screens/BuildingStaticScreen"));
+const FloorplanSVGScreen = lazy(() => import("./screens/FloorplanSVGScreen"));
 
 const App: React.FC = () => {
   const { loading, error, activeFloor } = useBuilding();
@@ -31,7 +33,15 @@ const App: React.FC = () => {
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-slate-50">
-      {activeFloor ? <FloorplanSVGScreen /> : <BuildingStaticScreen />}
+      <Suspense 
+        fallback={
+          <div className="h-screen w-screen flex items-center justify-center font-bold text-slate-400">
+            Initializing Floorplans...
+          </div>
+        }
+      >
+        {activeFloor ? <FloorplanSVGScreen /> : <BuildingStaticScreen />}
+      </Suspense>
     </div>
   );
 };

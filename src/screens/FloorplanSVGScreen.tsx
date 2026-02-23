@@ -1,6 +1,6 @@
 /* src/components/FloorplanSVGScreen.tsx */
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, lazy, Suspense } from "react";
 import {
   ChevronDown,
   Map as MapIcon,
@@ -18,8 +18,10 @@ import UnitDrawer from "../components/UnitDrawer";
 import TourModal from "../components/TourModal";
 import GalleryModal from "../components/GalleryModal";
 import FavouritesView from "./FavouriteUnitsScreen";
-import ObjView from "./Building3DScreen";
 import { Unit } from "../types/building";
+
+// Lazy load the heavy 3D view
+const ObjView = lazy(() => import("./Building3DScreen"));
 
 const FloorDropdown = ({ 
   activeFloor, 
@@ -252,7 +254,15 @@ export default function FloorplanSVGScreen() {
                 />
               </div>
             ) : viewMode === "3d" ? (
-              <ObjView />
+              <Suspense 
+                fallback={
+                  <div className="h-full w-full flex items-center justify-center bg-slate-900 text-white font-bold">
+                    Loading 3D Engine...
+                  </div>
+                }
+              >
+                <ObjView />
+              </Suspense>
             ) : (
               <div className="h-full overflow-y-auto no-scrollbar py-4 lg:p-8">
                 <UnitGrid onSelectUnit={handleUnitSelect} />
