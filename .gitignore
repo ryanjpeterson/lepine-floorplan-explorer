@@ -26,3 +26,4 @@ dist-ssr
 
 public/assets/carresaintlouis/pdf
 public/assets/carresaintlouis/thumbnails
+.env
