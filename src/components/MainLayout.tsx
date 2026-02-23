@@ -7,6 +7,8 @@ interface MainLayoutProps {
   children: ReactNode;
 }
 
+const DISABLE_3D = import.meta.env.VITE_DISABLE_3D === "true";
+
 const FloorDropdown = ({ activeFloor, floors, selectFloor }: any) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -122,16 +124,18 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 <LayoutGrid size={14} /> <span className="hidden xs:inline">List</span>
               </button>
 
-              <button
-                onClick={() => { setGridTab("all"); setViewMode("3d"); }}
-                className={`flex items-center gap-1.5 px-2 lg:px-3 py-1.5 rounded-lg text-[10px] lg:text-xs font-bold transition-all cursor-pointer ${
-                  viewMode === "3d" && !isFavoritesActive 
-                    ? "bg-white text-[#102a43] shadow-sm border border-slate-200" 
-                    : "text-slate-400 border border-transparent"
-                }`}
-              >
-                <Box size={14} /> <span className="hidden xs:inline">3D</span>
-              </button>
+              {!DISABLE_3D && (
+                <button
+                  onClick={() => { setGridTab("all"); setViewMode("3d"); }}
+                  className={`flex items-center gap-1.5 px-2 lg:px-3 py-1.5 rounded-lg text-[10px] lg:text-xs font-bold transition-all cursor-pointer ${
+                    viewMode === "3d" && !isFavoritesActive 
+                      ? "bg-white text-[#102a43] shadow-sm border border-slate-200" 
+                      : "text-slate-400 border border-transparent"
+                  }`}
+                >
+                  <Box size={14} /> <span className="hidden xs:inline">3D</span>
+                </button>
+              )}
 
               <button
                 disabled={favoritesCount === 0}

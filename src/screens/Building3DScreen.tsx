@@ -1,6 +1,6 @@
 /* src/screens/Building3DScreen.tsx */
 import React, { Suspense, useMemo } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { 
   OrbitControls, 
   PerspectiveCamera, 
@@ -12,20 +12,55 @@ import {
 } from "@react-three/drei";
 import { useBuilding } from "../context/BuildingContext";
 
-// Define the correct path once to avoid mismatches
-const MODEL_PATH = "/glb/untitled.glb";
+const STATIC_FALLBACK_PATH = "/glb/untitled.glb";
+const DISABLE_3D = import.meta.env.VITE_DISABLE_3D === "true";
+
+const SceneContent = ({ modelUrl, cameraConfig }: { modelUrl: string, cameraConfig?: any }) => {
+  const { size } = useThree();
+  
+  // Calculate factor to zoom out on narrow mobile screens
+  const aspect = size.width / size.height;
+  const responsiveFactor = aspect < 1 ? Math.max(1, 1.2 / aspect) : 1;
+
+  const position = cameraConfig?.position || [60, 60, 60];
+  const minDistance = (cameraConfig?.minDistance || 50) * responsiveFactor;
+  const maxDistance = (cameraConfig?.maxDistance || 100) * responsiveFactor;
+
+  return (
+    <>
+      <PerspectiveCamera 
+        makeDefault 
+        position={[
+          position[0] * responsiveFactor, 
+          position[1] * responsiveFactor, 
+          position[2] * responsiveFactor
+        ]} 
+        fov={45} 
+      />
+      <ambientLight intensity={1.5} />
+      <pointLight position={[10, 10, 10]} intensity={2} />
+      <directionalLight position={[-5, 5, 5]} intensity={1} />
+      <Center top>
+        <Model url={modelUrl} />
+      </Center>
+      <OrbitControls
+        enableDamping 
+        dampingFactor={0.1} 
+        makeDefault
+        minDistance={minDistance} 
+        maxDistance={maxDistance}
+      />
+    </>
+  );
+};
 
 const Model = ({ url }: { url: string }) => {
   const { scene } = useGLTF(url);
-  
-  // Performance: Memoize scene traversal to prevent re-processing on every render
   useMemo(() => {
     scene.traverse((node: any) => {
       if (node.isMesh) {
         node.castShadow = false;
         node.receiveShadow = false;
-        
-        // Optimization: Use lower precision for materials to save GPU cycles
         if (node.material) {
           node.material.precision = "lowp";
           node.material.needsUpdate = true;
@@ -33,88 +68,32 @@ const Model = ({ url }: { url: string }) => {
       }
     });
   }, [scene]);
-
   return <primitive object={scene} />;
 };
-
-const LoadingOverlay = () => (
-  <div 
-    className="absolute inset-0 flex items-center justify-center text-white font-bold z-50 overflow-hidden"
-  >
-    {/* Blurred background image for the loader */}
-    <div 
-      className="absolute inset-0 bg-cover bg-center blur-xl scale-110 opacity-50" 
-      style={{ backgroundImage: 'url(/sky.jpg)' }} 
-    />
-    
-    <div className="relative flex flex-col items-center gap-3 bg-black/30 backdrop-blur-md p-10 rounded-3xl border border-white/10">
-      <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin" />
-      <p className="text-sm tracking-widest uppercase opacity-80 text-center">
-        Loading 3D Model...
-      </p>
-    </div>
-  </div>
-);
 
 const Building3DScreen: React.FC = () => {
   const { data } = useBuilding();
   
-  // Use modelUrl from context if available, otherwise fallback to local asset
-  const modelUrl = data?.config?.modelUrl || MODEL_PATH;
+  // Return null immediately if 3D is disabled to prevent asset loading
+  if (DISABLE_3D) return null;
+
+  // Look for modelUrl in config file before falling back to static string
+  const modelUrl = data?.config?.modelUrl || STATIC_FALLBACK_PATH;
+  const cameraConfig = data?.config?.camera;
 
   return (
     <div className="h-full w-full relative overflow-hidden">
-      {/* Blurred Background Image Container */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center blur-md scale-105"
-        style={{ backgroundImage: 'url(/sky.jpg)' }}
-      />
-
-      <Suspense fallback={<LoadingOverlay />}>
-        <Canvas 
-          flat={false} // Disables complex tone mapping for faster rendering
-          dpr={[1, 2]} // Quality scaling: 1 for performance, 2 for high-DPI
-          gl={{ 
-            antialias: true,
-            powerPreference: "high-performance",
-            alpha: true,
-            stencil: false,
-            depth: true
-          }}
-        >
-          {/* Performance: Drop pixel ratio and disable events during camera movement */}
+      {/* Background and Canvas implementation... */}
+      <Suspense fallback={null}>
+        <Canvas flat={false} dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
           <AdaptiveDpr pixelated />
           <AdaptiveEvents />
-
-          {/* Camera starts at ~100 units distance to match requested default zoom */}
-          <PerspectiveCamera makeDefault position={[60, 60, 60]} fov={45} />
-          
-          {/* Lightweight Lighting: Standard lights are much faster than <Stage /> */}
-          <ambientLight intensity={1.5} />
-          <pointLight position={[10, 10, 10]} intensity={2} />
-          <directionalLight position={[-5, 5, 5]} intensity={1} />
-
-          <Center top>
-            <Model url={modelUrl} />
-          </Center>
-
-          <OrbitControls
-            enableDamping 
-            dampingFactor={0.1} 
-            makeDefault
-            // Zoom range: start at 100, allow zoom in to 50
-            minDistance={50} 
-            maxDistance={100}
-          />
-          
+          <SceneContent modelUrl={modelUrl} cameraConfig={cameraConfig} />
           <Preload all />
         </Canvas>
       </Suspense>
     </div>
   );
 };
-
-// Pre-load the GLB asset
-useGLTF.preload(MODEL_PATH);
 
 export default Building3DScreen;

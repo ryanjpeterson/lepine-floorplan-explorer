@@ -21,11 +21,9 @@ export async function fetchBuildingData(basePath: string): Promise<BuildingData>
   const screensJson = await screensRes.json();
   const unitsArray: Unit[] = await unitsRes.json();
 
-  // Map units to their floor context based on ID convention
   const unitsWithFloorContext = unitsArray.map(unit => {
     const floorId = unit.id.length >= 3 ? unit.id.charAt(0) : "0";
     const floorObj = screensJson.floors.find((f: any) => f.id === floorId);
-    
     return {
       ...unit,
       floorId: floorId,
@@ -33,19 +31,23 @@ export async function fetchBuildingData(basePath: string): Promise<BuildingData>
     };
   });
 
-  // Reconstruct floors with their associated units
   const reconstructedFloors = screensJson.floors.map((floor: any) => ({
     ...floor,
     units: unitsWithFloorContext.filter(u => u.floorId === floor.id)
   }));
 
+  // Map the top-level JSON fields into the nested config structure
   return {
-    ...configJson,
+    name: configJson.name,
+    logo: configJson.logo,
+    address: configJson.address,
     config: {
       url: screensJson.url,
       width: screensJson.width,
       height: screensJson.height,
-      floors: reconstructedFloors
+      floors: reconstructedFloors,
+      modelUrl: configJson.modelUrl, // Map from JSON
+      camera: configJson.camera      // Map from JSON
     }
   };
 }
