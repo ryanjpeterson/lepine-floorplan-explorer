@@ -17,12 +17,6 @@ const ObjView = lazy(() => import("./Building3DScreen"));
 
 const LoadingOverlay = ({ message }: { message: string }) => (
   <div className="absolute inset-0 flex items-center justify-center text-white font-bold z-50 overflow-hidden">
-    {/* Blurred sky background for the loader */}
-    <div 
-      className="absolute inset-0 bg-cover bg-center blur-xl scale-110 opacity-50" 
-      style={{ backgroundImage: 'url(/sky.jpg)' }} 
-    />
-    
     <div className="relative flex flex-col items-center gap-3 bg-black/30 backdrop-blur-md p-10 rounded-3xl border border-white/10">
       <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin" />
       <p className="text-sm tracking-widest uppercase opacity-80 text-center">
@@ -110,9 +104,16 @@ export default function FloorplanSVGScreen() {
                 />
               </div>
             ) : viewMode === "3d" ? (
-              <Suspense fallback={<LoadingOverlay message="Loading 3D Engine..." />}>
+              <>
+                <div 
+                  className="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                  style={{ backgroundImage: 'url(/sky.jpg)' }} 
+                />
+                
+                <Suspense fallback={<LoadingOverlay message="Loading 3D Engine..." />}>
                 <ObjView />
               </Suspense>
+              </>
             ) : (
               <div className="h-full overflow-y-auto no-scrollbar py-4 lg:p-8">
                 <UnitGrid onSelectUnit={handleUnitSelect} />

@@ -1,6 +1,6 @@
 /* src/components/MainLayout.tsx */
 import React, { ReactNode, useState } from "react";
-import { ArrowLeft, Map as MapIcon, LayoutGrid, Box, Heart, ChevronDown } from "lucide-react";
+import { Home, Map as MapIcon, LayoutGrid, Box, Heart, ChevronDown } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
 
 interface MainLayoutProps {
@@ -84,7 +84,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               onClick={goBackToBuilding}
               className="flex bg-[#102a43] text-white px-4 py-2 rounded-xl font-bold text-xs transition-all items-center gap-2 whitespace-nowrap cursor-pointer hover:bg-[#1a3a5a]"
             >
-              <ArrowLeft size={14} /> Back
+              <Home size={14} /> Home
             </button>
           </div>
 
