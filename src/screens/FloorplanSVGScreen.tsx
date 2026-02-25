@@ -1,5 +1,4 @@
 /* src/screens/FloorplanSVGScreen.tsx */
-
 import { useState, useEffect, useCallback, lazy, Suspense } from "react";
 import { useBuilding } from "../context/BuildingContext";
 import UnitMap from "../components/UnitMap";
@@ -11,9 +10,12 @@ import TourModal from "../components/TourModal";
 import GalleryModal from "../components/GalleryModal";
 import FavouritesView from "./FavouriteUnitsScreen";
 import ContentLoader from "../components/ContentLoader";
+import PageShell from "../components/layout/PageShell";
+import HomeButton from "../components/navigation/HomeButton";
+import FloorSelector from "../components/navigation/FloorSelector";
+import ViewToggles from "../components/navigation/ViewToggles";
 import { Unit } from "../types/building";
 
-// Lazy load the heavy 3D view to improve initial load performance
 const ObjView = lazy(() => import("./Building3DScreen"));
 
 export default function FloorplanSVGScreen() {
@@ -30,7 +32,7 @@ export default function FloorplanSVGScreen() {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false);
-  const [recenterTrigger, setRecenterTrigger] = useState(0);
+  const [, setRecenterTrigger] = useState(0);
 
   useEffect(() => {
     setIsMobileSidebarOpen(false);
@@ -61,65 +63,70 @@ export default function FloorplanSVGScreen() {
   const isFavoritesActive = gridTab === "favorites";
 
   return (
-    <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative font-['Jost']">
-      <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
-        {viewMode === "grid" && !isFavoritesActive && <UnitFilters />}
+    <PageShell
+      headerLeft={<HomeButton />}
+      headerCenter={viewMode === "map" && !isFavoritesActive && <FloorSelector />}
+      headerRight={<ViewToggles />}
+    >
+      <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative">
+        <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
+          {viewMode === "grid" && !isFavoritesActive && <UnitFilters />}
 
-        <div className="flex-1 relative overflow-hidden flex flex-col min-h-0">
-          <div className="flex-1 relative overflow-hidden">
-            {isFavoritesActive ? (
-              <FavouritesView onSelectUnit={handleUnitSelect} />
-            ) : viewMode === "map" ? (
-              <div className="h-full relative overflow-y-auto no-scrollbar">
-                <UnitMap
-                  config={activeFloor.config}
-                  units={activeFloor.units}
-                  activeId={activeUnit?.id}
-                  onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
-                />
-              </div>
-            ) : viewMode === "3d" ? (
-              <>
+          <div className="flex-1 relative overflow-hidden flex flex-col min-h-0">
+            <div className="flex-1 relative overflow-hidden">
+              {isFavoritesActive ? (
+                <FavouritesView onSelectUnit={handleUnitSelect} />
+              ) : viewMode === "map" ? (
+                <div className="h-full relative overflow-y-auto no-scrollbar">
+                  <UnitMap
+                    config={activeFloor.config}
+                    units={activeFloor.units}
+                    activeId={activeUnit?.id}
+                    onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
+                  />
+                </div>
+              ) : viewMode === "3d" ? (
+                <>
                   <div 
                     className="absolute inset-0 bg-cover bg-center blur-sm scale-110"
                     style={{ backgroundImage: 'url(/sky.jpg)' }} 
                   />
-                  
                   <Suspense fallback={<ContentLoader label="Loading 3D Engine..." />}>
                     <ObjView />
                   </Suspense>
                 </>
-            ) : (
-              <div className="h-full overflow-y-auto no-scrollbar py-4 lg:p-8">
-                <UnitGrid onSelectUnit={handleUnitSelect} />
-              </div>
-            )}
+              ) : (
+                <div className="h-full overflow-y-auto no-scrollbar py-4 lg:p-8">
+                  <UnitGrid onSelectUnit={handleUnitSelect} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
+
+        {hasUnits && viewMode !== "3d" && (
+          <div className="relative z-20">
+            <UnitSidebar onOpenGallery={() => setIsGalleryOpen(true)} />
+            <UnitDrawer
+              isOpen={isMobileSidebarOpen}
+              onClose={() => setIsMobileSidebarOpen(false)}
+              onOpenGallery={() => setIsGalleryOpen(true)}
+            />
+          </div>
+        )}
+
+        <TourModal
+          isOpen={!!activeTour}
+          url={activeTour?.url}
+          label={activeTour?.label}
+          onClose={() => setActiveTour(null)}
+        />
+        <GalleryModal
+          isOpen={isGalleryOpen}
+          images={activeUnit?.gallery}
+          onClose={() => setIsGalleryOpen(false)}
+        />
       </div>
-
-      {hasUnits && viewMode !== "3d" && (
-        <div className="relative z-20">
-          <UnitSidebar onOpenGallery={() => setIsGalleryOpen(true)} />
-          <UnitDrawer
-            isOpen={isMobileSidebarOpen}
-            onClose={() => setIsMobileSidebarOpen(false)}
-            onOpenGallery={() => setIsGalleryOpen(true)}
-          />
-        </div>
-      )}
-
-      <TourModal
-        isOpen={!!activeTour}
-        url={activeTour?.url}
-        label={activeTour?.label}
-        onClose={() => setActiveTour(null)}
-      />
-      <GalleryModal
-        isOpen={isGalleryOpen}
-        images={activeUnit?.gallery}
-        onClose={() => setIsGalleryOpen(false)}
-      />
-    </div>
+    </PageShell>
   );
 }

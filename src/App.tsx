@@ -1,7 +1,6 @@
 /* src/App.tsx */
 import React, { lazy, Suspense } from "react";
 import { useBuilding } from "./context/BuildingContext";
-import MainLayout from "./components/MainLayout";
 import ContentLoader from "./components/ContentLoader";
 
 const BuildingStaticScreen = lazy(() => import("./screens/BuildingStaticScreen"));
@@ -35,7 +34,6 @@ const App: React.FC = () => {
 
   return (
     <div className="h-full w-full overflow-hidden bg-slate-50 relative">
-      {/* Default Background Image moved from FloorplanSVGScreen */}
       <div 
         className="absolute inset-0 z-0 pointer-events-none opacity-25"
         style={{
@@ -48,18 +46,8 @@ const App: React.FC = () => {
       />
 
       <div className="relative z-10 h-full w-full">
-        <Suspense 
-          fallback={
-            <ContentLoader label="Loading..." />
-          }
-        >
-          {activeFloor ? (
-            <MainLayout>
-              <FloorplanSVGScreen />
-            </MainLayout>
-          ) : (
-            <BuildingStaticScreen />
-          )}
+        <Suspense fallback={<ContentLoader label="Loading..." />}>
+          {activeFloor ? <FloorplanSVGScreen /> : <BuildingStaticScreen />}
         </Suspense>
       </div>
     </div>

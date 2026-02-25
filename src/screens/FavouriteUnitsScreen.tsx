@@ -35,11 +35,11 @@ export default function FavouriteUnitsScreen({ onSelectUnit }: { onSelectUnit: (
           className="flex items-center gap-2 px-3 py-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-all text-xs font-bold cursor-pointer"
         >
           <Trash2 size={16} />
-          Clear All Favourites
+          Clear All
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto no-scrollbar p-4 lg:p-8">
+      <div className="flex-1 overflow-y-auto no-scrollbar py-4 lg:p-8">
         {allFavoritedUnits.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-40 text-[#102a43]">
             <p className="text-lg font-medium">You have not selected any favourites!</p>
