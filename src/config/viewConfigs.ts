@@ -1,11 +1,10 @@
 // src/config/viewConfigs.ts
 import L, { PointExpression } from "leaflet";
-import { BACKGROUND_FILL } from "./mapStyles";
 
 export const MAP_VIEW_SETTINGS = {
   debug: import.meta.env.VITE_DEBUG === "true",
   animationDuration: 0,
-  defaultBackground: BACKGROUND_FILL,
+  defaultBackground: "#d8d9d8",
 
   // Shared MapContainer props moved from UnitMap.tsx
   mapDefaults: {
@@ -60,5 +59,3 @@ export const MAP_VIEW_SETTINGS = {
     }
   },
 };
-
-export const UI_TRANSITIONS = "transition-all duration-200";
