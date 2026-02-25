@@ -34,7 +34,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-slate-50 relative">
+    <div className="h-full w-full overflow-hidden bg-slate-50 relative">
       {/* Default Background Image moved from FloorplanSVGScreen */}
       <div 
         className="absolute inset-0 z-0 pointer-events-none opacity-25"
