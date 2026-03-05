@@ -165,7 +165,47 @@ body,
   background: #518cb2;
   border-radius: 50%;
   z-index: 1;
-  animation: marker-pulse-expand 2s infinite;
+  animation: 2s marker-pulse-expand infinite linear;
+}
+
+.marker-pulse-ring[data-kind="1"] {
+  animation-delay: 0s;
+}
+
+.marker-pulse-ring[data-kind="2"] {
+  animation-delay: -0.4s;
+}
+
+.marker-pulse-ring[data-kind="3"] {
+  animation-delay: -0.8s;
+}
+
+.marker-pulse-ring[data-kind="4"] {
+  animation-delay: -1.2s;
+}
+
+.marker-pulse-ring[data-kind="5"] {
+  animation-delay: -1.6s;
+}
+
+.marker-pulse-ring[data-kind="6"] {
+  animation-delay: -2s;
+}
+
+.marker-pulse-ring[data-kind="7"] {
+  animation-delay: -2.4s;
+}
+
+.marker-pulse-ring[data-kind="8"] {
+  animation-delay: -2.8s;
+}
+
+.marker-pulse-ring[data-kind="9"] {
+  animation-delay: -3.2s;
+}
+
+.marker-pulse-ring[data-kind="10"] {
+  animation-delay: -3.6s;
 }
 
 @keyframes marker-pulse-expand {

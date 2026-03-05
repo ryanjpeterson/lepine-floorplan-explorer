@@ -16,7 +16,7 @@ export default function FloorMarker({ floor, center, onSelect }: FloorMarkerProp
     className: "relative",
     html: `
       <div class="marker-pulse-container">
-        <div class="marker-pulse-ring"></div>
+        <div class="marker-pulse-ring" data-kind="${floor.label}"></div>
         <div class="marker-pulse-dot">
           ${floor?.label}
         </div>
