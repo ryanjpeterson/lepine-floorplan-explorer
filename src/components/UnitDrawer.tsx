@@ -50,20 +50,11 @@ export default function UnitDrawer({ isOpen, onClose, onOpenGallery }: UnitDrawe
         }}
         onClick={(e: React.MouseEvent) => e.stopPropagation()} // Also typed for best practice
       >
-        <div
-          className="w-full py-4 cursor-grab active:cursor-grabbing"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto" />
-        </div>
-
         {activeUnit ? (
           <UnitDetails onOpenGallery={onOpenGallery} onClose={onClose} />
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center p-12 text-center text-slate-400">
-            <Info size={48} className="mb-4 opacity-20" />
+            <Info size={48} className="py-4 opacity-20" />
             <p className="text-sm font-medium">Select a unit to view details</p>
           </div>
         )}
