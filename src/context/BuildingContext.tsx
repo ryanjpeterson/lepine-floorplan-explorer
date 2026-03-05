@@ -9,7 +9,7 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { BuildingData, Floor, Unit, Filters, Tour } from "../types/building";
+import { BuildingData, Floor, Unit, Filters, Tour, BuildingView } from "../types/building";
 import { fetchBuildingData, getSqftRange } from "../utils/buildingData";
 
 interface BuildingContextType {
@@ -26,9 +26,12 @@ interface BuildingContextType {
   viewMode: string;
   previousViewMode: string;
   filters: Filters;
+  activeViewId: string; // New: tracking the current view ID
+  activeView: BuildingView | null; // New: the current view object
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
   setGridTab: (tab: string) => void;
   setViewMode: (mode: string) => void;
+  setActiveViewId: (id: string) => void; // New: method to switch views
   selectFloor: (id: string) => void;
   selectUnit: (id: string) => void;
   toggleFavorite: (id: string) => void;
@@ -51,6 +54,9 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [gridTab, setGridTabState] = useState("all");
   const [favorites, setFavorites] = useState<string[]>([]);
   const [activeTour, setActiveTour] = useState<Tour | null>(null);
+  
+  // New: Initialize with '1' as the default
+  const [activeViewId, setActiveViewId] = useState<string>("1");
 
   const [filters, setFilters] = useState<Filters>({
     beds: "All",
@@ -80,7 +86,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
         const buildingData = await fetchBuildingData("/assets/carresaintlouis");
         setData(buildingData);
 
-        // Set initial filter ranges based on loaded units
         const allUnits = buildingData.config.floors.flatMap(f => f.units);
         const { min, max } = getSqftRange(allUnits);
         setFilters(prev => ({ ...prev, minSqft: min, maxSqft: max }));
@@ -110,6 +115,14 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     () => allUnits.find((u) => u.id === activeId) || null,
     [allUnits, activeId],
   );
+
+  // New: Safely find the active view. The optional chaining (?.) prevents 
+  // the 'find' error when data is still null during initial loading.
+  const activeView = useMemo(() => {
+    return data?.config?.views?.find(v => v.id === activeViewId) || 
+           data?.config?.views?.[0] || 
+           null;
+  }, [data, activeViewId]);
 
   const filteredUnits = useMemo(() => {
     return allUnits.filter((unit) => {
@@ -168,9 +181,12 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       viewMode,
       previousViewMode,
       filters,
+      activeViewId,
+      activeView,
       setFilters,
       setGridTab,
       setViewMode,
+      setActiveViewId,
       selectFloor,
       selectUnit: handleUnitSelect,
       toggleFavorite,
@@ -179,7 +195,12 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       activeTour,
       setActiveTour,
     }),
-    [data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, floors, favorites, gridTab, viewMode, previousViewMode, filters, handleUnitSelect, selectFloor, toggleFavorite, clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab],
+    [
+      data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, 
+      floors, favorites, gridTab, viewMode, previousViewMode, filters, 
+      activeViewId, activeView, handleUnitSelect, selectFloor, toggleFavorite, 
+      clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab
+    ],
   );
 
   return <BuildingContext.Provider value={value}>{children}</BuildingContext.Provider>;

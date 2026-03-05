@@ -4,15 +4,13 @@ import { Floor } from "../types/building";
 
 interface FloorMarkerProps {
   floor: Floor;
+  center?: [number, number]; // Receive specific coordinate
   onSelect: (floor: Floor) => void;
 }
 
-export default function FloorMarker({ floor, onSelect }: FloorMarkerProps) {
-  const centerPoint = floor.center;
-  
-  if (!centerPoint) return null;
-
-  const position: [number, number] = [centerPoint[1], centerPoint[0]];
+export default function FloorMarker({ floor, center, onSelect }: FloorMarkerProps) {
+  if (!center) return null;
+  const position: [number, number] = [center[1], center[0]];
 
   const pulseIcon = L.divIcon({
     className: "relative",

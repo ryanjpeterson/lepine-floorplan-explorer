@@ -1,13 +1,37 @@
 {
-  "width": 2000,
-  "height": 1122,
-  "url": "/assets/carresaintlouis/bg.jpg",
+  "views": [
+    {
+      "id": "1",
+      "label": "Front",
+      "width": 2000,
+      "height": 1122,
+      "url": "/assets/carresaintlouis/BuildingStaticScreen/1.jpg"
+    },
+    {
+      "id": "2",
+      "label": "Side",
+      "width": 2560,
+      "height": 1708,
+      "url": "/assets/carresaintlouis/BuildingStaticScreen/2.jpg"
+    },
+    {
+      "id": "3",
+      "label": "Bird's Eye",
+      "width": 2560,
+      "height": 1438,
+      "url": "/assets/carresaintlouis/BuildingStaticScreen/3.png"
+    }
+  ],
   "floors": [
     {
       "id": "0",
       "label": "G",
       "name": "Ground Level",
-      "center": [825, 200],
+      "centers": {
+        "1": [825, 200],
+        "2": [500, 399],
+        "3": [1715, 337]
+      },
       "config": {
         "width": 624.4,
         "height": 476.9,
@@ -26,7 +50,11 @@
       "id": "1",
       "label": "1",
       "name": "1st Floor",
-      "center": [825, 315],
+      "centers": {
+        "1": [1466, 244],
+        "2": [1173, 448],
+        "3": [2020, 507]
+      },
       "config": {
         "width": 375,
         "height": 280,
@@ -45,7 +73,11 @@
       "id": "2",
       "label": "2",
       "name": "2nd Floor",
-      "center": [825, 415],
+      "centers": {
+        "1": [599, 364],
+        "2": [717, 602],
+        "3": [1322, 492]
+      },
       "config": {
         "width": 375,
         "height": 280,
@@ -64,7 +96,11 @@
       "id": "3",
       "label": "3",
       "name": "3rd Floor",
-      "center": [825, 530],
+      "centers": {
+        "1": [1256, 426],
+        "2": [1921, 926],
+        "3": [1710, 548]
+      },
       "config": {
         "width": 375,
         "height": 280,
@@ -83,7 +119,11 @@
       "id": "4",
       "label": "4",
       "name": "4th Floor",
-      "center": [825, 650],
+      "centers": {
+        "1": [642, 566],
+        "2": [1166, 1032],
+        "3": [1146, 659]
+      },
       "config": {
         "width": 375,
         "height": 280,
@@ -102,7 +142,11 @@
       "id": "5",
       "label": "5",
       "name": "5th Floor",
-      "center": [825, 775],
+      "centers": {
+        "1": [1034, 703],
+        "2": [1900, 1363],
+        "3": [1810, 735]
+      },
       "config": {
         "width": 375,
         "height": 280,
@@ -121,7 +165,11 @@
       "id": "6",
       "label": "6",
       "name": "6th Floor",
-      "center": [1500, 775],
+      "centers": {
+        "1": [561, 710],
+        "2": [467, 1148],
+        "3": [874, 858]
+      },
       "config": {
         "width": 375,
         "height": 280,

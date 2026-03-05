@@ -1,18 +1,17 @@
-// src/components/BuildingMap.tsx
+/* src/components/BuildingMap.tsx */
 import React, { useEffect } from "react";
 import { MapContainer, ImageOverlay, useMap } from "react-leaflet";
 import L from "leaflet";
 import MapController from "./MapController";
 import FloorMarker from "./FloorMarker";
 import { MAP_VIEW_SETTINGS } from "../config/viewConfigs";
-import { Floor } from "../types/building";
+import { Floor, BuildingView } from "../types/building";
 import "leaflet/dist/leaflet.css";
-
 import "@geoman-io/leaflet-geoman-free";
 import "@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css";
 
 interface BuildingMapProps {
-  config: { url: string; width: number; height: number; };
+  view: BuildingView; // Updated from config to view
   floors: Floor[];
   onSelect: (floor: Floor) => void;
 }
@@ -52,22 +51,37 @@ const DebugControls = () => {
   return null;
 };
 
-const BuildingMap: React.FC<BuildingMapProps> = ({ config, floors, onSelect }) => {
-  const bounds: L.LatLngBoundsExpression = [[0, 0], [config.height, config.width]];
-  const settings = MAP_VIEW_SETTINGS.building;
+const BuildingMap: React.FC<BuildingMapProps> = ({ view, floors, onSelect }) => {
+  // Use view dimensions for the map bounds
+  const bounds: L.LatLngBoundsExpression = [[0, 0], [view.height, view.width]];
 
   return (
     <MapContainer
+      key={view.id}
       crs={L.CRS.Simple}
       className="h-full w-full"
       style={{ background: MAP_VIEW_SETTINGS.defaultBackground }}
-      {...settings}
+      {...MAP_VIEW_SETTINGS.building}
     >
+      <ImageOverlay url={view.url} bounds={bounds} />
+      
+      <MapController 
+        mode="building" 
+        bounds={bounds} 
+        imageWidth={view.width} 
+        imageHeight={view.height} 
+      />
+
       <DebugControls />
-      <ImageOverlay url={config.url} bounds={bounds} />
-      <MapController mode="building" bounds={bounds} imageWidth={config.width} imageHeight={config.height} />
+
       {floors.map((floor) => (
-        <FloorMarker key={floor.id} floor={floor} onSelect={onSelect} />
+        <FloorMarker 
+          key={floor.id} 
+          floor={floor} 
+          // Pass the specific coordinates for THIS active view
+          center={floor.centers?.[view.id]} 
+          onSelect={onSelect} 
+        />
       ))}
     </MapContainer>
   );

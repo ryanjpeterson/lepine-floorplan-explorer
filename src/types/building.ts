@@ -1,5 +1,3 @@
-/* src/types/building.ts */
-
 export interface Tour {
   url: string;
   label: string;
@@ -35,13 +33,15 @@ export interface Floor {
   config: FloorConfig;
   units: Unit[];
   label: string;
-  center: [number, number];
+  centers: Record<string, [number, number]>; // View-specific coordinates
 }
 
-export interface CameraConfig {
-  position: [number, number, number];
-  minDistance: number;
-  maxDistance: number;
+export interface BuildingView {
+  id: string;
+  label: string;
+  url: string;
+  width: number;
+  height: number;
 }
 
 export interface CameraConfig {
@@ -55,12 +55,10 @@ export interface BuildingData {
   logo: string;
   address: string;
   config: {
-    url: string;
-    width: number;
-    height: number;
+    views: BuildingView[];
     floors: Floor[];
     modelUrl?: string;
-    camera?: CameraConfig; // Add this line
+    camera?: CameraConfig;
   };
 }
 
