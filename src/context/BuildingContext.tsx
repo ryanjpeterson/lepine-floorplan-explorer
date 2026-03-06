@@ -1,4 +1,5 @@
-/* src/context/BuildingContext.tsx */
+/* */
+// src/context/BuildingContext.tsx
 
 import React, {
   createContext,
@@ -26,12 +27,14 @@ interface BuildingContextType {
   viewMode: string;
   previousViewMode: string;
   filters: Filters;
-  activeViewId: string; // New: tracking the current view ID
-  activeView: BuildingView | null; // New: the current view object
+  activeViewId: string;
+  activeView: BuildingView | null;
+  isHubSpotOpen: boolean; // Added
+  setIsHubSpotOpen: (open: boolean) => void; // Added
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
   setGridTab: (tab: string) => void;
   setViewMode: (mode: string) => void;
-  setActiveViewId: (id: string) => void; // New: method to switch views
+  setActiveViewId: (id: string) => void;
   selectFloor: (id: string) => void;
   selectUnit: (id: string) => void;
   toggleFavorite: (id: string) => void;
@@ -54,8 +57,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [gridTab, setGridTabState] = useState("all");
   const [favorites, setFavorites] = useState<string[]>([]);
   const [activeTour, setActiveTour] = useState<Tour | null>(null);
-  
-  // New: Initialize with '1' as the default
+  const [isHubSpotOpen, setIsHubSpotOpen] = useState(false); // Added
   const [activeViewId, setActiveViewId] = useState<string>("1");
 
   const [filters, setFilters] = useState<Filters>({
@@ -101,28 +103,10 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const floors = useMemo(() => data?.config?.floors || [], [data]);
-
-  const allUnits = useMemo((): Unit[] => {
-    return floors.flatMap((floor) => floor.units);
-  }, [floors]);
-
-  const activeFloor = useMemo(
-    () => floors.find((f) => f.id === activeFloorId) || null,
-    [floors, activeFloorId],
-  );
-
-  const activeUnit = useMemo(
-    () => allUnits.find((u) => u.id === activeId) || null,
-    [allUnits, activeId],
-  );
-
-  // New: Safely find the active view. The optional chaining (?.) prevents 
-  // the 'find' error when data is still null during initial loading.
-  const activeView = useMemo(() => {
-    return data?.config?.views?.find(v => v.id === activeViewId) || 
-           data?.config?.views?.[0] || 
-           null;
-  }, [data, activeViewId]);
+  const allUnits = useMemo(() => floors.flatMap((floor) => floor.units), [floors]);
+  const activeFloor = useMemo(() => floors.find((f) => f.id === activeFloorId) || null, [floors, activeFloorId]);
+  const activeUnit = useMemo(() => allUnits.find((u) => u.id === activeId) || null, [allUnits, activeId]);
+  const activeView = useMemo(() => data?.config?.views?.find(v => v.id === activeViewId) || data?.config?.views?.[0] || null, [data, activeViewId]);
 
   const filteredUnits = useMemo(() => {
     return allUnits.filter((unit) => {
@@ -131,7 +115,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       const matchStatus = filters.status === "All" || unit.status === filters.status;
       const matchSqft = unit.sqft >= filters.minSqft && unit.sqft <= filters.maxSqft;
       const matchFeatures = filters.features.every((f) => unit[f as keyof Unit] === true);
-
       return matchBeds && matchBaths && matchStatus && matchFeatures && matchSqft;
     });
   }, [allUnits, filters]);
@@ -139,9 +122,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const selectFloor = useCallback((id: string) => {
     setActiveFloorId(id);
     const floor = floors.find((f) => f.id === id);
-    if (floor && floor.units.length > 0) {
-      setActiveId(floor.units[0].id);
-    }
+    if (floor && floor.units.length > 0) setActiveId(floor.units[0].id);
     setViewMode("map");
   }, [floors, setViewMode]);
 
@@ -154,54 +135,25 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   }, [allUnits]);
 
   const toggleFavorite = useCallback((id: string) => {
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id],
-    );
+    setFavorites((prev) => prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]);
   }, []);
 
   const clearFavorites = useCallback(() => setFavorites([]), []);
+  const goBackToBuilding = useCallback(() => { setActiveFloorId(null); setActiveId(null); }, []);
 
-  const goBackToBuilding = useCallback(() => {
-    setActiveFloorId(null);
-    setActiveId(null);
-  }, []);
-
-  const value = useMemo(
-    () => ({
-      data,
-      loading,
-      error,
-      activeFloor,
-      activeUnit,
-      allUnits,
-      filteredUnits,
-      floors,
-      favorites,
-      gridTab,
-      viewMode,
-      previousViewMode,
-      filters,
-      activeViewId,
-      activeView,
-      setFilters,
-      setGridTab,
-      setViewMode,
-      setActiveViewId,
-      selectFloor,
-      selectUnit: handleUnitSelect,
-      toggleFavorite,
-      clearFavorites,
-      goBackToBuilding,
-      activeTour,
-      setActiveTour,
-    }),
-    [
-      data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, 
-      floors, favorites, gridTab, viewMode, previousViewMode, filters, 
-      activeViewId, activeView, handleUnitSelect, selectFloor, toggleFavorite, 
-      clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab
-    ],
-  );
+  const value = useMemo(() => ({
+    data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, 
+    floors, favorites, gridTab, viewMode, previousViewMode, filters, 
+    activeViewId, activeView, isHubSpotOpen, setIsHubSpotOpen, // Added
+    setFilters, setGridTab, setViewMode, setActiveViewId, selectFloor, 
+    selectUnit: handleUnitSelect, toggleFavorite, clearFavorites, 
+    goBackToBuilding, activeTour, setActiveTour,
+  }), [
+    data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, 
+    floors, favorites, gridTab, viewMode, previousViewMode, filters, 
+    activeViewId, activeView, isHubSpotOpen, handleUnitSelect, selectFloor, 
+    toggleFavorite, clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab
+  ]);
 
   return <BuildingContext.Provider value={value}>{children}</BuildingContext.Provider>;
 }

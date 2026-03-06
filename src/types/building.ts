@@ -54,6 +54,8 @@ export interface BuildingData {
   name: string;
   logo: string;
   address: string;
+  portalId?: string;
+  formId?: string;
   config: {
     views: BuildingView[];
     floors: Floor[];

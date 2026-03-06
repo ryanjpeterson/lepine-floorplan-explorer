@@ -2,6 +2,8 @@
   "name": "Carré Saint Louis",
   "address": "1050 Canadian Shield Ave",
   "logo": "/assets/carresaintlouis/logo.svg",
+  "portalId": "22452018",
+  "formId": "0b85565f-7222-4eec-a5c3-bf01a410e616",
   "modelUrl": "/glb/building.glb",
   "camera": {
     "position": [-28.22, 33.07, 90.33],

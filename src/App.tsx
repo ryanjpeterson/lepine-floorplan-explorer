@@ -1,7 +1,10 @@
-/* src/App.tsx */
+/* */
+// src/App.tsx
+
 import React, { lazy, Suspense } from "react";
 import { useBuilding } from "./context/BuildingContext";
 import ContentLoader from "./components/ContentLoader";
+import HubSpotModal from "./components/HubSpotModal"; // Added
 
 const BuildingStaticScreen = lazy(() => import("./screens/BuildingStaticScreen"));
 const FloorplanSVGScreen = lazy(() => import("./screens/FloorplanSVGScreen"));
@@ -50,6 +53,9 @@ const App: React.FC = () => {
           {activeFloor ? <FloorplanSVGScreen /> : <BuildingStaticScreen />}
         </Suspense>
       </div>
+
+      {/* Render HubSpot Modal */}
+      <HubSpotModal />
     </div>
   );
 };

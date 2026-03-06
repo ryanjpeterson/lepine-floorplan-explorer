@@ -41,6 +41,8 @@ export async function fetchBuildingData(basePath: string): Promise<BuildingData>
     name: configJson.name,
     logo: configJson.logo,
     address: configJson.address,
+    portalId: configJson.portalId,
+    formId: configJson.formId,
     config: {
       views: screensJson.views || [],
       floors: reconstructedFloors,

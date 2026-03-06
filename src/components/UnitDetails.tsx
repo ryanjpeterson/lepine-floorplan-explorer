@@ -1,4 +1,5 @@
-/* src/components/UnitDetails.tsx */
+/* */
+// src/components/UnitDetails.tsx
 
 import React, { useState } from "react";
 import {
@@ -7,19 +8,16 @@ import {
   Image as ImageIcon,
   Maximize,
   Bed,
-  Bath,
   DoorOpen,
   Toilet,
-  Utensils,
   Trees,
   Monitor,
   Shirt,
   Accessibility,
-  Archive,
-  Wind,
   X,
   Eye,
   Sparkle,
+  Mail, // Added for contact icon
   LucideIcon
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
@@ -40,19 +38,15 @@ const attributeIcons: Record<string, AttributeIconConfig> = {
   numOfBeds: { label: "Bed", icon: Bed },
   numOfBaths: { label: "Bath", icon: Toilet },
   balcony: { label: "Balcony", icon: DoorOpen },
-  // tub: { label: "Tub", icon: Bath },
-  // pantry: { label: "Pantry", icon: Utensils },
   terrace: { label: "Terrace", icon: Trees },
   office: { label: "Office", icon: Monitor },
   walkInCloset: { label: "Walk-In Closet", icon: Shirt },
   barrierFree: { label: "Barrier Free", icon: Accessibility },
-  // builtIns: { label: "Built-Ins", icon: Archive },
-  // juliet: { label: "Juliet Balcony", icon: Wind },
   powderRoom: { label: "Powder Room", icon: Sparkle },
 };
 
 export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps) {
-  const { activeUnit, favorites, toggleFavorite, setActiveTour } = useBuilding();
+  const { activeUnit, favorites, toggleFavorite, setActiveTour, setIsHubSpotOpen } = useBuilding();
   const [isPulsing, setIsPulsing] = useState(false);
 
   if (!activeUnit) return null;
@@ -69,17 +63,10 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
 
   return (
     <div className="flex-1 overflow-y-auto no-scrollbar px-6 lg:p-8">
-      {/* Header Section */}
-      <div className="flex items-start justify-between mb-4">
-        <div>
-          <h3 className="text-xl lg:text-2xl font-bold text-slate-900 leading-tight">
-            {activeUnit.title}
-          </h3>
-          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-            {activeUnit.subtitle}
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
+      {/* Revised Header Section */}
+      <div className="flex items-start justify-between py-4">
+        <div className="flex items-center gap-3">
+          {/* Favorite icon moved to the left of the unit name */}
           <button
             onClick={handleFavoriteClick}
             className={`cursor-pointer p-2 rounded-full transition-all ${
@@ -91,6 +78,24 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
               fill={favorites.includes(activeUnit.id) ? "currentColor" : "none"}
             />
           </button>
+          <div>
+            <h3 className="text-xl lg:text-2xl font-bold text-slate-900 leading-tight">
+              {activeUnit.title}
+            </h3>
+            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+              {activeUnit.subtitle}
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          {/* New Contact Icon in previous favorite location */}
+          <button
+            onClick={() => setIsHubSpotOpen(true)}
+            className="p-2 text-slate-300 hover:text-[#102a43] hover:bg-slate-50 rounded-full cursor-pointer transition-colors"
+            title="Contact Us"
+          >
+            <Mail size={22} />
+          </button>
           <button
             onClick={onClose}
             className="lg:hidden p-2 text-slate-400 hover:bg-slate-50 rounded-full cursor-pointer"
@@ -100,10 +105,7 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
         </div>
       </div>
 
-      {/* Main Layout Wrapper: Row layout only between 700px and 1024px */}
       <div className="flex flex-col [@media(min-width:700px)_and_(max-width:1023px)]:flex-row lg:flex-col gap-6 mb-6">
-        
-        {/* Image/Gallery Section */}
         <div
           onClick={hasGallery ? onOpenGallery : undefined}
           className={`relative rounded-xl overflow-hidden shadow-lg aspect-video 
@@ -125,7 +127,6 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
           )}
         </div>
 
-        {/* Info Column (Actions, Core Stats, & Amenities in 700-1024 range) */}
         <div className="flex-1 flex flex-col gap-4">
           <div className="grid grid-cols-2 [@media(min-width:700px)_and_(max-width:1023px)]:grid-cols-1 gap-3">
             <a
@@ -151,7 +152,6 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
             )}
           </div>
 
-          {/* Core Stats: Icons returned to the left of text */}
           <div className="flex flex-wrap justify-between gap-4 py-4 border-y border-slate-100">
             {["sqft", "numOfBeds", "numOfBaths"].map((key) => {
               const Config = attributeIcons[key];
@@ -172,33 +172,13 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
               );
             })}
           </div>
-
-          {/* AMENITIES: Only displayed in this column for the 700-1024 range */}
-          <div className="hidden [@media(min-width:700px)_and_(max-width:1023px)]:grid grid-cols-2 gap-y-3 pt-2">
-            {Object.entries(attributeIcons)
-              .filter(
-                ([key]) =>
-                  typeof activeUnit[key as keyof Unit] === "boolean" && activeUnit[key as keyof Unit],
-              )
-              .map(([key, config]) => (
-                <div key={key} className="flex items-center gap-2 text-slate-600">
-                  <config.icon size={14} className="text-[#102a43]" />
-                  <span className="text-[10px] font-medium">{config.label}</span>
-                </div>
-              ))}
-          </div>
         </div>
       </div>
 
-      {/* Description & Bottom Amenities Section */}
       <div className="space-y-6 mb-8">
-        {/* Default Amenities: Hidden in the 700-1024 range */}
         <div className="[@media(min-width:700px)_and_(max-width:1023px)]:hidden grid grid-cols-2 gap-y-4">
           {Object.entries(attributeIcons)
-            .filter(
-              ([key]) =>
-                typeof activeUnit[key as keyof Unit] === "boolean" && activeUnit[key as keyof Unit],
-            )
+            .filter(([key]) => typeof activeUnit[key as keyof Unit] === "boolean" && activeUnit[key as keyof Unit])
             .map(([key, config]) => (
               <div key={key} className="flex items-center gap-2 text-slate-600">
                 <config.icon size={14} className="text-[#102a43]" />
@@ -206,7 +186,6 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
               </div>
             ))}
         </div>
-
         <div className="h-px bg-slate-100 w-full" />
         <p className="text-sm text-slate-500 leading-relaxed">
           {activeUnit.description}
