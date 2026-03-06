@@ -1,3 +1,4 @@
+/* src/index.css */
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 @tailwind base;
@@ -97,7 +98,9 @@ body,
 }
 
 /* Debug Red Mode */
-.unit-interactive, .unit-interactive path, .unit-interactive polygon {
+.unit-interactive,
+.unit-interactive path,
+.unit-interactive polygon {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   fill: #518cb2 !important;
@@ -106,7 +109,9 @@ body,
   stroke-width: 0.5px;
 }
 
-.unit-interactive:hover, .unit-interactive:hover path, .unit-interactive:hover polygon {
+.unit-interactive:hover,
+.unit-interactive:hover path,
+.unit-interactive:hover polygon {
   fill: #7daece !important;
   fill-opacity: 1;
   stroke: #ffffff;
@@ -166,6 +171,26 @@ body,
   border-radius: 50%;
   z-index: 1;
   animation: 2s marker-pulse-expand infinite linear;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1024px) {
+  .marker-pulse-container {
+    width: 44px;
+    height: 44px;
+  }
+
+  .marker-pulse-dot {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+    border-width: 2px;
+  }
+
+  .marker-pulse-ring {
+    width: 34px;
+    height: 34px;
+  }
 }
 
 .marker-pulse-ring[data-kind="1"] {

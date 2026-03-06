@@ -1,3 +1,4 @@
+/* src/components/MapController.tsx */
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
@@ -23,18 +24,20 @@ const MapController: React.FC<MapControllerProps> = ({
       const baseConfig = (MAP_VIEW_SETTINGS as any)[mode];
       if (!map || !baseConfig) return;
 
-      // Detect mobile (standard 768px breakpoint)
-      const isMobile = window.innerWidth < 768;
+      // Breakpoint matching the layout shift in BuildingStaticScreen.tsx
+      const isStackedLayout = window.innerWidth <= 1024;
       
-      // Merge mobile overrides if they exist for this mode
-      const config = isMobile && baseConfig.mobile 
+      // Merge mobile/tablet overrides if they exist for this mode
+      const config = isStackedLayout && baseConfig.mobile 
         ? { ...baseConfig, ...baseConfig.mobile } 
         : baseConfig;
 
+      // Ensure Leaflet recalculates the container size
       map.invalidateSize({ animate: false });
       const container = map.getContainer();
 
       if (config.fitType === "cover") {
+        // Standard 'cover' logic (typically for desktop building view)
         const zoomW = Math.log2(container.offsetWidth / imageWidth);
         const zoomH = Math.log2(container.offsetHeight / imageHeight);
         const coverZoom = Math.max(zoomW, zoomH);
@@ -43,18 +46,44 @@ const MapController: React.FC<MapControllerProps> = ({
         map.setMinZoom(coverZoom + config.minZoomOffset);
         map.setMaxZoom(coverZoom + config.maxZoomOffset);
       } else {
-        // Fits the floorplan SVG within the viewport
-        map.fitBounds(bounds, { padding: config.padding, animate: false });
-        const minZoom = map.getBoundsZoom(bounds);
-        
-        // Applies the -1 (zoom out further) or +1 (zoom in less) offsets on mobile
-        map.setMinZoom(minZoom + config.minZoomOffset);
-        map.setMaxZoom(minZoom + config.maxZoomOffset);
+        // Logic for 'contain' or width-fitting scenarios
+        if (isStackedLayout && mode === 'building') {
+          // Special logic: Always fit the building map width below 1024px
+          // Calculate zoom needed to make image width equal container width
+          const widthZoom = Math.log2(container.offsetWidth / imageWidth);
+          
+          // Map must be centered. Calculate center of image in CRS coordinates.
+          // Origin [0,0] is at bottom-left in L.CRS.Simple.
+          const center: L.LatLngExpression = [imageHeight / 2, imageWidth / 2];
+
+          // Set view with the calculated width zoom and center
+          map.setView(center, widthZoom, { animate: false });
+          
+          // Set min/max zoom relative to this fixed width zoom level
+          map.setMinZoom(widthZoom + config.minZoomOffset);
+          map.setMaxZoom(widthZoom + config.maxZoomOffset);
+        } else {
+          // Standard 'contain' logic: fits entire image (width & height) within container
+          map.fitBounds(bounds, { 
+            padding: config.padding, 
+            animate: false 
+          });
+          
+          const fitZoom = map.getBoundsZoom(bounds);
+          
+          map.setZoom(fitZoom, { animate: false });
+          map.setMinZoom(fitZoom + config.minZoomOffset);
+          map.setMaxZoom(fitZoom + config.maxZoomOffset);
+        }
       }
     };
 
+    // Initial sizing
     handleSizing();
-    const timer = setTimeout(handleSizing, 100);
+    
+    // Slight delay to allow layout shifts/render to settle
+    const timer = setTimeout(handleSizing, 60);
+    
     window.addEventListener("resize", handleSizing);
 
     return () => {

@@ -31,7 +31,10 @@ export const MAP_VIEW_SETTINGS = {
 
     mobile: {
       fitType: "contain",
-      padding: [0, 0] as PointExpression,
+      padding: [20, 20] as PointExpression,
+      minZoomOffset: -1, 
+      dragging: true,
+      touchZoom: true,
     }
   },
 
@@ -45,7 +48,7 @@ export const MAP_VIEW_SETTINGS = {
     zoom: 0,
     minZoomOffset: -0.5,    // Locks minimum zoom to the "fitted" size
     maxZoomOffset: 1,  // Prevents excessive zooming in
-        padding: [50, 50] as PointExpression, 
+    padding: [50, 50] as PointExpression, 
 
     mobile: {
       minZoomOffset: -1,
@@ -55,7 +58,6 @@ export const MAP_VIEW_SETTINGS = {
       dragging: true,
       scrollWheelZoom: false,
       doubleClickZoom: true,
-
     }
   },
 };
