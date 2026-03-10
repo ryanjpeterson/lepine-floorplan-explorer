@@ -22,9 +22,12 @@ export async function fetchBuildingData(basePath: string): Promise<BuildingData>
 
   const unitsWithFloorContext = unitsArray.map(unit => {
     const floorId = unit.id.length >= 3 ? unit.id.charAt(0) : "0";
+    // Manually assign mktgSqft as sqft property
+    const mktgSqft = unit.mktgSqft;
     const floorObj = screensJson.floors.find((f: any) => f.id === floorId);
     return {
       ...unit,
+      sqft: mktgSqft,
       floorId: floorId,
       floorName: floorObj ? floorObj.name : `Floor ${floorId}`
     };
