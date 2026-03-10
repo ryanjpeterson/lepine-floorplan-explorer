@@ -20,7 +20,7 @@ export default function BuildingStaticScreen() {
 
   const ViewMenu = () => {
     return (
-      <div className="relative lg:absolute lg:bottom-8 lg:right-8 lg:z-[1000] bg-white lg:bg-white/80 lg:backdrop-blur-md p-4 lg:p-3 lg:rounded-2xl lg:border-white border-t lg:border border-slate-100 shadow-xl lg:shadow-2xl flex flex-col gap-2 shrink-0">
+      <div className="relative lg:absolute lg:top-8 lg:right-8 lg:z-[1000] bg-white lg:bg-white/80 lg:backdrop-blur-md p-4 lg:rounded-2xl lg:border-white border-b lg:border border-slate-100 shadow-xl lg:shadow-2xl lg:max-w-md shrink-0 flex flex-col align-center gap-2">
         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mx-auto">
           View:
         </p>
