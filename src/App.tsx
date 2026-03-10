@@ -1,16 +1,16 @@
-/* */
-// src/App.tsx
+/* src/App.tsx */
 
 import React, { lazy, Suspense } from "react";
 import { useBuilding } from "./context/BuildingContext";
 import ContentLoader from "./components/ContentLoader";
-import HubSpotModal from "./components/HubSpotModal"; // Added
+import HubSpotModal from "./components/HubSpotModal";
+import TourModal from "./components/TourModal";
 
 const BuildingStaticScreen = lazy(() => import("./screens/BuildingStaticScreen"));
 const FloorplanSVGScreen = lazy(() => import("./screens/FloorplanSVGScreen"));
 
 const App: React.FC = () => {
-  const { loading, error, activeFloor } = useBuilding();
+  const { loading, error, activeFloor, activeTour, setActiveTour } = useBuilding();
 
   if (loading) {
     return (
@@ -54,8 +54,14 @@ const App: React.FC = () => {
         </Suspense>
       </div>
 
-      {/* Render HubSpot Modal */}
       <HubSpotModal />
+      
+      <TourModal 
+        isOpen={!!activeTour}
+        url={activeTour || ""} 
+        label="Virtual Tour"
+        onClose={() => setActiveTour(null)}
+      />
     </div>
   );
 };

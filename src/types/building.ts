@@ -1,8 +1,3 @@
-export interface Tour {
-  url: string;
-  label: string;
-}
-
 export interface FloorConfig {
   url: string;
   width: number;
@@ -23,7 +18,7 @@ export interface Unit {
   gallery: string[];
   floorId: string;
   floorName: string;
-  virtualTour?: Tour;
+  virtualTour?: string;
   [key: string]: any; 
 }
 

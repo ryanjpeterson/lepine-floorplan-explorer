@@ -1,5 +1,4 @@
-/* */
-// src/context/BuildingContext.tsx
+/* src/context/BuildingContext.tsx */
 
 import React, {
   createContext,
@@ -10,7 +9,7 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { BuildingData, Floor, Unit, Filters, Tour, BuildingView } from "../types/building";
+import { BuildingData, Floor, Unit, Filters, BuildingView } from "../types/building";
 import { fetchBuildingData, getSqftRange } from "../utils/buildingData";
 
 interface BuildingContextType {
@@ -29,8 +28,8 @@ interface BuildingContextType {
   filters: Filters;
   activeViewId: string;
   activeView: BuildingView | null;
-  isHubSpotOpen: boolean; // Added
-  setIsHubSpotOpen: (open: boolean) => void; // Added
+  isHubSpotOpen: boolean;
+  setIsHubSpotOpen: (open: boolean) => void;
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
   setGridTab: (tab: string) => void;
   setViewMode: (mode: string) => void;
@@ -40,8 +39,8 @@ interface BuildingContextType {
   toggleFavorite: (id: string) => void;
   clearFavorites: () => void;
   goBackToBuilding: () => void;
-  activeTour: Tour | null;
-  setActiveTour: (tour: Tour | null) => void;
+  activeTour: string | null; // Changed to string
+  setActiveTour: (tour: string | null) => void; // Changed to string
 }
 
 const BuildingContext = createContext<BuildingContextType | undefined>(undefined);
@@ -56,8 +55,8 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [previousViewMode, setPreviousViewMode] = useState("map");
   const [gridTab, setGridTabState] = useState("all");
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [activeTour, setActiveTour] = useState<Tour | null>(null);
-  const [isHubSpotOpen, setIsHubSpotOpen] = useState(false); // Added
+  const [activeTour, setActiveTour] = useState<string | null>(null); // Changed to string
+  const [isHubSpotOpen, setIsHubSpotOpen] = useState(false);
   const [activeViewId, setActiveViewId] = useState<string>("1");
 
   const [filters, setFilters] = useState<Filters>({
@@ -144,7 +143,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const value = useMemo(() => ({
     data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, 
     floors, favorites, gridTab, viewMode, previousViewMode, filters, 
-    activeViewId, activeView, isHubSpotOpen, setIsHubSpotOpen, // Added
+    activeViewId, activeView, isHubSpotOpen, setIsHubSpotOpen,
     setFilters, setGridTab, setViewMode, setActiveViewId, selectFloor, 
     selectUnit: handleUnitSelect, toggleFavorite, clearFavorites, 
     goBackToBuilding, activeTour, setActiveTour,
