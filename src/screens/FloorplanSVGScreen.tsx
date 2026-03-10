@@ -115,12 +115,13 @@ export default function FloorplanSVGScreen() {
           </div>
         )}
 
-        <TourModal
+        <TourModal 
           isOpen={!!activeTour}
-          url={activeTour?.url}
-          label={activeTour?.label}
+          url={activeTour || ""} 
+          label="Virtual Tour"
           onClose={() => setActiveTour(null)}
         />
+
         <GalleryModal
           isOpen={isGalleryOpen}
           images={activeUnit?.gallery}

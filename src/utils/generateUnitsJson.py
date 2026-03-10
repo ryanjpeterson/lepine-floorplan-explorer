@@ -23,7 +23,6 @@ def convert_csv_to_json(input_file, output_file):
             for row in reader:
                 # Type casting each field based on your requirements
                 formatted_obj = {
-                    "type": str(row.get("type", "")),
                     "floorplanId": str(row.get("floorplanId", "")),
                     "title": str(row.get("title", "")),
                     "id": str(row.get("id", "")),
