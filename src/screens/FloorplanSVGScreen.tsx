@@ -32,7 +32,7 @@ export default function FloorplanSVGScreen() {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false);
-  const [, setRecenterTrigger] = useState(0);
+  const [recenterTrigger, setRecenterTrigger] = useState(0);
 
   useEffect(() => {
     setIsMobileSidebarOpen(false);
