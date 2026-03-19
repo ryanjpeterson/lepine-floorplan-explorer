@@ -9,7 +9,7 @@ export default function CommercialDetails() {
     <div className="flex flex-col h-full bg-white">
       <div className="p-6 border-b border-slate-100">
         <h2 className="text-2xl font-semibold text-slate-800 tracking-tight">Ground Floor</h2>
-        <p className="text-slate-500 text-sm">Commercial Directory</p>
+        <p className="text-slate-500 text-sm">Explore storefronts at your doorstep!</p>
       </div>
       
       <div className="flex-1 overflow-y-auto p-6">
