@@ -2,6 +2,7 @@ import React, { useEffect, useCallback, useState } from "react";
 import { ReactSVG } from "react-svg";
 import { TransformWrapper, TransformComponent, useControls } from "react-zoom-pan-pinch";
 import { Unit, FloorConfig } from "../types/building";
+import { useBuilding } from "../context/BuildingContext";
 
 interface UnitMapProps {
   config: FloorConfig;
@@ -58,15 +59,8 @@ export default function UnitMap({
   onSelect,
 }: UnitMapProps) {
   const { width: SVG_WIDTH, height: SVG_HEIGHT } = config;
+  const { isDesktop } = useBuilding();
 
-  // Track screen width (above 1024px)
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
-
-  useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth > 1024);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   return (
     <div className="relative w-full h-full overflow-hidden">

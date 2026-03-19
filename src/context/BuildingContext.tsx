@@ -39,8 +39,10 @@ interface BuildingContextType {
   toggleFavorite: (id: string) => void;
   clearFavorites: () => void;
   goBackToBuilding: () => void;
-  activeTour: string | null; // Changed to string
-  setActiveTour: (tour: string | null) => void; // Changed to string
+  activeTour: string | null;
+  setActiveTour: (tour: string | null) => void;
+  isDesktop: boolean;
+  setIsDesktop: (isDesktop: boolean) => void;
 }
 
 const BuildingContext = createContext<BuildingContextType | undefined>(undefined);
@@ -58,6 +60,8 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [activeTour, setActiveTour] = useState<string | null>(null); // Changed to string
   const [isHubSpotOpen, setIsHubSpotOpen] = useState(false);
   const [activeViewId, setActiveViewId] = useState<string>("1");
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+
 
   const [filters, setFilters] = useState<Filters>({
     beds: "All",
@@ -80,6 +84,12 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       return tab;
     });
   }, [viewMode]);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth > 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const initApp = async () => {
@@ -146,12 +156,12 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     activeViewId, activeView, isHubSpotOpen, setIsHubSpotOpen,
     setFilters, setGridTab, setViewMode, setActiveViewId, selectFloor, 
     selectUnit: handleUnitSelect, toggleFavorite, clearFavorites, 
-    goBackToBuilding, activeTour, setActiveTour,
+    goBackToBuilding, activeTour, setActiveTour, isDesktop, setIsDesktop
   }), [
     data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, 
     floors, favorites, gridTab, viewMode, previousViewMode, filters, 
     activeViewId, activeView, isHubSpotOpen, handleUnitSelect, selectFloor, 
-    toggleFavorite, clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab
+    toggleFavorite, clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab, isDesktop, setIsDesktop
   ]);
 
   return <BuildingContext.Provider value={value}>{children}</BuildingContext.Provider>;

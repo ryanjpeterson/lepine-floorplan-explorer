@@ -27,6 +27,7 @@ export default function FloorplanSVGScreen() {
     gridTab,
     activeTour,
     setActiveTour,
+    isDesktop
   } = useBuilding();
 
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
@@ -44,7 +45,7 @@ export default function FloorplanSVGScreen() {
       selectUnit(id);
       setIsDesktopSidebarOpen(true);
       
-      if (window.innerWidth < 1024) {
+      if (!isDesktop) {
         setIsMobileSidebarOpen(true);
       }
       

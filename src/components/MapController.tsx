@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
 import { MAP_VIEW_SETTINGS } from "../config/viewConfigs";
+import { useBuilding } from "../context/BuildingContext";
 
 interface MapControllerProps {
   mode: "building" | "floorplan";
@@ -18,6 +19,7 @@ const MapController: React.FC<MapControllerProps> = ({
   imageHeight,
 }) => {
   const map = useMap();
+  const { isDesktop } = useBuilding();
 
   useEffect(() => {
     const handleSizing = () => {
@@ -25,7 +27,7 @@ const MapController: React.FC<MapControllerProps> = ({
       if (!map || !baseConfig) return;
 
       // Breakpoint matching the layout shift in BuildingStaticScreen.tsx
-      const isStackedLayout = window.innerWidth <= 1024;
+      const isStackedLayout = !isDesktop;
       
       // Merge mobile/tablet overrides if they exist for this mode
       const config = isStackedLayout && baseConfig.mobile 
