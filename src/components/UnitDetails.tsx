@@ -1,6 +1,3 @@
-/* */
-// src/components/UnitDetails.tsx
-
 import React, { useState } from "react";
 import {
   Heart,
@@ -17,7 +14,7 @@ import {
   X,
   Eye,
   Sparkle,
-  Mail, // Added for contact icon
+  Mail,
   LucideIcon
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
@@ -112,11 +109,24 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
             [@media(min-width:700px)_and_(max-width:1023px)]:aspect-auto [@media(min-width:700px)_and_(max-width:1023px)]:w-1/2 flex-shrink-0 
             ${hasGallery ? "cursor-pointer group" : ""}`}
         >
-          <img
-            src={activeUnit.image}
-            alt={activeUnit.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
+          {activeUnit.image ? (
+            <img
+              src={activeUnit.image}
+              alt={activeUnit.title}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+          ) : activeUnit.pdf ? (
+            <iframe
+              src={`${activeUnit.pdf}`}
+              title={`${activeUnit.title} Floorplan`}
+              className="w-full h-full border-none pointer-events-none overflow-hidden"
+            />
+          ) : (
+            <div className="w-full h-full bg-slate-50 flex items-center justify-center text-slate-300">
+              <ImageIcon size={48} className="opacity-20" />
+            </div>
+          )}
+
           {hasGallery && (
             <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white bg-[#102a43]/40 backdrop-blur-md px-4 py-2 rounded-lg border border-white/10 z-10">
               <ImageIcon size={14} />
