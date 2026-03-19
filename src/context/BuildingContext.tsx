@@ -1,5 +1,3 @@
-/* src/context/BuildingContext.tsx */
-
 import React, {
   createContext,
   useContext,
@@ -9,7 +7,7 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { BuildingData, Floor, Unit, Filters, BuildingView, CommercialItem } from "../types/building";
+import { BuildingData, Floor, Unit, Filters, BuildingView, CommercialItem, Amenity } from "../types/building";
 import { fetchBuildingData, getSqftRange } from "../utils/buildingData";
 
 interface BuildingContextType {
@@ -44,6 +42,7 @@ interface BuildingContextType {
   isDesktop: boolean;
   setIsDesktop: (isDesktop: boolean) => void;
   commercialData: CommercialItem[];
+  amenitiesData: Amenity[];
 }
 
 const BuildingContext = createContext<BuildingContextType | undefined>(undefined);
@@ -63,6 +62,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [activeViewId, setActiveViewId] = useState<string>("1");
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
   const [commercialData, setCommercialData] = useState<CommercialItem[]>([]);
+  const [amenitiesData, setAmenitiesData] = useState<Amenity[]>([]);
 
 
   const [filters, setFilters] = useState<Filters>({
@@ -102,6 +102,10 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
         const commResponse = await fetch("/assets/carresaintlouis/data/commercial.json");
         const commData = await commResponse.json();
         setCommercialData(commData);
+
+        const amenitiesResponse = await fetch("/assets/carresaintlouis/data/amenitiesGallery.json");
+        const amenities = await amenitiesResponse.json();
+        setAmenitiesData(amenities);
 
         const allUnits = buildingData.config.floors.flatMap(f => f.units);
         const { min, max } = getSqftRange(allUnits);
@@ -163,13 +167,13 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     setFilters, setGridTab, setViewMode, setActiveViewId, selectFloor, 
     selectUnit: handleUnitSelect, toggleFavorite, clearFavorites, 
     goBackToBuilding, activeTour, setActiveTour, isDesktop, setIsDesktop,
-    commercialData
+    commercialData, amenitiesData
   }), [
     data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, 
     floors, favorites, gridTab, viewMode, previousViewMode, filters, 
     activeViewId, activeView, isHubSpotOpen, handleUnitSelect, selectFloor, 
     toggleFavorite, clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab, isDesktop, setIsDesktop,
-    commercialData
+    commercialData, amenitiesData
   ]);
 
   return <BuildingContext.Provider value={value}>{children}</BuildingContext.Provider>;

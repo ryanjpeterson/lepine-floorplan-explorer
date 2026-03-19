@@ -19,44 +19,45 @@ import { Unit } from "../types/building";
 const ObjView = lazy(() => import("./Building3DScreen"));
 
 export default function FloorplanSVGScreen() {
-  const {
-    activeFloor,
-    activeUnit,
-    selectUnit,
-    viewMode,
-    gridTab,
-    activeTour,
-    setActiveTour,
-    isDesktop
-  } = useBuilding();
+  const { activeFloor, activeUnit, selectUnit, viewMode, gridTab, activeTour, setActiveTour, isDesktop, amenitiesData } = useBuilding();
 
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [galleryState, setGalleryState] = useState<{ isOpen: boolean; images: string[]; activeIndex: number }>({
+    isOpen: false,
+    images: [],
+    activeIndex: 0
+  });
+
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false);
-  const [recenterTrigger, setRecenterTrigger] = useState(0);
 
-  useEffect(() => {
-    setIsMobileSidebarOpen(false);
-  }, [activeFloor?.id]);
+  useEffect(() => { setIsMobileSidebarOpen(false); }, [activeFloor?.id]);
 
-  const handleUnitSelect = useCallback(
-    (id: string) => {
-      const wasClosed = !isDesktopSidebarOpen;
-      selectUnit(id);
-      setIsDesktopSidebarOpen(true);
-      
-      if (!isDesktop) {
-        setIsMobileSidebarOpen(true);
-      }
-      
-      if (wasClosed) {
-        setTimeout(() => {
-          setRecenterTrigger((prev) => prev + 1);
-        }, 500);
-      }
-    },
-    [selectUnit, isDesktopSidebarOpen],
-  );
+  const handleUnitSelect = useCallback((id: string) => {
+    selectUnit(id);
+    setIsDesktopSidebarOpen(true);
+    if (!isDesktop) setIsMobileSidebarOpen(true);
+  }, [selectUnit, isDesktop]);
+
+  const handleAmenitySelect = useCallback((id: string) => {
+    const index = amenitiesData.findIndex(a => a.id === id);
+    if (index !== -1) {
+      setGalleryState({
+        isOpen: true,
+        images: amenitiesData.map(a => a.image),
+        activeIndex: index
+      });
+    }
+  }, [amenitiesData]);
+
+  const handleOpenUnitGallery = useCallback(() => {
+    if (activeUnit?.gallery) {
+      setGalleryState({
+        isOpen: true,
+        images: activeUnit.gallery,
+        activeIndex: 0
+      });
+    }
+  }, [activeUnit]);
 
   if (!activeFloor) return null;
 
@@ -82,16 +83,15 @@ export default function FloorplanSVGScreen() {
                   <UnitMap
                     config={activeFloor.config}
                     units={activeFloor.units}
+                    amenities={amenitiesData}
                     activeId={activeUnit?.id}
                     onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
+                    onAmenitySelect={handleAmenitySelect}
                   />
                 </div>
               ) : viewMode === "3d" ? (
                 <>
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center blur-sm scale-110"
-                    style={{ backgroundImage: 'url(/sky.jpg)' }} 
-                  />
+                  <div className="absolute inset-0 bg-cover bg-center blur-sm scale-110" style={{ backgroundImage: 'url(/sky.jpg)' }} />
                   <Suspense fallback={<ContentLoader label="Loading 3D Engine..." />}>
                     <ObjView />
                   </Suspense>
@@ -107,26 +107,18 @@ export default function FloorplanSVGScreen() {
 
         {hasUnits && viewMode !== "3d" && (
           <div className="relative z-20">
-            <UnitSidebar onOpenGallery={() => setIsGalleryOpen(true)} />
-            <UnitDrawer
-              isOpen={isMobileSidebarOpen}
-              onClose={() => setIsMobileSidebarOpen(false)}
-              onOpenGallery={() => setIsGalleryOpen(true)}
-            />
+            <UnitSidebar onOpenGallery={handleOpenUnitGallery} />
+            <UnitDrawer isOpen={isMobileSidebarOpen} onClose={() => setIsMobileSidebarOpen(false)} onOpenGallery={handleOpenUnitGallery} />
           </div>
         )}
 
-        <TourModal 
-          isOpen={!!activeTour}
-          url={activeTour || ""} 
-          label="Virtual Tour"
-          onClose={() => setActiveTour(null)}
-        />
+        <TourModal isOpen={!!activeTour} url={activeTour || ""} label="Virtual Tour" onClose={() => setActiveTour(null)} />
 
         <GalleryModal
-          isOpen={isGalleryOpen}
-          images={activeUnit?.gallery}
-          onClose={() => setIsGalleryOpen(false)}
+          isOpen={galleryState.isOpen}
+          images={galleryState.images}
+          initialIndex={galleryState.activeIndex}
+          onClose={() => setGalleryState(prev => ({ ...prev, isOpen: false }))}
         />
       </div>
     </PageShell>

@@ -97,7 +97,7 @@ body,
   display: block;
 }
 
-/* Debug Red Mode */
+/* Unit Style: Forced Blue Fill */
 .unit-interactive,
 .unit-interactive path,
 .unit-interactive polygon {
@@ -126,6 +126,16 @@ body,
   fill-opacity: 1 !important;
   stroke: #ffffff !important;
   stroke-width: 0.5px !important;
+}
+
+/* Amenity Style: Pointer Only (Preserves original SVG colors) */
+.amenity-interactive {
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.amenity-interactive:hover {
+  opacity: 0.7;
 }
 
 

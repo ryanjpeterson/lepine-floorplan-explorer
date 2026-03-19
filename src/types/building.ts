@@ -22,6 +22,11 @@ export interface Unit {
   [key: string]: any; 
 }
 
+export interface Amenity {
+  id: string;
+  image: string;
+}
+
 export interface Floor {
   id: string;
   name: string;

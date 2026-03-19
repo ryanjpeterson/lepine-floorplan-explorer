@@ -1,14 +1,17 @@
-import React, { useEffect, useCallback, useState } from "react";
+/* src/components/UnitMap.tsx */
+import React, { useEffect, useCallback } from "react";
 import { ReactSVG } from "react-svg";
 import { TransformWrapper, TransformComponent, useControls } from "react-zoom-pan-pinch";
-import { Unit, FloorConfig } from "../types/building";
+import { Unit, FloorConfig, Amenity } from "../types/building";
 import { useBuilding } from "../context/BuildingContext";
 
 interface UnitMapProps {
   config: FloorConfig;
   units: Unit[];
+  amenities?: Amenity[];
   activeId: string | undefined;
   onSelect: (unit: Unit) => void;
+  onAmenitySelect?: (id: string) => void;
 }
 
 const ResizeHandler = ({ config }: { config: FloorConfig }) => {
@@ -18,18 +21,14 @@ const ResizeHandler = ({ config }: { config: FloorConfig }) => {
     const wrapper = instance.wrapperComponent;
     if (!wrapper) return;
 
-    // 1. Define your desired padding (e.g., 48px on each side)
     const padding = 48 * 2; 
 
-    // 2. Calculate available space minus padding
     const availableWidth = Math.max(wrapper.offsetWidth - padding, 0);
     const availableHeight = Math.max(wrapper.offsetHeight - padding, 0);
 
-    // 3. Calculate scale based on the "shrunken" available space
     const scaleX = availableWidth / config.width;
     const scaleY = availableHeight / config.height;
     
-    // Math.min ensures "contain" behavior
     const fitScale = Math.min(scaleX, scaleY);
 
     centerView(fitScale, animationMs);
@@ -55,8 +54,10 @@ const ResizeHandler = ({ config }: { config: FloorConfig }) => {
 export default function UnitMap({
   config,
   units,
+  amenities = [],
   activeId,
   onSelect,
+  onAmenitySelect,
 }: UnitMapProps) {
   const { width: SVG_WIDTH, height: SVG_HEIGHT } = config;
   const { isDesktop } = useBuilding();
@@ -71,13 +72,10 @@ export default function UnitMap({
         centerOnInit={false} 
         limitToBounds={false}
         doubleClick={{ disabled: true }}
-        // 3. Disable panning based on screen size
         panning={{ disabled: isDesktop }}
-        // Optional: Disable wheel zoom on desktop to keep the map fully static
         wheel={{ disabled: false }}
       >
         {(utils) => {
-          // Dynamic fit for the manual recenter button
           const handleManualRecenter = () => {
             const wrapper = utils.instance.wrapperComponent;
             if (wrapper) {
@@ -129,6 +127,7 @@ export default function UnitMap({
                       svg.setAttribute('viewBox', `0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`);
                       svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
                       
+                      // Inject Residential Units
                       units.forEach(unit => {
                         const element = svg.querySelector(
                           `[id="${unit.id}"], [data-name="${unit.id}"], [id="_${unit.id}"]`
@@ -152,6 +151,21 @@ export default function UnitMap({
                           element.addEventListener('click', (e) => {
                             e.stopPropagation();
                             onSelect(unit);
+                          });
+                        }
+                      });
+
+                      // Inject Amenity Icons (Pointer only, no blue fill)
+                      amenities.forEach(amenity => {
+                        const element = svg.querySelector(
+                          `[id="${amenity.id}"], [data-name="${amenity.id}"], [id="_${amenity.id}"]`
+                        ) as SVGElement | null;
+
+                        if (element) {
+                          element.classList.add('amenity-interactive');
+                          element.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            onAmenitySelect?.(amenity.id);
                           });
                         }
                       });
