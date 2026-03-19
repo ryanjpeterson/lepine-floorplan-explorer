@@ -2,8 +2,8 @@ import React, { useState, useRef } from "react";
 import { Info } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
 import UnitDetails from "./UnitDetails";
+import CommercialDetails from "./CommercialDetails";
 
-// 1. Define an interface for the props to solve errors on lines 6 (isOpen, onClose, onOpenGallery)
 interface UnitDrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -11,18 +11,18 @@ interface UnitDrawerProps {
 }
 
 export default function UnitDrawer({ isOpen, onClose, onOpenGallery }: UnitDrawerProps) {
-  const { activeUnit } = useBuilding();
+  const { activeUnit, activeFloor } = useBuilding();
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const startY = useRef<number>(0);
 
-  // 2. Type the 'e' parameter as React.TouchEvent to solve error on line 12
+  const isGroundFloor = activeFloor?.id === "0";
+
   const handleTouchStart = (e: React.TouchEvent) => {
     startY.current = e.touches[0].clientY;
     setIsDragging(true);
   };
 
-  // 3. Type the 'e' parameter as React.TouchEvent to solve error on line 17
   const handleTouchMove = (e: React.TouchEvent) => {
     const deltaY = e.touches[0].clientY - startY.current;
     if (deltaY > 0) setDragOffset(deltaY);
@@ -48,16 +48,24 @@ export default function UnitDrawer({ isOpen, onClose, onOpenGallery }: UnitDrawe
         style={{
           transform: isOpen ? `translateY(${dragOffset}px)` : "translateY(100%)",
         }}
-        onClick={(e: React.MouseEvent) => e.stopPropagation()} // Also typed for best practice
+        onClick={(e: React.MouseEvent) => e.stopPropagation()}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
-        {activeUnit ? (
-          <UnitDetails onOpenGallery={onOpenGallery} onClose={onClose} />
-        ) : (
-          <div className="flex-1 flex flex-col items-center justify-center p-12 text-center text-slate-400">
-            <Info size={48} className="py-4 opacity-20" />
-            <p className="text-sm font-medium">Select a unit to view details</p>
-          </div>
-        )}
+        <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mt-4 mb-2 shrink-0" />
+        <div className="overflow-y-auto flex-1">
+          {isGroundFloor ? (
+            <CommercialDetails />
+          ) : activeUnit ? (
+            <UnitDetails onOpenGallery={onOpenGallery} onClose={onClose} />
+          ) : (
+            <div className="flex-1 flex flex-col items-center justify-center p-12 text-center text-slate-400">
+              <Info size={48} className="py-4 opacity-20" />
+              <p className="text-sm font-medium">Select a unit to view details</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

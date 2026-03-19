@@ -9,7 +9,7 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { BuildingData, Floor, Unit, Filters, BuildingView } from "../types/building";
+import { BuildingData, Floor, Unit, Filters, BuildingView, CommercialItem } from "../types/building";
 import { fetchBuildingData, getSqftRange } from "../utils/buildingData";
 
 interface BuildingContextType {
@@ -43,6 +43,7 @@ interface BuildingContextType {
   setActiveTour: (tour: string | null) => void;
   isDesktop: boolean;
   setIsDesktop: (isDesktop: boolean) => void;
+  commercialData: CommercialItem[];
 }
 
 const BuildingContext = createContext<BuildingContextType | undefined>(undefined);
@@ -57,10 +58,11 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [previousViewMode, setPreviousViewMode] = useState("map");
   const [gridTab, setGridTabState] = useState("all");
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [activeTour, setActiveTour] = useState<string | null>(null); // Changed to string
+  const [activeTour, setActiveTour] = useState<string | null>(null);
   const [isHubSpotOpen, setIsHubSpotOpen] = useState(false);
   const [activeViewId, setActiveViewId] = useState<string>("1");
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+  const [commercialData, setCommercialData] = useState<CommercialItem[]>([]);
 
 
   const [filters, setFilters] = useState<Filters>({
@@ -96,6 +98,10 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       try {
         const buildingData = await fetchBuildingData("/assets/carresaintlouis");
         setData(buildingData);
+
+        const commResponse = await fetch("/assets/carresaintlouis/data/commercial.json");
+        const commData = await commResponse.json();
+        setCommercialData(commData);
 
         const allUnits = buildingData.config.floors.flatMap(f => f.units);
         const { min, max } = getSqftRange(allUnits);
@@ -156,12 +162,14 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     activeViewId, activeView, isHubSpotOpen, setIsHubSpotOpen,
     setFilters, setGridTab, setViewMode, setActiveViewId, selectFloor, 
     selectUnit: handleUnitSelect, toggleFavorite, clearFavorites, 
-    goBackToBuilding, activeTour, setActiveTour, isDesktop, setIsDesktop
+    goBackToBuilding, activeTour, setActiveTour, isDesktop, setIsDesktop,
+    commercialData
   }), [
     data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, 
     floors, favorites, gridTab, viewMode, previousViewMode, filters, 
     activeViewId, activeView, isHubSpotOpen, handleUnitSelect, selectFloor, 
-    toggleFavorite, clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab, isDesktop, setIsDesktop
+    toggleFavorite, clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab, isDesktop, setIsDesktop,
+    commercialData
   ]);
 
   return <BuildingContext.Provider value={value}>{children}</BuildingContext.Provider>;

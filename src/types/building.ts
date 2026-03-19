@@ -67,3 +67,11 @@ export interface Filters {
   minSqft: number;
   maxSqft: number;
 }
+
+export interface CommercialItem {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  website: string | null;
+}

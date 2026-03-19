@@ -2,6 +2,7 @@ import React from "react";
 import { Info } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
 import UnitDetails from "./UnitDetails";
+import CommercialDetails from "./CommercialDetails";
 
 interface UnitSidebarProps {
   onOpenGallery: () => void;
@@ -10,7 +11,8 @@ interface UnitSidebarProps {
 export default function UnitSidebar({ 
   onOpenGallery 
 }: UnitSidebarProps) {
-  const { activeUnit } = useBuilding();
+  const { activeUnit, activeFloor } = useBuilding();
+  const isGroundFloor = activeFloor?.id === "0";
 
   return (
     <div
@@ -19,7 +21,9 @@ export default function UnitSidebar({
       {/* Content Container */}
       <div className="flex-1 flex flex-col bg-white border-l border-slate-100 shadow-xl overflow-hidden h-full">
         <div className="min-w-[420px] h-full flex flex-col">
-          {activeUnit ? (
+          {isGroundFloor ? (
+            <CommercialDetails />
+          ) : activeUnit ? (
             <UnitDetails onOpenGallery={onOpenGallery} />
           ) : (
             <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-slate-400 h-full">
