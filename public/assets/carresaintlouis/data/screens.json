@@ -58,7 +58,7 @@
       "config": {
         "width": 375,
         "height": 280,
-        "url": "/assets/carresaintlouis/testfloor.svg"
+        "url": "/assets/carresaintlouis/floor1.svg"
       },
       "amenityTours": [
         {
@@ -81,7 +81,7 @@
       "config": {
         "width": 375,
         "height": 280,
-        "url": "/assets/carresaintlouis/testfloor.svg"
+        "url": "/assets/carresaintlouis/floor2.svg"
       },
       "amenityTours": [
         {
@@ -104,7 +104,7 @@
       "config": {
         "width": 375,
         "height": 280,
-        "url": "/assets/carresaintlouis/floor1.svg"
+        "url": "/assets/carresaintlouis/floor3.svg"
       },
       "amenityTours": [
         {
@@ -127,7 +127,7 @@
       "config": {
         "width": 375,
         "height": 280,
-        "url": "/assets/carresaintlouis/floor1.svg"
+        "url": "/assets/carresaintlouis/floor4.svg"
       },
       "amenityTours": [
         {
@@ -150,7 +150,7 @@
       "config": {
         "width": 375,
         "height": 280,
-        "url": "/assets/carresaintlouis/floor1.svg"
+        "url": "/assets/carresaintlouis/floor5.svg"
       },
       "amenityTours": [
         {
@@ -173,7 +173,7 @@
       "config": {
         "width": 375,
         "height": 280,
-        "url": "/assets/carresaintlouis/floor1.svg"
+        "url": "/assets/carresaintlouis/floor6.svg"
       },
       "amenityTours": [
         {
