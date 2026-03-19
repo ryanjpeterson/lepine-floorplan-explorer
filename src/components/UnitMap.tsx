@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { ReactSVG } from "react-svg";
 import { TransformWrapper, TransformComponent, useControls } from "react-zoom-pan-pinch";
 import { Unit, FloorConfig } from "../types/building";
@@ -59,16 +59,28 @@ export default function UnitMap({
 }: UnitMapProps) {
   const { width: SVG_WIDTH, height: SVG_HEIGHT } = config;
 
+  // Track screen width (above 1024px)
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth > 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="relative w-full h-full overflow-hidden">
       <TransformWrapper
         key={config.url}
-        // Lower minScale allows massive 2560px SVGs to fit on 375px mobile screens
         minScale={1} 
         maxScale={4}
         centerOnInit={false} 
         limitToBounds={false}
         doubleClick={{ disabled: true }}
+        // 3. Disable panning based on screen size
+        panning={{ disabled: isDesktop }}
+        // Optional: Disable wheel zoom on desktop to keep the map fully static
+        wheel={{ disabled: false }}
       >
         {(utils) => {
           // Dynamic fit for the manual recenter button
