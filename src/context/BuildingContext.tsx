@@ -76,6 +76,8 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
 
   const setViewMode = useCallback((mode: string) => {
     setViewModeState(mode);
+    // Reset selection when switching views to ensure clean state
+    setActiveId(null);
   }, []);
 
   const setGridTab = useCallback((tab: string) => {
@@ -92,6 +94,11 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Ensure modal closes if HubSpot contact form is triggered
+  useEffect(() => {
+    if (isHubSpotOpen) setActiveId(null);
+  }, [isHubSpotOpen]);
 
   useEffect(() => {
     const initApp = async () => {
@@ -140,16 +147,18 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
 
   const selectFloor = useCallback((id: string) => {
     setActiveFloorId(id);
-    const floor = floors.find((f) => f.id === id);
-    if (floor && floor.units.length > 0) setActiveId(floor.units[0].id);
+    // Reset active ID so the modal doesn't open automatically on floor change
+    setActiveId(null);
     setViewMode("map");
-  }, [floors, setViewMode]);
+  }, [setViewMode]);
 
   const handleUnitSelect = useCallback((id: string) => { 
     const unitData = allUnits.find((u) => u.id === id);
     if (unitData) {
       setActiveFloorId(unitData.floorId);
       setActiveId(id);
+    } else {
+      setActiveId(null);
     }
   }, [allUnits]);
 

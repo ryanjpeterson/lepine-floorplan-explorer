@@ -1,25 +1,27 @@
+/* tailwind.config.js */
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      screens: {
-        "3xl": "1920px",
-        "4xl": "2560px",
+      animation: {
+        "fav-pulse": "fav-pulse 0.5s ease-in-out",
+        "fade-in": "fade-in 1s ease-out forwards",
+        "scale-in": "scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards",
       },
-      fontFamily: {
-        sans: ["Jost", "sans-serif"],
-      },
-      colors: {
-        midnight: {
-          50: "#f0f4f8",
-          100: "#d9e2ec",
-          800: "#243b53",
-          900: "#102a43",
+      keyframes: {
+        "fav-pulse": {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.2)" },
         },
-      },
-      boxShadow: {
-        soft: "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        "scale-in": {
+          "0%": { opacity: "0", transform: "scale(0.95)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
       },
     },
   },

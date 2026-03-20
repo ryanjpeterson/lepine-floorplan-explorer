@@ -4,8 +4,8 @@ import { useBuilding } from "../context/BuildingContext";
 import UnitMap from "../components/UnitMap";
 import UnitGrid from "../components/UnitGrid";
 import UnitFilters from "../components/UnitFilters";
-import UnitSidebar from "../components/UnitSidebar";
-import UnitDrawer from "../components/UnitDrawer";
+import UnitModal from "../components/UnitModal"; 
+import CommercialGrid from "../components/CommercialGrid";
 import TourModal from "../components/TourModal";
 import GalleryModal from "../components/GalleryModal";
 import FavouritesView from "./FavouriteUnitsScreen";
@@ -19,7 +19,16 @@ import { Unit } from "../types/building";
 const ObjView = lazy(() => import("./Building3DScreen"));
 
 export default function FloorplanSVGScreen() {
-  const { activeFloor, activeUnit, selectUnit, viewMode, gridTab, activeTour, setActiveTour, isDesktop, amenitiesData } = useBuilding();
+  const { 
+    activeFloor, 
+    activeUnit, 
+    selectUnit, 
+    viewMode, 
+    gridTab, 
+    activeTour, 
+    setActiveTour, 
+    amenitiesData 
+  } = useBuilding();
 
   const [galleryState, setGalleryState] = useState<{ isOpen: boolean; images: string[]; activeIndex: number }>({
     isOpen: false,
@@ -27,16 +36,9 @@ export default function FloorplanSVGScreen() {
     activeIndex: 0
   });
 
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false);
-
-  useEffect(() => { setIsMobileSidebarOpen(false); }, [activeFloor?.id]);
-
   const handleUnitSelect = useCallback((id: string) => {
     selectUnit(id);
-    setIsDesktopSidebarOpen(true);
-    if (!isDesktop) setIsMobileSidebarOpen(true);
-  }, [selectUnit, isDesktop]);
+  }, [selectUnit]);
 
   const handleAmenitySelect = useCallback((id: string) => {
     const index = amenitiesData.findIndex(a => a.id === id);
@@ -61,34 +63,40 @@ export default function FloorplanSVGScreen() {
 
   if (!activeFloor) return null;
 
-  const hasUnits = activeFloor.units && activeFloor.units.length > 0;
   const isFavoritesActive = gridTab === "favorites";
+  const isGroundFloor = activeFloor.id === "0";
 
   return (
     <PageShell
       headerLeft={<HomeButton />}
-      headerCenter={viewMode === "map" && !isFavoritesActive && <FloorSelector />}
+      headerCenter={!isFavoritesActive && <FloorSelector />}
       headerRight={<ViewToggles />}
     >
-      <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative">
+      <div className="flex flex-col h-full w-full overflow-hidden relative">
         <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
-          {viewMode === "grid" && !isFavoritesActive && <UnitFilters />}
+          {/* Hide filters on the ground floor as they are for residential units */}
+          {viewMode === "grid" && !isFavoritesActive && !isGroundFloor && <UnitFilters />}
 
           <div className="flex-1 relative overflow-hidden flex flex-col min-h-0">
             <div className="flex-1 relative overflow-hidden">
               {isFavoritesActive ? (
                 <FavouritesView onSelectUnit={handleUnitSelect} />
               ) : viewMode === "map" ? (
-                <div className="h-full relative overflow-y-auto no-scrollbar">
-                  <UnitMap
-                    config={activeFloor.config}
-                    units={activeFloor.units}
-                    amenities={amenitiesData}
-                    activeId={activeUnit?.id}
-                    onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
-                    onAmenitySelect={handleAmenitySelect}
-                  />
-                </div>
+                /* Map View Logic: Branch between Commercial Directory and SVG Map */
+                isGroundFloor ? (
+                  <CommercialGrid onSelectUnit={handleUnitSelect} />
+                ) : (
+                  <div className="h-full relative overflow-y-auto no-scrollbar">
+                    <UnitMap
+                      config={activeFloor.config}
+                      units={activeFloor.units}
+                      amenities={amenitiesData}
+                      activeId={activeUnit?.id}
+                      onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
+                      onAmenitySelect={handleAmenitySelect}
+                    />
+                  </div>
+                )
               ) : viewMode === "3d" ? (
                 <>
                   <div className="absolute inset-0 bg-cover bg-center blur-sm scale-110" style={{ backgroundImage: 'url(/sky.jpg)' }} />
@@ -97,6 +105,7 @@ export default function FloorplanSVGScreen() {
                   </Suspense>
                 </>
               ) : (
+                /* Grid View: Always show the residential UnitGrid */
                 <div className="h-full overflow-y-auto no-scrollbar py-4 lg:p-8">
                   <UnitGrid onSelectUnit={handleUnitSelect} />
                 </div>
@@ -105,11 +114,9 @@ export default function FloorplanSVGScreen() {
           </div>
         </div>
 
-        {hasUnits && viewMode !== "3d" && (
-          <div className="relative z-20">
-            <UnitSidebar onOpenGallery={handleOpenUnitGallery} />
-            <UnitDrawer isOpen={isMobileSidebarOpen} onClose={() => setIsMobileSidebarOpen(false)} onOpenGallery={handleOpenUnitGallery} />
-          </div>
+        {/* The Modal only appears if a unit is active via click */}
+        {activeUnit && (
+          <UnitModal onOpenGallery={handleOpenUnitGallery} />
         )}
 
         <TourModal isOpen={!!activeTour} url={activeTour || ""} label="Virtual Tour" onClose={() => setActiveTour(null)} />
