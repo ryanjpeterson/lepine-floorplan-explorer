@@ -1,5 +1,5 @@
 /* src/screens/FloorplanSVGScreen.tsx */
-import { useState, useEffect, useCallback, lazy, Suspense } from "react";
+import { useState, useCallback, lazy, Suspense } from "react";
 import { useBuilding } from "../context/BuildingContext";
 import UnitMap from "../components/UnitMap";
 import UnitGrid from "../components/UnitGrid";
@@ -19,16 +19,7 @@ import { Unit } from "../types/building";
 const ObjView = lazy(() => import("./Building3DScreen"));
 
 export default function FloorplanSVGScreen() {
-  const { 
-    activeFloor, 
-    activeUnit, 
-    selectUnit, 
-    viewMode, 
-    gridTab, 
-    activeTour, 
-    setActiveTour, 
-    amenitiesData 
-  } = useBuilding();
+  const { activeFloor, activeUnit, selectUnit, viewMode, gridTab, activeTour, setActiveTour, amenitiesData } = useBuilding();
 
   const [galleryState, setGalleryState] = useState<{ isOpen: boolean; images: string[]; activeIndex: number }>({
     isOpen: false,
@@ -74,7 +65,7 @@ export default function FloorplanSVGScreen() {
     >
       <div className="flex flex-col h-full w-full overflow-hidden relative">
         <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
-          {/* Hide filters on the ground floor as they are for residential units */}
+          {/* Hide filters on Ground Floor directory */}
           {viewMode === "grid" && !isFavoritesActive && !isGroundFloor && <UnitFilters />}
 
           <div className="flex-1 relative overflow-hidden flex flex-col min-h-0">
@@ -82,7 +73,6 @@ export default function FloorplanSVGScreen() {
               {isFavoritesActive ? (
                 <FavouritesView onSelectUnit={handleUnitSelect} />
               ) : viewMode === "map" ? (
-                /* Map View Logic: Branch between Commercial Directory and SVG Map */
                 isGroundFloor ? (
                   <CommercialGrid onSelectUnit={handleUnitSelect} />
                 ) : (
@@ -114,7 +104,7 @@ export default function FloorplanSVGScreen() {
           </div>
         </div>
 
-        {/* The Modal only appears if a unit is active via click */}
+        {/* Universal Detail Modal (Replacement for Sidebar/Drawer) */}
         {activeUnit && (
           <UnitModal onOpenGallery={handleOpenUnitGallery} />
         )}
