@@ -24,7 +24,7 @@ export default function TourModal({
     >
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 text-white/50 hover:text-white z-[100] p-2 bg-[#102a43]/60 hover:bg-[#102a43]/80 rounded-full transition-colors"
+        className="absolute top-4 right-4 text-white hover:text-white z-[100] p-2 bg-[#102a43] hover:bg-[#102a43]/80 rounded-full transition-colors"
       >
         <X size={24} />
       </button>

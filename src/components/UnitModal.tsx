@@ -77,7 +77,7 @@ export default function UnitModal({ onOpenGallery }: UnitModalProps) {
     >
       <button 
         onClick={handleClose} 
-        className="cursor-pointer absolute top-6 right-6 text-white/50 hover:text-white z-[100] p-2 bg-[#102a43]/60 hover:bg-[#102a43]/80 rounded-full transition-colors"
+        className="cursor-pointer absolute top-6 right-6 text-white hover:text-white z-[100] p-2 bg-[#102a43] hover:bg-[#102a43]/80 rounded-full transition-colors"
       >
         <X size={24} />
       </button>
@@ -105,7 +105,7 @@ export default function UnitModal({ onOpenGallery }: UnitModalProps) {
             )}
             
             {hasGallery && (
-              <div className="absolute bottom-6 left-6 flex items-center gap-2 text-white bg-[#102a43]/60 backdrop-blur-md px-4 py-2 rounded-lg border border-white/10 z-10">
+              <div className="absolute bottom-6 left-6 flex items-center gap-2 text-white bg-[#102a43] backdrop-blur-md px-4 py-2 rounded-lg border border-white/10 z-10">
                 <ImageIcon size={16} />
                 <span className="text-xs font-bold uppercase tracking-wider">View Gallery</span>
               </div>

@@ -36,7 +36,7 @@ export default function UnitDrawer({ isOpen, onClose, onOpenGallery }: UnitDrawe
 
   return (
     <div
-      className={`lg:hidden fixed inset-0 z-[2000] bg-[#102a43]/60 backdrop-blur-sm transition-opacity duration-300 ${
+      className={`lg:hidden fixed inset-0 z-[2000] bg-[#102a43] backdrop-blur-sm transition-opacity duration-300 ${
         isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
       }`}
       onClick={onClose}
