@@ -130,8 +130,8 @@ export default function UnitFilters() {
               </select>
             </div>
 
-            <div className="flex flex-col gap-1.5 min-w-[200px] flex-1">
-              <div className="flex justify-between items-center">
+            <div className="flex flex-col gap-1.5 min-w-[250px] flex-1">
+              <div className="flex justify-between items-center mb-1">
                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                   Square Footage
                 </label>
@@ -139,16 +139,40 @@ export default function UnitFilters() {
                   {filters.minSqft} - {filters.maxSqft} sqft
                 </span>
               </div>
-              <input
-                type="range"
-                min={minSqftLimit}
-                max={maxSqftLimit}
-                value={filters.maxSqft || maxSqftLimit}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setFilters({ ...filters, maxSqft: parseInt(e.target.value) })
-                }
-                className="accent-[#102a43] h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer"
-              />
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between text-[9px] font-bold text-slate-400 uppercase">
+                    <span>Min</span>
+                  </div>
+                  <input
+                    type="range"
+                    min={minSqftLimit}
+                    max={maxSqftLimit}
+                    value={filters.minSqft}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      const val = parseInt(e.target.value);
+                      setFilters({ ...filters, minSqft: Math.min(val, filters.maxSqft) });
+                    }}
+                    className="accent-[#102a43] h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer"
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between text-[9px] font-bold text-slate-400 uppercase">
+                    <span>Max</span>
+                  </div>
+                  <input
+                    type="range"
+                    min={minSqftLimit}
+                    max={maxSqftLimit}
+                    value={filters.maxSqft || maxSqftLimit}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      const val = parseInt(e.target.value);
+                      setFilters({ ...filters, maxSqft: Math.max(val, filters.minSqft) });
+                    }}
+                    className="accent-[#102a43] h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer"
+                  />
+                </div>
+              </div>
             </div>
 
             <button

@@ -60,7 +60,7 @@ export default function FloorplanSVGScreen() {
   return (
     <PageShell
       headerLeft={<HomeButton />}
-      headerCenter={!isFavoritesActive && <FloorSelector />}
+      headerCenter={!isFavoritesActive && viewMode === 'map' && <FloorSelector />}
       headerRight={<ViewToggles />}
     >
       <div className="flex flex-col h-full w-full overflow-hidden relative">
