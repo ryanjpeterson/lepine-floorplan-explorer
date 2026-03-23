@@ -77,14 +77,14 @@ export default function UnitModal({ onOpenGallery }: UnitModalProps) {
     >
       <button 
         onClick={handleClose} 
-        className="absolute top-6 right-6 text-white/50 hover:text-white z-[100] p-2 bg-[#102a43]/60 hover:bg-[#102a43]/80 rounded-full transition-colors"
+        className="cursor-pointer absolute top-6 right-6 text-white/50 hover:text-white z-[100] p-2 bg-[#102a43]/60 hover:bg-[#102a43]/80 rounded-full transition-colors"
       >
         <X size={24} />
       </button>
 
       <div 
         ref={modalRef}
-        className="bg-white w-full max-w-6xl h-full max-h-[85vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row animate-scale-in"
+        className="bg-white w-full max-w-6xl h-full max-h-[100vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row animate-scale-in"
       >
         {/* Left Side: Image/Media */}
         <div className="w-full lg:w-3/5 h-[40vh] lg:h-full relative bg-white border-r border-slate-100">
@@ -120,7 +120,7 @@ export default function UnitModal({ onOpenGallery }: UnitModalProps) {
               <div className="flex items-center gap-4">
                 <button
                   onClick={handleFavoriteClick}
-                  className={`p-2.5 rounded-full transition-all ${isPulsing ? "animate-fav-pulse bg-rose-50" : ""} ${favorites.includes(activeUnit.id) ? "text-rose-500 bg-rose-50" : "text-slate-300 hover:bg-slate-50"}`}
+                  className={`cursor-pointer p-2.5 rounded-full transition-all ${isPulsing ? "animate-fav-pulse bg-rose-50" : ""} ${favorites.includes(activeUnit.id) ? "text-rose-500 bg-rose-50" : "text-slate-300 hover:bg-slate-50"}`}
                 >
                   <Heart size={24} fill={favorites.includes(activeUnit.id) ? "currentColor" : "none"} />
                 </button>
@@ -131,7 +131,7 @@ export default function UnitModal({ onOpenGallery }: UnitModalProps) {
               </div>
               <button
                 onClick={() => setIsHubSpotOpen(true)}
-                className="p-2.5 text-slate-300 hover:text-[#102a43] hover:bg-slate-50 rounded-full transition-colors"
+                className="cursor-pointer p-2.5 text-slate-300 hover:text-[#102a43] hover:bg-slate-50 rounded-full transition-colors"
                 title="Contact Us"
               >
                 <Mail size={24} />
@@ -173,7 +173,7 @@ export default function UnitModal({ onOpenGallery }: UnitModalProps) {
                   className="flex items-center justify-center gap-2 bg-white text-[#102a43] border-2 border-[#102a43] font-bold py-4 rounded-xl hover:bg-slate-50 transition-all cursor-pointer"
                 >
                   <Eye size={18} />
-                  <span className="text-xs uppercase tracking-wider">Tour</span>
+                  <span className="text-xs uppercase tracking-wider">Virtual Tour</span>
                 </button>
               )}
             </div>
