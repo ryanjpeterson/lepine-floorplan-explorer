@@ -71,7 +71,7 @@ export default function UnitGrid({ onSelectUnit, unitsOverride }: UnitGridProps)
 
       {/* Desktop Grid Section */}
       <div className="hidden lg:block py-4"> {/* Margin at top and bottom */}
-        <div className="grid gap-2 lg:gap-4 grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] max-w-[2400px] mx-auto overflow-visible px-2">
+        <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] max-w-[2400px] mx-auto overflow-visible px-2">
           {unitsToDisplay.map((unit, index) => (
               <UnitCard
                 unit={unit}

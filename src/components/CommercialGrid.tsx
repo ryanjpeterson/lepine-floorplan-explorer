@@ -14,7 +14,7 @@ export default function CommercialGrid({ onSelectUnit }: CommercialGridProps) {
       {/* Scrollable Container with same padding as UnitGrid */}
       <div className="flex-1 overflow-y-auto p-4 lg:p-8">
         {/* Same responsive grid layout as residential grid */}
-        <div className="grid gap-2 lg:gap-4 grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] max-w-[2400px] mx-auto overflow-visible">
+        <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] max-w-[2400px] mx-auto overflow-visible">
           {commercialData.map((item) => (
             <div
               key={item.id}
@@ -28,7 +28,7 @@ export default function CommercialGrid({ onSelectUnit }: CommercialGridProps) {
                     src={item.image}
                     alt={item.name}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-slate-300">

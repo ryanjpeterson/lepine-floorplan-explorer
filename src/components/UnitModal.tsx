@@ -96,7 +96,7 @@ export default function UnitModal({ onOpenGallery }: UnitModalProps) {
               <img 
                 src={activeUnit.image} 
                 alt={activeUnit.title} 
-                className="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-105" 
+                className="max-w-full max-h-full object-contain transition-transform duration-700" 
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-slate-300">

@@ -67,7 +67,7 @@ export default memo(function UnitCard({
             src={unit.image}
             alt={unit.title}
             loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500"
           />
           <button
             onClick={handleFavorite}
