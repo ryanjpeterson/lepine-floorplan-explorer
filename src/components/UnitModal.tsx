@@ -87,10 +87,10 @@ export default function UnitModal({ onOpenGallery }: UnitModalProps) {
         className="bg-white w-full max-w-6xl h-full max-h-[85vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row animate-scale-in"
       >
         {/* Left Side: Image/Media */}
-        <div className="w-full lg:w-3/5 h-[40vh] lg:h-full relative bg-slate-50 border-r border-slate-100">
+        <div className="w-full lg:w-3/5 h-[40vh] lg:h-full relative bg-white border-r border-slate-100">
            <div 
             onClick={hasGallery ? onOpenGallery : undefined}
-            className={`w-full h-full relative p-6 lg:p-12 flex items-center justify-center ${hasGallery ? 'cursor-pointer group' : ''}`}
+            className={`w-full h-full relative flex items-center justify-center ${hasGallery ? 'cursor-pointer group' : ''}`}
            >
             {activeUnit.image ? (
               <img 
