@@ -6,11 +6,13 @@ import ContentLoader from "./components/ContentLoader";
 import HubSpotModal from "./components/HubSpotModal";
 import TourModal from "./components/TourModal";
 
+// Lazy load screens for better initial performance
 const BuildingStaticScreen = lazy(() => import("./screens/BuildingStaticScreen"));
 const FloorplanSVGScreen = lazy(() => import("./screens/FloorplanSVGScreen"));
+const BuildingGallery = lazy(() => import("./screens/BuildingGallery"));
 
 const App: React.FC = () => {
-  const { loading, error, activeFloor, activeTour, setActiveTour } = useBuilding();
+  const { loading, error, activeFloor, activeTour, setActiveTour, viewMode } = useBuilding();
 
   if (loading) {
     return (
@@ -35,8 +37,27 @@ const App: React.FC = () => {
     );
   }
 
+  /**
+   * Screen Routing Logic:
+   * 1. If viewMode is 'gallery', show the full-screen building gallery.
+   * 2. If an activeFloor is selected, show the interactive floorplan exploration.
+   * 3. Default to the building overview map (Home).
+   */
+  const renderActiveScreen = () => {
+    if (viewMode === "gallery") {
+      return <BuildingGallery />;
+    }
+    
+    if (activeFloor) {
+      return <FloorplanSVGScreen />;
+    }
+
+    return <BuildingStaticScreen />;
+  };
+
   return (
     <div className="h-full w-full overflow-hidden bg-slate-50 relative">
+      {/* Shared background aesthetic across all screens */}
       <div 
         className="absolute inset-0 z-0 pointer-events-none opacity-25"
         style={{
@@ -49,8 +70,8 @@ const App: React.FC = () => {
       />
 
       <div className="relative z-10 h-full w-full">
-        <Suspense fallback={<ContentLoader label="Loading..." />}>
-          {activeFloor ? <FloorplanSVGScreen /> : <BuildingStaticScreen />}
+        <Suspense fallback={<ContentLoader label="Loading Screen..." />}>
+          {renderActiveScreen()}
         </Suspense>
       </div>
 

@@ -1,6 +1,5 @@
-/* src/components/navigation/ViewToggles.tsx */
 import React from "react";
-import { Map as MapIcon, LayoutGrid, Box, Heart } from "lucide-react";
+import { Map as MapIcon, LayoutGrid, Box, Heart, Image as ImageIcon } from "lucide-react";
 import { useBuilding } from "../../context/BuildingContext";
 
 const DISABLE_3D = import.meta.env.VITE_DISABLE_3D === "true";
@@ -40,6 +39,17 @@ export default function ViewToggles() {
         }`}
       >
         <LayoutGrid size={14} /> <span className="hidden xs:inline">List</span>
+      </button>
+
+      <button
+        onClick={() => { setGridTab("all"); setViewMode("gallery"); }}
+        className={`flex items-center gap-1.5 px-2 lg:px-3 py-1.5 rounded-lg text-[10px] lg:text-xs font-bold transition-all cursor-pointer ${
+          viewMode === "gallery" && !isFavoritesActive 
+            ? "bg-white text-[#102a43] shadow-sm border border-slate-200" 
+            : "text-slate-400 border border-transparent"
+        }`}
+      >
+        <ImageIcon size={14} /> <span className="hidden xs:inline">Images</span>
       </button>
 
       {!DISABLE_3D && (

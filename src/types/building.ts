@@ -1,3 +1,9 @@
+export interface GalleryItem {
+  id: string;
+  image: string;
+  label?: string;
+}
+
 export interface FloorConfig {
   url: string;
   width: number;
@@ -33,7 +39,7 @@ export interface Floor {
   config: FloorConfig;
   units: Unit[];
   label: string;
-  centers: Record<string, [number, number]>; // View-specific coordinates
+  centers: Record<string, [number, number]>;
 }
 
 export interface BuildingView {

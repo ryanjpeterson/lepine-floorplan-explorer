@@ -7,7 +7,7 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { BuildingData, Floor, Unit, Filters, BuildingView, CommercialItem, Amenity } from "../types/building";
+import { BuildingData, Floor, Unit, Filters, BuildingView, CommercialItem, Amenity, GalleryItem } from "../types/building";
 import { fetchBuildingData, getSqftRange } from "../utils/buildingData";
 
 interface BuildingContextType {
@@ -43,6 +43,7 @@ interface BuildingContextType {
   setIsDesktop: (isDesktop: boolean) => void;
   commercialData: CommercialItem[];
   amenitiesData: Amenity[];
+  buildingGallery: GalleryItem[];
 }
 
 const BuildingContext = createContext<BuildingContextType | undefined>(undefined);
@@ -52,7 +53,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeFloorId, setActiveFloorId] = useState<string | null>(null);
-  const [activeId, setActiveId] = useState<string | null>(null); 
+  const [activeId, setActiveId] = useState<string | null>(null);
   const [viewMode, setViewModeState] = useState("map");
   const [previousViewMode, setPreviousViewMode] = useState("map");
   const [gridTab, setGridTabState] = useState("all");
@@ -63,6 +64,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
   const [commercialData, setCommercialData] = useState<CommercialItem[]>([]);
   const [amenitiesData, setAmenitiesData] = useState<Amenity[]>([]);
+  const [buildingGallery, setBuildingGallery] = useState<GalleryItem[]>([]);
 
 
   const [filters, setFilters] = useState<Filters>({
@@ -113,6 +115,10 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
         const amenitiesResponse = await fetch("/assets/carresaintlouis/data/amenitiesGallery.json");
         const amenities = await amenitiesResponse.json();
         setAmenitiesData(amenities);
+
+        const galleryResponse = await fetch("/assets/carresaintlouis/data/buildingGallery.json");
+        const gallery = await galleryResponse.json();
+        setBuildingGallery(gallery);
 
         const allUnits = buildingData.config.floors.flatMap(f => f.units);
         const { min, max } = getSqftRange(allUnits);
@@ -167,7 +173,14 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const clearFavorites = useCallback(() => setFavorites([]), []);
-  const goBackToBuilding = useCallback(() => { setActiveFloorId(null); setActiveId(null); }, []);
+  
+  const goBackToBuilding = useCallback(() => { 
+    setActiveFloorId(null); 
+    setActiveId(null); 
+    // Fix: Reset view and grid tab to return to the home static screen
+    setViewModeState("map");
+    setGridTabState("all");
+  }, []);
 
   const value = useMemo(() => ({
     data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, 
@@ -176,13 +189,13 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     setFilters, setGridTab, setViewMode, setActiveViewId, selectFloor, 
     selectUnit: handleUnitSelect, toggleFavorite, clearFavorites, 
     goBackToBuilding, activeTour, setActiveTour, isDesktop, setIsDesktop,
-    commercialData, amenitiesData
+    commercialData, amenitiesData, buildingGallery
   }), [
     data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits, 
     floors, favorites, gridTab, viewMode, previousViewMode, filters, 
     activeViewId, activeView, isHubSpotOpen, handleUnitSelect, selectFloor, 
     toggleFavorite, clearFavorites, goBackToBuilding, activeTour, setViewMode, setGridTab, isDesktop, setIsDesktop,
-    commercialData, amenitiesData
+    commercialData, amenitiesData, buildingGallery
   ]);
 
   return <BuildingContext.Provider value={value}>{children}</BuildingContext.Provider>;
