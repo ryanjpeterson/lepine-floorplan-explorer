@@ -25,7 +25,6 @@ dist-ssr
 *.sw?
 
 public/assets/carresaintlouis/pdf
-public/assets/carresaintlouis/thumbnails
 .env
 src/utils/*.csv
 src/utils/*.json
