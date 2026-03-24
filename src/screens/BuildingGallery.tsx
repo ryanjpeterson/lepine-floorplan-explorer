@@ -74,7 +74,7 @@ export default function BuildingGallery() {
       headerLeft={<HomeButton />}
       headerRight={<ViewToggles />}
     >
-      <div className="w-full h-full overflow-y-auto p-4 lg:p-8 bg-white/30 backdrop-blur-sm no-scrollbar">
+      <div className="w-full h-full overflow-y-auto p-4 lg:p-8 bg-white/30 backdrop-blur-sm">
         <div className="max-w-[2400px] mx-auto space-y-6">
           
           {/* Category Toggle Buttons */}

@@ -100,7 +100,7 @@ export default function FloorplanSVGScreen() {
                 </>
               ) : (
                 /* Grid View: Always show the residential UnitGrid */
-                <div className="h-full overflow-y-auto no-scrollbar py-4 lg:p-8">
+                <div className="h-full overflow-y-auto py-4 lg:py-6 lg:px-8">
                   <UnitGrid onSelectUnit={handleUnitSelect} />
                 </div>
               )}
