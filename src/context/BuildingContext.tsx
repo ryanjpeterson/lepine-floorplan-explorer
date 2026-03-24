@@ -1,3 +1,4 @@
+/* src/context/BuildingContext.tsx */
 import React, {
   createContext,
   useContext,
@@ -7,7 +8,8 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { BuildingData, Floor, Unit, Filters, BuildingView, CommercialItem, Amenity, GalleryItem } from "../types/building";
+// Add CategorizedGallery to imports
+import { BuildingData, Floor, Unit, Filters, BuildingView, CommercialItem, Amenity, GalleryItem, CategorizedGallery } from "../types/building";
 import { fetchBuildingData, getSqftRange } from "../utils/buildingData";
 
 interface BuildingContextType {
@@ -43,7 +45,8 @@ interface BuildingContextType {
   setIsDesktop: (isDesktop: boolean) => void;
   commercialData: CommercialItem[];
   amenitiesData: Amenity[];
-  buildingGallery: GalleryItem[];
+  // Update this to use the new type
+  buildingGallery: CategorizedGallery;
 }
 
 const BuildingContext = createContext<BuildingContextType | undefined>(undefined);
@@ -64,7 +67,14 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
   const [commercialData, setCommercialData] = useState<CommercialItem[]>([]);
   const [amenitiesData, setAmenitiesData] = useState<Amenity[]>([]);
-  const [buildingGallery, setBuildingGallery] = useState<GalleryItem[]>([]);
+  
+  // Initialize as an object matching CategorizedGallery
+  const [buildingGallery, setBuildingGallery] = useState<CategorizedGallery>({
+    exterior: [],
+    unit: [],
+    lobby: [],
+    rendering: []
+  });
 
 
   const [filters, setFilters] = useState<Filters>({
@@ -78,7 +88,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
 
   const setViewMode = useCallback((mode: string) => {
     setViewModeState(mode);
-    // Reset selection when switching views to ensure clean state
     setActiveId(null);
   }, []);
 
@@ -97,7 +106,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Ensure modal closes if HubSpot contact form is triggered
   useEffect(() => {
     if (isHubSpotOpen) setActiveId(null);
   }, [isHubSpotOpen]);
@@ -118,6 +126,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
 
         const galleryResponse = await fetch("/assets/carresaintlouis/data/buildingGallery.json");
         const gallery = await galleryResponse.json();
+        // This will now correctly map the JSON object to the state
         setBuildingGallery(gallery);
 
         const allUnits = buildingData.config.floors.flatMap(f => f.units);
@@ -153,7 +162,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
 
   const selectFloor = useCallback((id: string) => {
     setActiveFloorId(id);
-    // Reset active ID so the modal doesn't open automatically on floor change
     setActiveId(null);
     setViewMode("map");
   }, [setViewMode]);
@@ -177,7 +185,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const goBackToBuilding = useCallback(() => { 
     setActiveFloorId(null); 
     setActiveId(null); 
-    // Fix: Reset view and grid tab to return to the home static screen
     setViewModeState("map");
     setGridTabState("all");
   }, []);

@@ -66,7 +66,7 @@ export default function FloorplanSVGScreen() {
       <div className="flex flex-col h-full w-full overflow-hidden relative">
         <div className="flex-1 relative flex flex-col min-w-0 h-full z-10">
           {/* Hide filters on Ground Floor directory */}
-          {viewMode === "grid" && !isFavoritesActive && !isGroundFloor && <UnitFilters />}
+          {viewMode === "grid" && <UnitFilters />}
 
           <div className="flex-1 relative overflow-hidden flex flex-col min-h-0">
             <div className="flex-1 relative overflow-hidden">

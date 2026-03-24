@@ -1,137 +1,142 @@
-[
-  {
-    "label": "Exterior 1",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461_241105_1050-Canadian-Shield_D3.webp"
-  },
-  {
-    "label": "Exterior 2",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-02.webp"
-  },
-  {
-    "label": "Exterior 3",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-06.webp"
-  },
-  {
-    "label": "Exterior 4",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-10.webp"
-  },
-  {
-    "label": "Exterior 5",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461_241107_1050-Canadian-Shield_D3.webp"
-  },
-  {
-    "label": "Exterior 6",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-03.webp"
-  },
-  {
-    "label": "Exterior 7",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-07.webp"
-  },
-  {
-    "label": "Exterior 8",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-11.webp"
-  },
-  {
-    "label": "Exterior 9",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461_250303_1050-Canadian-Shield_D5 copy.webp"
-  },
-  {
-    "label": "Exterior 10",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-04.webp"
-  },
-  {
-    "label": "Exterior 11",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-08.webp"
-  },
-  {
-    "label": "Exterior 12",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-12.webp"
-  },
-  {
-    "label": "Exterior 13",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461_250303_1050-Canadian-Shield_D6 copy.webp"
-  },
-  {
-    "label": "Exterior 14",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-05.webp"
-  },
-  {
-    "label": "Exterior 15",
-    "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-09.webp"
-  },
-
-  {
-    "label": "Unit 1",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_184710000_iOS.webp"
-  },
-  {
-    "label": "Unit 2",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_185211000_iOS.webp"
-  },
-  {
-    "label": "Unit 3",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_185900000_iOS.webp"
-  },
-  {
-    "label": "Unit 4",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_190442000_iOS.webp"
-  },
-  {
-    "label": "Unit 5",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_184933000_iOS.webp"
-  },
-  {
-    "label": "Unit 6",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_185546000_iOS.webp"
-  },
-  {
-    "label": "Unit 7",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_185946000_iOS.webp"
-  },
-  {
-    "label": "Unit 8",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_191325000_iOS 1.webp"
-  },
-  {
-    "label": "Unit 9",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_185150000_iOS 1.webp"
-  },
-  {
-    "label": "Unit 10",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_185727000_iOS.webp"
-  },
-  {
-    "label": "Unit 11",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_190036000_iOS.webp"
-  },
-  {
-    "label": "Unit 12",
-    "image": "/assets/carresaintlouis/gallery/interior/20260113_191425000_iOS.webp"
-  },
-
-  {
-    "label": "Lobby 1",
-    "image": "/assets/carresaintlouis/gallery/lobby/12461-260309-Entrance.webp"
-  },
-  {
-    "label": "Lobby 2",
-    "image": "/assets/carresaintlouis/gallery/lobby/12461-260309-Entrance-Front.webp"
-  },
-
-  {
-    "label": "Rendering 1",
-    "image": "/assets/carresaintlouis/gallery/unit/1050CS Luxury Unit.webp"
-  },
-  {
-    "label": "Rendering 2",
-    "image": "/assets/carresaintlouis/gallery/unit/1050CS Premium Unit.webp"
-  },
-  {
-    "label": "Rendering 3",
-    "image": "/assets/carresaintlouis/gallery/unit/1050CS Secondary Unit Luxury.webp"
-  },
-  {
-    "label": "Rendering 4",
-    "image": "/assets/carresaintlouis/gallery/unit/1050CS Secondary Unit Prem.webp"
-  }
-]
+{
+  "exterior": [
+    {
+      "label": "Exterior 1",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461_241105_1050-Canadian-Shield_D3.webp"
+    },
+    {
+      "label": "Exterior 2",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-02.webp"
+    },
+    {
+      "label": "Exterior 3",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-06.webp"
+    },
+    {
+      "label": "Exterior 4",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-10.webp"
+    },
+    {
+      "label": "Exterior 5",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461_241107_1050-Canadian-Shield_D3.webp"
+    },
+    {
+      "label": "Exterior 6",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-03.webp"
+    },
+    {
+      "label": "Exterior 7",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-07.webp"
+    },
+    {
+      "label": "Exterior 8",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-11.webp"
+    },
+    {
+      "label": "Exterior 9",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461_250303_1050-Canadian-Shield_D5 copy.webp"
+    },
+    {
+      "label": "Exterior 10",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-04.webp"
+    },
+    {
+      "label": "Exterior 11",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-08.webp"
+    },
+    {
+      "label": "Exterior 12",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-12.webp"
+    },
+    {
+      "label": "Exterior 13",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461_250303_1050-Canadian-Shield_D6 copy.webp"
+    },
+    {
+      "label": "Exterior 14",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-05.webp"
+    },
+    {
+      "label": "Exterior 15",
+      "image": "/assets/carresaintlouis/gallery/exterior/12461-240911-cam-09.webp"
+    }
+  ],
+  "unit": [
+    {
+      "label": "Unit 1",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_184710000_iOS.webp"
+    },
+    {
+      "label": "Unit 2",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_185211000_iOS.webp"
+    },
+    {
+      "label": "Unit 3",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_185900000_iOS.webp"
+    },
+    {
+      "label": "Unit 4",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_190442000_iOS.webp"
+    },
+    {
+      "label": "Unit 5",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_184933000_iOS.webp"
+    },
+    {
+      "label": "Unit 6",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_185546000_iOS.webp"
+    },
+    {
+      "label": "Unit 7",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_185946000_iOS.webp"
+    },
+    {
+      "label": "Unit 8",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_191325000_iOS 1.webp"
+    },
+    {
+      "label": "Unit 9",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_185150000_iOS 1.webp"
+    },
+    {
+      "label": "Unit 10",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_185727000_iOS.webp"
+    },
+    {
+      "label": "Unit 11",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_190036000_iOS.webp"
+    },
+    {
+      "label": "Unit 12",
+      "image": "/assets/carresaintlouis/gallery/interior/20260113_191425000_iOS.webp"
+    }
+  ],
+  "lobby": [
+    {
+      "label": "Lobby 1",
+      "image": "/assets/carresaintlouis/gallery/lobby/12461-260309-Entrance.webp"
+    },
+    {
+      "label": "Lobby 2",
+      "image": "/assets/carresaintlouis/gallery/lobby/12461-260309-Entrance-Front.webp"
+    }
+  ],
+  "rendering": [
+    {
+      "label": "Rendering 1",
+      "image": "/assets/carresaintlouis/gallery/unit/1050CS Luxury Unit.webp"
+    },
+    {
+      "label": "Rendering 2",
+      "image": "/assets/carresaintlouis/gallery/unit/1050CS Premium Unit.webp"
+    },
+    {
+      "label": "Rendering 3",
+      "image": "/assets/carresaintlouis/gallery/unit/1050CS Secondary Unit Luxury.webp"
+    },
+    {
+      "label": "Rendering 4",
+      "image": "/assets/carresaintlouis/gallery/unit/1050CS Secondary Unit Prem.webp"
+    }
+  ]
+}

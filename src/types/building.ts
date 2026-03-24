@@ -4,6 +4,14 @@ export interface GalleryItem {
   label?: string;
 }
 
+export interface CategorizedGallery {
+  exterior: GalleryItem[];
+  unit: GalleryItem[];
+  lobby: GalleryItem[];
+  rendering: GalleryItem[];
+  [key: string]: GalleryItem[];
+}
+
 export interface FloorConfig {
   url: string;
   width: number;
