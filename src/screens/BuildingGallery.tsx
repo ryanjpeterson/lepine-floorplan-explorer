@@ -60,11 +60,11 @@ export default function BuildingGallery() {
         alt={item.label || item.id} 
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#102a43]/80 via-transparent to-transparent opacity-100 flex flex-col justify-end p-3 lg:p-6">
+      {/* <div className="absolute inset-0 bg-gradient-to-t from-[#102a43]/80 via-transparent to-transparent opacity-100 flex flex-col justify-end p-3 lg:p-6">
         <p className="text-white font-bold text-sm lg:text-lg">
-          {/* {item.label || item.id} */}
+          {item.label || item.id}
         </p>
-      </div>
+      </div> */}
     </div>
   );
 
