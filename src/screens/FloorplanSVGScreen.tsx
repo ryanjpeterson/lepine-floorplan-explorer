@@ -8,7 +8,6 @@ import UnitModal from "../components/UnitModal";
 import CommercialGrid from "../components/CommercialGrid";
 import TourModal from "../components/TourModal";
 import GalleryModal from "../components/GalleryModal";
-import FavouritesView from "./FavouriteUnitsScreen";
 import ContentLoader from "../components/ContentLoader";
 import PageShell from "../components/layout/PageShell";
 import HomeButton from "../components/navigation/HomeButton";
@@ -19,7 +18,15 @@ import { Unit } from "../types/building";
 const ObjView = lazy(() => import("./Building3DScreen"));
 
 export default function FloorplanSVGScreen() {
-  const { activeFloor, activeUnit, selectUnit, viewMode, gridTab, activeTour, setActiveTour, amenitiesData } = useBuilding();
+  const { 
+    activeFloor, 
+    activeUnit, 
+    selectUnit, 
+    viewMode, 
+    activeTour, 
+    setActiveTour, 
+    amenitiesData 
+  } = useBuilding();
 
   const [galleryState, setGalleryState] = useState<{ isOpen: boolean; images: string[]; activeIndex: number }>({
     isOpen: false,
@@ -54,13 +61,12 @@ export default function FloorplanSVGScreen() {
 
   if (!activeFloor) return null;
 
-  const isFavoritesActive = gridTab === "favorites";
   const isGroundFloor = activeFloor.id === "0";
 
   return (
     <PageShell
       headerLeft={<HomeButton />}
-      headerCenter={!isFavoritesActive && viewMode === 'map' && <FloorSelector />}
+      headerCenter={viewMode === 'map' && <FloorSelector />}
       headerRight={<ViewToggles />}
     >
       <div className="flex flex-col h-full w-full overflow-hidden relative">
@@ -70,9 +76,7 @@ export default function FloorplanSVGScreen() {
 
           <div className="flex-1 relative overflow-hidden flex flex-col min-h-0">
             <div className="flex-1 relative overflow-hidden">
-              {isFavoritesActive ? (
-                <FavouritesView onSelectUnit={handleUnitSelect} />
-              ) : viewMode === "map" ? (
+              {viewMode === "map" ? (
                 isGroundFloor ? (
                   <CommercialGrid onSelectUnit={handleUnitSelect} />
                 ) : (
@@ -109,7 +113,12 @@ export default function FloorplanSVGScreen() {
           <UnitModal onOpenGallery={handleOpenUnitGallery} />
         )}
 
-        <TourModal isOpen={!!activeTour} url={activeTour || ""} label="Virtual Tour" onClose={() => setActiveTour(null)} />
+        <TourModal 
+          isOpen={!!activeTour} 
+          url={activeTour || ""} 
+          label="Virtual Tour" 
+          onClose={() => setActiveTour(null)} 
+        />
 
         <GalleryModal
           isOpen={galleryState.isOpen}

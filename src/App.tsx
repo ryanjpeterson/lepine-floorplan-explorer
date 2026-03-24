@@ -1,5 +1,4 @@
 /* src/App.tsx */
-
 import React, { lazy, Suspense } from "react";
 import { useBuilding } from "./context/BuildingContext";
 import ContentLoader from "./components/ContentLoader";
@@ -10,9 +9,20 @@ import TourModal from "./components/TourModal";
 const BuildingStaticScreen = lazy(() => import("./screens/BuildingStaticScreen"));
 const FloorplanSVGScreen = lazy(() => import("./screens/FloorplanSVGScreen"));
 const BuildingGallery = lazy(() => import("./screens/BuildingGallery"));
+const FavouriteUnitsScreen = lazy(() => import("./screens/FavouriteUnitsScreen"));
 
 const App: React.FC = () => {
-  const { loading, error, activeFloor, activeTour, setActiveTour, viewMode } = useBuilding();
+  const { 
+    loading, 
+    error, 
+    activeFloor, 
+    activeTour, 
+    setActiveTour, 
+    viewMode, 
+    gridTab, 
+    setGridTab, 
+    selectUnit 
+  } = useBuilding();
 
   if (loading) {
     return (
@@ -39,11 +49,23 @@ const App: React.FC = () => {
 
   /**
    * Screen Routing Logic:
-   * 1. If viewMode is 'gallery', show the full-screen building gallery.
-   * 2. If an activeFloor is selected, show the interactive floorplan exploration.
-   * 3. Default to the building overview map (Home).
+   * 1. Favourites (Highest Priority) - accessible from any mode.
+   * 2. viewMode 'gallery' - full-screen gallery view.
+   * 3. activeFloor - interactive floorplan exploration.
+   * 4. Default - building overview map (Home).
    */
   const renderActiveScreen = () => {
+    if (gridTab === "favorites") {
+      return (
+        <FavouriteUnitsScreen 
+          onSelectUnit={(id) => {
+            selectUnit(id);
+            setGridTab("all"); // Exit favorites to view the selected unit
+          }} 
+        />
+      );
+    }
+
     if (viewMode === "gallery") {
       return <BuildingGallery />;
     }
@@ -57,7 +79,6 @@ const App: React.FC = () => {
 
   return (
     <div className="h-full w-full overflow-hidden bg-slate-50 relative">
-      {/* Shared background aesthetic across all screens */}
       <div 
         className="absolute inset-0 z-0 pointer-events-none opacity-25"
         style={{

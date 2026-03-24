@@ -1,3 +1,4 @@
+/* src/components/navigation/ViewToggles.tsx */
 import React from "react";
 import { Map as MapIcon, LayoutGrid, Box, Heart, Image as ImageIcon } from "lucide-react";
 import { useBuilding } from "../../context/BuildingContext";
@@ -12,6 +13,7 @@ export default function ViewToggles() {
     setGridTab,
     favorites,
     previousViewMode,
+    goBackToBuilding
   } = useBuilding();
 
   const isFavoritesActive = gridTab === "favorites";
@@ -20,7 +22,7 @@ export default function ViewToggles() {
   return (
     <div className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-xl">
       <button
-        onClick={() => { setGridTab("all"); setViewMode("map"); }}
+        onClick={goBackToBuilding}
         className={`flex items-center gap-1.5 px-2 lg:px-3 py-1.5 rounded-lg text-[10px] lg:text-xs font-bold transition-all cursor-pointer ${
           viewMode === "map" && !isFavoritesActive 
             ? "bg-white text-[#102a43] shadow-sm border border-slate-200" 
