@@ -91,7 +91,7 @@ const App: React.FC = () => {
       />
 
       <div className="relative z-10 h-full w-full">
-        <Suspense fallback={<ContentLoader label="Loading Screen..." />}>
+        <Suspense fallback={<ContentLoader label="Loading..." />}>
           {renderActiveScreen()}
         </Suspense>
       </div>
